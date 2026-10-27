@@ -3,3 +3,11 @@ __pycache__/
 .venv/
 *.mp4
 renders/
+videos/
+projects/*/build/
+projects/*/snaps/
+projects/*/snaps_sheet.jpg
+projects/*/sheet_cuts.jpg
+projects/*/v.jpg
+.hyperframes/
+*.mov

@@ -1,0 +1,24 @@
+# id  start   end     speed  label
+hook   447.0  450.0   1.0    resultado (hook)
+antes  0.5    3.5     1.2    antes - cachos
+peruca 29.5   35.5    2.0    mostrando a peruca
+b1     50.0   82.0    8.0    trança lado 1
+b2     100.0  132.0   8.0    trança lado 2
+b3     134.0  146.0   4.0    trança finalizada
+p1     176.0  188.0   4.0    enrolando atrás
+p2     192.0  204.0   4.0    prendendo
+p3     208.0  218.0   4.0    prendendo 2
+p4     231.0  237.0   3.0    tranças presas
+t1     245.2  248.2   1.5    mostrando touca
+t2     250.0  270.0   5.0    colocando touca
+t3     272.0  275.0   1.5    touca pronta
+w1     275.5  282.0   2.5    ajustando peruca na mão
+w2     284.0  292.0   1.6    colocando peruca
+w3     292.0  310.0   4.5    ajustando na cabeça
+e1     312.0  346.0   6.0    escovando
+f1     378.0  382.0   1.0    volume com as maos
+f2     384.0  396.0   3.0    finalizando
+r1     398.0  403.5   1.0    giro mostrando comprimento
+r2     444.0  447.0   1.0    pose 1
+r3     452.0  456.0   1.0    pose 2
+r4     484.0  488.0   1.0    pose final
