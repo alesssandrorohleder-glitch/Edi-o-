@@ -21,8 +21,8 @@
       #cam { position: absolute; inset: 0; transform-origin: 50% 40%; }
       #base { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
       #scrim {
-        position: absolute; left: 0; right: 0; bottom: 0; height: 1050px;
-        background: linear-gradient(to top, rgba(20, 8, 14, 0.78), rgba(20, 8, 14, 0.35) 45%, rgba(20, 8, 14, 0) 80%);
+        position: absolute; left: 0; right: 0; top: 0; height: 900px;
+        background: linear-gradient(to bottom, rgba(20, 8, 14, 0.78), rgba(20, 8, 14, 0.35) 45%, rgba(20, 8, 14, 0) 80%);
       }
 
       /* stickers / pills */
@@ -41,54 +41,45 @@
       .star path { fill: var(--blush); }
 
       /* hook */
-      #hook { position: absolute; left: 0; right: 0; top: 960px; text-align: center; }
-      #hook .script { font-size: 128px; line-height: 1.02; margin-top: 26px; }
-      #hook .sub { margin-top: 26px; font-size: 44px; font-weight: 600; color: #fff; letter-spacing: 0.02em; text-shadow: 0 4px 18px rgba(0,0,0,.5); }
+      #hook { position: absolute; left: 0; right: 0; top: 190px; text-align: center; }
+      #hook .script { font-size: 112px; line-height: 1.02; margin-top: 22px; }
+      #hook .sub { margin-top: 20px; font-size: 40px; font-weight: 600; color: #fff; letter-spacing: 0.02em; text-shadow: 0 4px 18px rgba(0,0,0,.5); }
 
       /* intro tags */
-      .tag { position: absolute; left: 70px; top: 1060px; }
+      .tag { position: absolute; left: 0; right: 0; top: 200px; text-align: center; }
       .tag .script { font-size: 96px; margin-top: 18px; }
 
-      /* step tracker */
-      #tracker { position: absolute; left: 90px; right: 90px; top: 200px; display: flex; gap: 14px; }
-      #tracker .seg { flex: 1; height: 12px; border-radius: 6px; background: rgba(255, 255, 255, 0.35); overflow: hidden; }
-      #tracker .fill { width: 100%; height: 100%; background: var(--pink); transform-origin: 0 50%; transform: scaleX(0); }
-
       /* step cards */
-      .step { position: absolute; left: 60px; width: 860px; top: 1010px; }
-      .step .head { display: flex; align-items: center; gap: 22px; }
+      .step { position: absolute; left: 90px; right: 90px; top: 190px; text-align: center; }
+      .step .head { display: flex; align-items: center; justify-content: center; gap: 20px; }
       .step .num {
-        width: 104px; height: 104px; border-radius: 50%; background: var(--pink); color: #fff;
-        font-family: var(--font-display); font-weight: 700; font-size: 64px;
+        width: 88px; height: 88px; border-radius: 50%; background: var(--pink); color: #fff;
+        font-family: var(--font-display); font-weight: 700; font-size: 54px;
         display: flex; align-items: center; justify-content: center;
         box-shadow: 0 10px 30px rgba(255, 95, 162, 0.5);
       }
       .step .label { font-size: 34px; font-weight: 700; color: #fff; letter-spacing: 0.14em; text-transform: uppercase; text-shadow: 0 3px 12px rgba(0,0,0,.45); }
-      .step .title { font-size: 76px; line-height: 1.05; margin-top: 18px; }
+      .step .title { font-size: 74px; line-height: 1.05; margin-top: 14px; }
       .step .tip {
-        display: inline-block; margin-top: 22px; padding: 14px 26px; border-radius: 22px;
+        display: inline-block; margin-top: 18px; padding: 14px 26px; border-radius: 22px;
         background: rgba(255, 248, 243, 0.94); color: var(--ink); font-size: 34px; font-weight: 600;
       }
       .step .tip b { color: var(--pink); }
 
-      /* speed badge */
-      .speed { position: absolute; right: 70px; top: 250px; }
-      .speed .pill { font-size: 30px; padding: 10px 24px; background: rgba(27, 17, 22, 0.55); box-shadow: none; }
-
       /* result */
-      #result { position: absolute; left: 0; right: 0; top: 1020px; text-align: center; }
-      #result .script { font-size: 150px; line-height: 1; margin-top: 20px; }
+      #result { position: absolute; left: 0; right: 0; top: 210px; text-align: center; }
+      #result .script { font-size: 136px; line-height: 1; margin-top: 20px; }
       #polaroid {
-        position: absolute; left: 70px; top: 300px; width: 330px; padding: 16px 16px 70px;
+        position: absolute; left: 70px; top: 220px; width: 330px; padding: 16px 16px 70px;
         background: var(--cream); box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35); text-align: center;
       }
       #polaroid img { width: 298px; height: 480px; object-fit: cover; display: block; }
       #polaroid span { position: absolute; left: 0; right: 0; bottom: 14px; font-family: var(--font-display); font-style: italic; font-weight: 700; font-size: 40px; color: var(--ink); }
-      #depois { position: absolute; right: 80px; top: 1140px; }
+      #depois { position: absolute; right: 110px; top: 330px; }
 
-      #cta { position: absolute; left: 0; right: 0; top: 980px; text-align: center; }
-      #cta .script { font-size: 104px; line-height: 1.05; }
-      #cta .q { margin-top: 30px; }
+      #cta { position: absolute; left: 0; right: 0; top: 200px; text-align: center; }
+      #cta .script { font-size: 96px; line-height: 1.05; }
+      #cta .q { margin-top: 24px; }
     </style>
   </head>
   <body>
@@ -113,16 +104,6 @@
       <div id="tag-peruca" class="tag clip" data-start="5.53" data-duration="3" data-track-index="1">
         <span class="pill">a peruca do dia</span>
         <div class="script">loira + franjinha</div>
-      </div>
-
-      <!-- TRACKER -->
-      <div id="tracker" class="clip" data-start="8.53" data-duration="54.8" data-track-index="2">
-        <div class="seg"><div class="fill" id="f1"></div></div>
-        <div class="seg"><div class="fill" id="f2"></div></div>
-        <div class="seg"><div class="fill" id="f3"></div></div>
-        <div class="seg"><div class="fill" id="f4"></div></div>
-        <div class="seg"><div class="fill" id="f5"></div></div>
-        <div class="seg"><div class="fill" id="f6"></div></div>
       </div>
 
       <!-- STEPS -->
@@ -157,18 +138,12 @@
         <div class="tip">volume = <b>cara de cabelo real</b></div>
       </div>
 
-      <!-- SPEED BADGES -->
-      <div id="sp1" class="speed clip" data-start="8.53" data-duration="8" data-track-index="4"><span class="pill">acelerado &gt;&gt;</span></div>
-      <div id="sp2" class="speed clip" data-start="19.53" data-duration="8.5" data-track-index="4"><span class="pill">acelerado &gt;&gt;</span></div>
-      <div id="sp3" class="speed clip" data-start="32.03" data-duration="4" data-track-index="4"><span class="pill">acelerado &gt;&gt;</span></div>
-      <div id="sp4" class="speed clip" data-start="45.67" data-duration="9.66" data-track-index="4"><span class="pill">acelerado &gt;&gt;</span></div>
-
       <!-- RESULT -->
       <div id="result" class="clip" data-start="63.33" data-duration="5.5" data-track-index="1">
         <span class="pill">e pronto</span>
         <div class="script">o resultado</div>
-        <svg class="star st1" viewBox="0 0 24 24" style="left: 150px; top: -60px"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z" /></svg>
-        <svg class="star st2" viewBox="0 0 24 24" style="right: 140px; top: 210px; width: 50px; height: 50px"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z" /></svg>
+        <svg class="star st1" viewBox="0 0 24 24" style="left: 150px; top: 40px"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z" /></svg>
+        <svg class="star st2" viewBox="0 0 24 24" style="right: 130px; top: 220px; width: 50px; height: 50px"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z" /></svg>
       </div>
       <div id="polaroid" class="clip" data-start="68.83" data-duration="7.07" data-track-index="2">
         <img src="assets/antes.jpg" alt="antes" />
@@ -233,14 +208,8 @@
       pop("#tag-peruca .script", 5.7);
       out("#tag-peruca", 8.15);
 
-      // tracker
-      tl.fromTo("#tracker", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 8.6);
       const stepStarts = [8.53, 19.53, 30.03, 38.07, 49.67, 55.33];
       const stepEnds = [19.53, 30.03, 38.07, 49.67, 55.33, 63.33];
-      stepStarts.forEach((s, i) =>
-        tl.fromTo("#f" + (i + 1), { scaleX: 0 }, { scaleX: 1, duration: stepEnds[i] - s - 0.1, ease: "none" }, s)
-      );
-      tl.to("#tracker", { opacity: 0, duration: 0.3 }, 62.95);
 
       // step cards
       stepStarts.forEach((s, i) => {
@@ -250,12 +219,6 @@
         tl.fromTo(id + " .title", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.6, ease: "expo.out" }, s + 0.38);
         pop(id + " .tip", s + 1.1);
         out(id, stepEnds[i] - 0.35);
-      });
-
-      // speed badges
-      [["#sp1", 8.53, 16.53], ["#sp2", 19.53, 28.03], ["#sp3", 32.03, 36.03], ["#sp4", 45.67, 55.33]].forEach(([id, s, e]) => {
-        tl.fromTo(id, { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.35, ease: "power3.out" }, s + 0.6);
-        tl.to(id, { opacity: 0, duration: 0.25 }, e - 0.3);
       });
 
       // result

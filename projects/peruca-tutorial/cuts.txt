@@ -18,7 +18,7 @@ w3     292.0  310.0   4.5    ajustando na cabeça
 e1     312.0  346.0   6.0    escovando
 f1     378.0  382.0   1.0    volume com as maos
 f2     384.0  396.0   3.0    finalizando
-r1     398.0  403.5   1.0    giro mostrando comprimento
+r1     436.8  442.3   1.0    resultado de frente
 r2     444.0  447.0   1.0    pose 1
 r3     452.0  456.0   1.0    pose 2
 r4     484.0  488.0   1.0    pose final
