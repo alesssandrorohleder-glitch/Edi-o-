@@ -7,7 +7,7 @@ b2     100.0  132.0   8.0    trança lado 2
 b3     134.0  146.0   4.0    trança finalizada
 p1     176.0  188.0   4.0    enrolando atrás
 p2     192.0  204.0   4.0    prendendo
-p3     208.0  218.0   4.0    prendendo 2
+p3     210.4  220.4   4.0    prendendo 2
 p4     231.0  237.0   3.0    tranças presas
 t1     245.2  248.2   1.5    mostrando touca
 t2     250.0  270.0   5.0    colocando touca
