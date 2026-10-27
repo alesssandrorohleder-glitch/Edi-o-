@@ -2,6 +2,7 @@ node_modules/
 __pycache__/
 .venv/
 *.mp4
+!Video pronto - Tutorial colocando peruca/*.mp4
 renders/
 videos/
 projects/*/build/
