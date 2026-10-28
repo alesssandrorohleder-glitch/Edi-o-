@@ -55,9 +55,9 @@
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="58.95" data-width="1080" data-height="1920">
+    <div id="root" data-composition-id="main" data-start="0" data-duration="56.3" data-width="1080" data-height="1920">
       <div id="cam">
-        <video id="base" class="clip" src="assets/base.mp4" data-has-audio="true" data-volume="0.5" playsinline data-start="0" data-duration="58.95" data-track-index="0"></video>
+        <video id="base" class="clip" src="assets/base.mp4" data-has-audio="true" data-volume="0.5" playsinline data-start="0" data-duration="56.3" data-track-index="0"></video>
       </div>
       <div id="topfade"></div>
 
@@ -99,13 +99,13 @@
       <div id="lbl-depois" class="half clip" data-start="48.2" data-duration="2.55" data-track-index="3">
         <span class="chip">depois</span>
       </div>
-      <div id="t-who" class="cap clip" data-start="50.85" data-duration="4.9" data-track-index="1">
+      <div id="t-who" class="cap clip" data-start="50.85" data-duration="2.9" data-track-index="1">
         <div class="head mid">quem é <span class="y">esse?</span></div>
       </div>
 
       <!-- END -->
-      <div id="t-end" class="cap clip" data-start="55.85" data-duration="3.1" data-track-index="1">
-        <div class="head mid">o <span class="y">saldo</span></div>
+      <div id="t-end" class="cap clip" data-start="53.85" data-duration="2.45" data-track-index="1">
+        <div class="head mid">e <span class="y">aí?</span></div>
         <span class="sub box">barba ou sem barba? comenta</span>
       </div>
 
@@ -139,24 +139,25 @@
       <audio id="s-split" class="clip" src="assets/sfx/whoosh-cinematic.mp3" data-start="45.9" data-duration="3.3" data-volume="0.35" data-track-index="15"></audio>
       <audio id="s-p7" class="clip" src="assets/sfx/pop.mp3" data-start="48.25" data-duration="0.72" data-volume="0.5" data-track-index="13"></audio>
       <audio id="s-w7" class="clip" src="assets/sfx/whoosh.mp3" data-start="50.6" data-duration="0.57" data-volume="0.5" data-track-index="11"></audio>
-      <audio id="s-w8" class="clip" src="assets/sfx/whoosh.mp3" data-start="55.6" data-duration="0.57" data-volume="0.55" data-track-index="11"></audio>
-      <audio id="s-end" class="clip" src="assets/sfx/impact-bass-1.mp3" data-start="55.85" data-duration="2.1" data-volume="0.4" data-track-index="12"></audio>
-      <audio id="s-p8" class="clip" src="assets/sfx/pop.mp3" data-start="56.2" data-duration="0.72" data-volume="0.5" data-track-index="13"></audio>
+      <audio id="s-w8" class="clip" src="assets/sfx/whoosh.mp3" data-start="53.6" data-duration="0.57" data-volume="0.55" data-track-index="11"></audio>
+      <audio id="s-end" class="clip" src="assets/sfx/impact-bass-1.mp3" data-start="53.85" data-duration="2.1" data-volume="0.4" data-track-index="12"></audio>
+      <audio id="s-p8" class="clip" src="assets/sfx/pop.mp3" data-start="54.15" data-duration="0.72" data-volume="0.5" data-track-index="13"></audio>
     </div>
 
     <script>
       const tl = gsap.timeline({ paused: true });
 
       // camera: every cut lands on a slightly different scale, so jump cuts read as deliberate
-      const cuts = [0, 1.5, 2.8, 4.8, 6.3, 8.3, 10.3, 11.8, 14.2, 15.7, 17.7, 19.2, 21.7, 23.7, 25.7, 27.7, 29.4, 31, 32.5, 34.5, 36.5, 38.5, 40.5, 42.5, 44.5, 46, 48.2, 50.8, 53.8, 55.8];
-      const scales = [1.12, 1, 1.1, 1, 1.08, 1, 1.1, 1, 1.08, 1, 1.1, 1, 1.08, 1, 1.1, 1, 1.15, 1, 1.08, 1, 1.1, 1, 1.08, 1, 1.06, 1, 1, 1, 1.08, 1];
+      const cuts = [0, 1.5, 2.8, 4.8, 6.3, 8.3, 10.3, 11.8, 14.2, 15.7, 17.7, 19.2, 21.7, 23.7, 25.7, 27.7, 29.4, 31, 32.5, 34.5, 36.5, 38.5, 40.5, 42.5, 44.5, 46, 48.2, 50.8, 53.8];
+      const scales = [1.12, 1, 1.1, 1, 1.08, 1, 1.1, 1, 1.08, 1, 1.1, 1, 1.08, 1, 1.1, 1, 1.15, 1, 1.08, 1, 1.1, 1, 1.08, 1, 1.06, 1, 1, 1, 1.08];
       cuts.forEach((t, i) => {
-        const end = i + 1 < cuts.length ? cuts[i + 1] : 58.95;
+        const end = i + 1 < cuts.length ? cuts[i + 1] : 56.3;
         tl.fromTo("#cam", { scale: scales[i] + 0.04 }, { scale: scales[i], duration: Math.min(0.35, end - t), ease: "power3.out", immediateRender: i === 0 }, t);
       });
       // slow push on the reveal and the turn
       tl.to("#cam", { scale: 1.06, duration: 1.7, ease: "none" }, 46.4);
       tl.to("#cam", { scale: 1.07, duration: 2.6, ease: "none" }, 51.1);
+      tl.to("#cam", { scale: 1.06, duration: 2.0, ease: "none" }, 54.2);
 
       const slam = (sel, t) =>
         tl.fromTo(sel, { opacity: 0, scale: 1.6, y: -20 }, { opacity: 1, scale: 1, y: 0, duration: 0.32, ease: "back.out(2.4)" }, t);
@@ -196,10 +197,10 @@
       tl.to(["#lbl-antes", "#lbl-depois"], { opacity: 0, duration: 0.18 }, 50.55);
 
       slam("#t-who .head", 51.0);
-      out("#t-who", 55.55);
+      out("#t-who", 53.55);
 
-      slam("#t-end .head", 55.9);
-      tl.fromTo("#t-end .sub", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 56.2);
+      slam("#t-end .head", 53.9);
+      tl.fromTo("#t-end .sub", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 54.15);
 
       window.__timelines["main"] = tl;
     </script>

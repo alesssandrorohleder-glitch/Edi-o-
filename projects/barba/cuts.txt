@@ -27,5 +27,4 @@ c25      124.0   125.5   check
 c26      126.0   128.2   reveal
 c26b     29.7|127.3  -       split(before|after)
 c27      131.0   134.0   turn
-c28      136.5   138.5   turn
-c29      140.05  140.5   end(freeze)
+c28      136.5   138.95  turn+end
