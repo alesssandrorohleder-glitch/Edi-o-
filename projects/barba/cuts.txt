@@ -25,6 +25,6 @@ c23      117.0   119.0   neck
 c24      121.5   123.5   neck
 c25      124.0   125.5   check
 c26      126.0   128.2   reveal
-c26b     29.7|127.3  -       split(before|after)
+c26b     0.3|127.3   -       split(before w/ mustache|after)
 c27      131.0   134.0   turn
 c28      136.5   138.95  turn+end
