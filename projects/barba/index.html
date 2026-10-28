@@ -55,153 +55,111 @@
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="56.3" data-width="1080" data-height="1920">
+    <div id="root" data-composition-id="main" data-start="0" data-duration="29.98" data-width="1080" data-height="1920">
       <div id="cam">
-        <video id="base" class="clip" src="assets/base.mp4" data-has-audio="true" data-volume="0.5" playsinline data-start="0" data-duration="56.3" data-track-index="0"></video>
+        <video id="base" class="clip" src="assets/base.mp4" data-has-audio="true" data-volume="0.5" playsinline data-start="0" data-duration="29.98" data-track-index="0"></video>
       </div>
       <div id="topfade"></div>
 
-      <!-- HOOK -->
-      <div id="t-hook" class="cap clip" data-start="0" data-duration="2.75" data-track-index="1">
+      <div id="t-hook" class="cap clip" data-start="0.03" data-duration="1.28" data-track-index="1">
         <div class="head hk"><span class="w1">tchau,</span> <span class="y w2">barba.</span></div>
       </div>
-
-      <!-- BEATS -->
-      <div id="t-first" class="cap clip" data-start="2.85" data-duration="2.2" data-track-index="1">
+      <div id="t-first" class="cap clip" data-start="1.36" data-duration="1.65" data-track-index="1">
         <span class="chip">1ª passada</span><br /><span class="sub">sem volta agora</span>
       </div>
-      <div id="t-smile" class="cap clip" data-start="11.85" data-duration="2.3" data-track-index="1">
+      <div id="t-smile" class="cap clip" data-start="5.46" data-duration="1.95" data-track-index="1">
         <span class="chip dark">tá ficando bom?</span>
       </div>
-      <div id="t-sides" class="cap clip" data-start="15.75" data-duration="2.2" data-track-index="1">
+      <div id="t-sides" class="cap clip" data-start="7.46" data-duration="2.45" data-track-index="1">
         <span class="chip">agora as laterais</span>
       </div>
-      <div id="t-half" class="cap clip" data-start="27.75" data-duration="1.6" data-track-index="1">
-        <span class="chip dark">metade do caminho</span>
-      </div>
-      <div id="t-focus" class="cap clip" data-start="29.45" data-duration="1.5" data-track-index="1">
+      <div id="t-focus" class="cap clip" data-start="13.36" data-duration="1.35" data-track-index="1">
         <div class="head mid">foco <span class="y">total.</span></div>
       </div>
-      <div id="t-neck" class="cap clip" data-start="36.55" data-duration="2.2" data-track-index="1">
+      <div id="t-neck" class="cap clip" data-start="15.96" data-duration="2.35" data-track-index="1">
         <span class="chip">agora o pescoço</span>
       </div>
-      <div id="t-check" class="cap clip" data-start="44.55" data-duration="1.4" data-track-index="1">
-        <span class="chip dark">conferindo...</span>
-      </div>
-
-      <!-- REVEAL -->
-      <div id="t-reveal" class="cap clip" data-start="46" data-duration="2.15" data-track-index="1">
+      <div id="t-reveal" class="cap clip" data-start="20.56" data-duration="1.95" data-track-index="1">
         <div class="head"><span class="y">depois.</span></div>
       </div>
-      <div id="lbl-antes" class="half clip" data-start="48.2" data-duration="2.55" data-track-index="2">
+      <div id="lbl-antes" class="half clip" data-start="22.53" data-duration="2.55" data-track-index="2">
         <span class="chip dark">antes</span>
       </div>
-      <div id="lbl-depois" class="half clip" data-start="48.2" data-duration="2.55" data-track-index="3">
+      <div id="lbl-depois" class="half clip" data-start="22.53" data-duration="2.55" data-track-index="3">
         <span class="chip">depois</span>
       </div>
-      <div id="t-who" class="cap clip" data-start="50.85" data-duration="2.9" data-track-index="1">
+      <div id="t-who" class="cap clip" data-start="25.16" data-duration="2.45" data-track-index="1">
         <div class="head mid">quem é <span class="y">esse?</span></div>
       </div>
-
-      <!-- END -->
-      <div id="t-end" class="cap clip" data-start="53.85" data-duration="2.45" data-track-index="1">
+      <div id="t-end" class="cap clip" data-start="27.66" data-duration="2.32" data-track-index="1">
         <div class="head mid">e <span class="y">aí?</span></div>
         <span class="sub box">barba ou sem barba? comenta</span>
       </div>
-
-      <div id="flash" class="clip" data-start="45.9" data-duration="0.7" data-track-index="4"></div>
+      <div id="flash" class="clip" data-start="20.43" data-duration="0.7" data-track-index="4"></div>
 
       <!-- SOUND DESIGN -->
-      <audio id="s-hook" class="clip" src="assets/sfx/impact-bass-1.mp3" data-start="0.02" data-duration="2.1" data-volume="0.45" data-track-index="10"></audio>
-      <audio id="s-w1" class="clip" src="assets/sfx/whoosh.mp3" data-start="1.3" data-duration="0.57" data-volume="0.55" data-track-index="11"></audio>
-      <audio id="s-first" class="clip" src="assets/sfx/impact-bass-1.mp3" data-start="2.8" data-duration="2.1" data-volume="0.5" data-track-index="12"></audio>
-      <audio id="s-p1" class="clip" src="assets/sfx/pop.mp3" data-start="2.9" data-duration="0.72" data-volume="0.55" data-track-index="13"></audio>
-      <audio id="s-c1" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="6.15" data-duration="0.57" data-volume="0.3" data-track-index="11"></audio>
-      <audio id="s-c2" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="10.15" data-duration="0.57" data-volume="0.3" data-track-index="11"></audio>
-      <audio id="s-w2" class="clip" src="assets/sfx/whoosh.mp3" data-start="11.65" data-duration="0.57" data-volume="0.5" data-track-index="11"></audio>
-      <audio id="s-p2" class="clip" src="assets/sfx/pop.mp3" data-start="11.9" data-duration="0.72" data-volume="0.55" data-track-index="13"></audio>
-      <audio id="s-w3" class="clip" src="assets/sfx/whoosh.mp3" data-start="14.05" data-duration="0.57" data-volume="0.5" data-track-index="11"></audio>
-      <audio id="s-p3" class="clip" src="assets/sfx/pop.mp3" data-start="15.8" data-duration="0.72" data-volume="0.55" data-track-index="13"></audio>
-      <audio id="s-c3" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="19.05" data-duration="0.57" data-volume="0.3" data-track-index="11"></audio>
-      <audio id="s-c4" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="23.55" data-duration="0.57" data-volume="0.3" data-track-index="11"></audio>
-      <audio id="s-w4" class="clip" src="assets/sfx/whoosh.mp3" data-start="27.55" data-duration="0.57" data-volume="0.5" data-track-index="11"></audio>
-      <audio id="s-p4" class="clip" src="assets/sfx/pop.mp3" data-start="27.8" data-duration="0.72" data-volume="0.55" data-track-index="13"></audio>
-      <audio id="s-glitch" class="clip" src="assets/sfx/glitch-1.mp3" data-start="29.38" data-duration="1.5" data-volume="0.35" data-track-index="12"></audio>
-      <audio id="s-w5" class="clip" src="assets/sfx/whoosh.mp3" data-start="30.85" data-duration="0.57" data-volume="0.5" data-track-index="11"></audio>
-      <audio id="s-c5" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="34.35" data-duration="0.57" data-volume="0.3" data-track-index="11"></audio>
-      <audio id="s-w6" class="clip" src="assets/sfx/whoosh.mp3" data-start="36.35" data-duration="0.57" data-volume="0.5" data-track-index="11"></audio>
-      <audio id="s-p5" class="clip" src="assets/sfx/pop.mp3" data-start="36.6" data-duration="0.72" data-volume="0.55" data-track-index="13"></audio>
-      <audio id="s-c6" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="40.35" data-duration="0.57" data-volume="0.3" data-track-index="11"></audio>
-      <audio id="s-riser" class="clip" src="assets/sfx/riser.mp3" data-start="41.9" data-duration="4.15" data-volume="0.4" data-track-index="14"></audio>
-      <audio id="s-p6" class="clip" src="assets/sfx/click-soft.mp3" data-start="44.6" data-duration="0.37" data-volume="0.6" data-track-index="13"></audio>
-      <audio id="s-reveal" class="clip" src="assets/sfx/impact-bass-2.mp3" data-start="46" data-duration="2.2" data-volume="0.55" data-track-index="12"></audio>
-      <audio id="s-spark" class="clip" src="assets/sfx/sparkle.mp3" data-start="46.1" data-duration="1.8" data-volume="0.45" data-track-index="13"></audio>
-      <audio id="s-split" class="clip" src="assets/sfx/whoosh-cinematic.mp3" data-start="45.9" data-duration="3.3" data-volume="0.35" data-track-index="15"></audio>
-      <audio id="s-p7" class="clip" src="assets/sfx/pop.mp3" data-start="48.25" data-duration="0.72" data-volume="0.5" data-track-index="13"></audio>
-      <audio id="s-w7" class="clip" src="assets/sfx/whoosh.mp3" data-start="50.6" data-duration="0.57" data-volume="0.5" data-track-index="11"></audio>
-      <audio id="s-w8" class="clip" src="assets/sfx/whoosh.mp3" data-start="53.6" data-duration="0.57" data-volume="0.55" data-track-index="11"></audio>
-      <audio id="s-end" class="clip" src="assets/sfx/impact-bass-1.mp3" data-start="53.85" data-duration="2.1" data-volume="0.4" data-track-index="12"></audio>
-      <audio id="s-p8" class="clip" src="assets/sfx/pop.mp3" data-start="54.15" data-duration="0.72" data-volume="0.5" data-track-index="13"></audio>
+      <audio id="s01" class="clip" src="assets/sfx/impact-bass-1.mp3" data-start="0.02" data-duration="2" data-volume="0.45" data-track-index="10"></audio>
+      <audio id="s02" class="clip" src="assets/sfx/whoosh.mp3" data-start="1.13" data-duration="0.57" data-volume="0.5" data-track-index="11"></audio>
+      <audio id="s03" class="clip" src="assets/sfx/impact-bass-1.mp3" data-start="1.3" data-duration="2" data-volume="0.5" data-track-index="12"></audio>
+      <audio id="s04" class="clip" src="assets/sfx/pop.mp3" data-start="1.4" data-duration="0.72" data-volume="0.55" data-track-index="13"></audio>
+      <audio id="s05" class="clip" src="assets/sfx/whoosh.mp3" data-start="5.23" data-duration="0.57" data-volume="0.5" data-track-index="11"></audio>
+      <audio id="s06" class="clip" src="assets/sfx/pop.mp3" data-start="5.5" data-duration="0.72" data-volume="0.55" data-track-index="13"></audio>
+      <audio id="s07" class="clip" src="assets/sfx/whoosh.mp3" data-start="7.23" data-duration="0.57" data-volume="0.5" data-track-index="11"></audio>
+      <audio id="s08" class="clip" src="assets/sfx/pop.mp3" data-start="7.5" data-duration="0.72" data-volume="0.55" data-track-index="13"></audio>
+      <audio id="s09" class="clip" src="assets/sfx/whoosh.mp3" data-start="13.13" data-duration="0.57" data-volume="0.5" data-track-index="11"></audio>
+      <audio id="s10" class="clip" src="assets/sfx/glitch-1.mp3" data-start="13.28" data-duration="1.3" data-volume="0.35" data-track-index="12"></audio>
+      <audio id="s11" class="clip" src="assets/sfx/pop.mp3" data-start="13.4" data-duration="0.72" data-volume="0.55" data-track-index="13"></audio>
+      <audio id="s12" class="clip" src="assets/sfx/whoosh.mp3" data-start="15.73" data-duration="0.57" data-volume="0.5" data-track-index="11"></audio>
+      <audio id="s13" class="clip" src="assets/sfx/pop.mp3" data-start="16" data-duration="0.72" data-volume="0.55" data-track-index="13"></audio>
+      <audio id="s14" class="clip" src="assets/sfx/whoosh.mp3" data-start="24.93" data-duration="0.57" data-volume="0.5" data-track-index="11"></audio>
+      <audio id="s15" class="clip" src="assets/sfx/pop.mp3" data-start="25.2" data-duration="0.72" data-volume="0.55" data-track-index="13"></audio>
+      <audio id="s16" class="clip" src="assets/sfx/whoosh.mp3" data-start="27.43" data-duration="0.57" data-volume="0.5" data-track-index="11"></audio>
+      <audio id="s17" class="clip" src="assets/sfx/impact-bass-1.mp3" data-start="27.63" data-duration="2" data-volume="0.4" data-track-index="12"></audio>
+      <audio id="s18" class="clip" src="assets/sfx/pop.mp3" data-start="27.7" data-duration="0.72" data-volume="0.55" data-track-index="13"></audio>
+      <audio id="s19" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="2.88" data-duration="0.57" data-volume="0.28" data-track-index="14"></audio>
+      <audio id="s20" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="8.48" data-duration="0.57" data-volume="0.28" data-track-index="14"></audio>
+      <audio id="s21" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="10.98" data-duration="0.57" data-volume="0.28" data-track-index="14"></audio>
+      <audio id="s22" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="18.18" data-duration="0.57" data-volume="0.28" data-track-index="14"></audio>
+      <audio id="s23" class="clip" src="assets/sfx/riser.mp3" data-start="16.43" data-duration="4.15" data-volume="0.4" data-track-index="15"></audio>
+      <audio id="s24" class="clip" src="assets/sfx/impact-bass-2.mp3" data-start="20.53" data-duration="2.2" data-volume="0.55" data-track-index="12"></audio>
+      <audio id="s25" class="clip" src="assets/sfx/sparkle.mp3" data-start="20.63" data-duration="1.8" data-volume="0.45" data-track-index="13"></audio>
+      <audio id="s26" class="clip" src="assets/sfx/whoosh-cinematic.mp3" data-start="20.23" data-duration="3.2" data-volume="0.35" data-track-index="16"></audio>
+      <audio id="s27" class="clip" src="assets/sfx/pop.mp3" data-start="22.58" data-duration="0.72" data-volume="0.5" data-track-index="13"></audio>
     </div>
-
     <script>
       const tl = gsap.timeline({ paused: true });
-
-      // camera: every cut lands on a slightly different scale, so jump cuts read as deliberate
-      const cuts = [0, 1.5, 2.8, 4.8, 6.3, 8.3, 10.3, 11.8, 14.2, 15.7, 17.7, 19.2, 21.7, 23.7, 25.7, 27.7, 29.4, 31, 32.5, 34.5, 36.5, 38.5, 40.5, 42.5, 44.5, 46, 48.2, 50.8, 53.8];
-      const scales = [1.12, 1, 1.1, 1, 1.08, 1, 1.1, 1, 1.08, 1, 1.1, 1, 1.08, 1, 1.1, 1, 1.15, 1, 1.08, 1, 1.1, 1, 1.08, 1, 1.06, 1, 1, 1, 1.08];
+      const cuts = [0, 1.33, 3.03, 4.23, 5.43, 7.43, 8.63, 9.93, 11.13, 12.13, 13.33, 14.73, 15.93, 17.13, 18.33, 19.53, 20.53, 22.53, 25.13, 27.63];
+      const scales = [1.12, 1, 1.09, 1, 1.09, 1, 1.09, 1, 1.09, 1, 1.15, 1, 1.09, 1, 1.09, 1, 1, 1, 1, 1];
       cuts.forEach((t, i) => {
-        const end = i + 1 < cuts.length ? cuts[i + 1] : 56.3;
-        tl.fromTo("#cam", { scale: scales[i] + 0.04 }, { scale: scales[i], duration: Math.min(0.35, end - t), ease: "power3.out", immediateRender: i === 0 }, t);
+        const end = i + 1 < cuts.length ? cuts[i + 1] : 29.98;
+        tl.fromTo("#cam", { scale: scales[i] + 0.04 }, { scale: scales[i], duration: Math.min(0.3, end - t), ease: "power3.out", immediateRender: i === 0 }, t);
       });
-      // slow push on the reveal and the turn
-      tl.to("#cam", { scale: 1.06, duration: 1.7, ease: "none" }, 46.4);
-      tl.to("#cam", { scale: 1.07, duration: 2.6, ease: "none" }, 51.1);
-      tl.to("#cam", { scale: 1.06, duration: 2.0, ease: "none" }, 54.2);
+      tl.to("#cam", { scale: 1.05, duration: 1.55, ease: "none" }, 20.88);
+      tl.to("#cam", { scale: 1.06, duration: 2.1, ease: "none" }, 25.43);
+      tl.to("#cam", { scale: 1.05, duration: 1.95, ease: "none" }, 27.93);
 
-      const slam = (sel, t) =>
-        tl.fromTo(sel, { opacity: 0, scale: 1.6, y: -20 }, { opacity: 1, scale: 1, y: 0, duration: 0.32, ease: "back.out(2.4)" }, t);
-      const pop = (sel, t) =>
-        tl.fromTo(sel, { opacity: 0, scale: 0.6, rotate: -4 }, { opacity: 1, scale: 1, rotate: 0, duration: 0.35, ease: "back.out(2.6)" }, t);
-      const out = (sel, t) => tl.to(sel, { opacity: 0, scale: 0.92, duration: 0.18, ease: "power2.in" }, t);
+      const slam = (sel, t) => tl.fromTo(sel, { opacity: 0, scale: 1.6, y: -20 }, { opacity: 1, scale: 1, y: 0, duration: 0.3, ease: "back.out(2.4)" }, t);
+      const pop = (sel, t) => tl.fromTo(sel, { opacity: 0, scale: 0.6, rotate: -4 }, { opacity: 1, scale: 1, rotate: 0, duration: 0.32, ease: "back.out(2.6)" }, t);
+      const out = (sel, t) => tl.to(sel, { opacity: 0, scale: 0.92, duration: 0.16, ease: "power2.in" }, t);
 
-      slam("#t-hook .w1", 0.05);
-      slam("#t-hook .w2", 0.3);
-      out("#t-hook", 2.55);
-
-      pop("#t-first .chip", 2.9);
-      tl.fromTo("#t-first .sub", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 3.15);
-      out("#t-first", 4.85);
-
-      pop("#t-smile .chip", 11.9);
-      out("#t-smile", 13.95);
-      pop("#t-sides .chip", 15.8);
-      out("#t-sides", 17.75);
-      pop("#t-half .chip", 27.8);
-      out("#t-half", 29.15);
-      slam("#t-focus .head", 29.45);
-      tl.to("#t-focus .head", { rotate: -3, duration: 0.08, yoyo: true, repeat: 5, ease: "none" }, 29.8);
-      out("#t-focus", 30.75);
-      pop("#t-neck .chip", 36.6);
-      out("#t-neck", 38.55);
-      pop("#t-check .chip", 44.6);
-      out("#t-check", 45.75);
-
-      tl.fromTo("#flash", { opacity: 0 }, { opacity: 0.9, duration: 0.1, ease: "power2.in" }, 45.9);
-      tl.to("#flash", { opacity: 0, duration: 0.45, ease: "power2.out" }, 46.0);
-      slam("#t-reveal .head", 46.1);
-      out("#t-reveal", 47.95);
-
-      pop("#lbl-antes .chip", 48.25);
-      pop("#lbl-depois .chip", 48.4);
-      tl.to(["#lbl-antes", "#lbl-depois"], { opacity: 0, duration: 0.18 }, 50.55);
-
-      slam("#t-who .head", 51.0);
-      out("#t-who", 53.55);
-
-      slam("#t-end .head", 53.9);
-      tl.fromTo("#t-end .sub", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 54.15);
-
+      slam("#t-hook .w1", 0.04); slam("#t-hook .w2", 0.22); out("#t-hook", 1.13);
+      pop("#t-first .chip", 1.4);
+      tl.fromTo("#t-first .sub", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.25, ease: "power3.out" }, 1.63);
+      out("#t-first", 2.83);
+      pop("#t-smile .chip", 5.5); out("#t-smile", 7.23);
+      pop("#t-sides .chip", 7.5); out("#t-sides", 9.73);
+      slam("#t-focus .head", 13.38);
+      tl.to("#t-focus .head", { rotate: -3, duration: 0.07, yoyo: true, repeat: 5, ease: "none" }, 13.73);
+      out("#t-focus", 14.53);
+      pop("#t-neck .chip", 16); out("#t-neck", 18.13);
+      tl.fromTo("#flash", { opacity: 0 }, { opacity: 0.9, duration: 0.1, ease: "power2.in" }, 20.43);
+      tl.to("#flash", { opacity: 0, duration: 0.45, ease: "power2.out" }, 20.53);
+      slam("#t-reveal .head", 20.63); out("#t-reveal", 22.33);
+      pop("#lbl-antes .chip", 22.58); pop("#lbl-depois .chip", 22.71);
+      tl.to(["#lbl-antes", "#lbl-depois"], { opacity: 0, duration: 0.15 }, 24.93);
+      slam("#t-who .head", 25.21); out("#t-who", 27.43);
+      slam("#t-end .head", 27.71);
+      tl.fromTo("#t-end .sub", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.25, ease: "power3.out" }, 27.88);
       window.__timelines["main"] = tl;
     </script>
   </body>
