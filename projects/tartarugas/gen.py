@@ -15,7 +15,9 @@ SCENES = [  # id, start, end
     ('sA', 0.0, 7.0), ('sB', 7.0, 13.0), ('sC', 13.0, 18.6), ('sD', 18.6, 23.8),
     ('sE', 23.8, 31.8), ('sF', 31.8, 39.3), ('sG', 39.3, TOTAL),
 ]
-XF = 0.5  # crossfade between scenes
+XF = 0.6  # dissolve between scenes
+# text tweens superseded by the unified HUD choreography below
+OLD = ['#sA .kicker', '#sA .title', '#mC"', '"#mD"', '#ppD', '"#thE", {', '#chipF', '#stG', '#endG', '#calloutB .cl-line']
 
 
 def word_time(line, word):
@@ -117,14 +119,21 @@ js = []
 sc = {k: (a, b) for k, a, b in SCENES}
 
 
+CHAPTERS = {'sA': ('01', 'O ritual'), 'sB': ('02', 'A chegada'), 'sC': ('03', 'O ninho'), 'sD': ('04', 'Os ovos'),
+            'sE': ('05', 'O calor'), 'sF': ('06', 'Os filhotes'), 'sG': ('07', 'O futuro')}
+
+
 def scene_div(sid, inner, extra=''):
     a, b = sc[sid]
     a0 = max(0.0, a - (XF if a > 0 else 0))
     html.append(f'      <div id="{sid}" class="scene clip" data-start="{f(a0)}" data-duration="{f(b - a0)}" data-track-index="1"{extra}>\n'
-                f'        <div class="cam">{inner}</div>\n      </div>\n')
+                f'        <div class="cam">{inner}</div>\n'
+                f'        <div class="chap"><span class="n">{CHAPTERS[sid][0]}</span><span class="bar"></span><span class="t">{CHAPTERS[sid][1]}</span></div>\n      </div>\n')
+    js.append(f'      tl.fromTo("#{sid} .chap", {{ opacity: 0, x: -14 }}, {{ opacity: 1, x: 0, duration: 0.9, ease: "power3.out" }}, {f(a + 0.2)});')
+    js.append(f'      tl.fromTo("#{sid} .chap .bar", {{ scaleX: 0 }}, {{ scaleX: 1, duration: 0.8, ease: "expo.out" }}, {f(a + 0.35)});')
     if a > 0:
-        js.append(f'      tl.fromTo("#{sid}", {{ opacity: 0 }}, {{ opacity: 1, duration: {XF}, ease: "power1.inOut", immediateRender: false }}, {f(a0)});')
-    js.append(f'      tl.fromTo("#{sid} .cam", {{ scale: 1.0 }}, {{ scale: 1.07, duration: {f(b - a0)}, ease: "none" }}, {f(a0)});')
+        js.append(f'      tl.fromTo("#{sid}", {{ opacity: 0, filter: "blur(14px)" }}, {{ opacity: 1, filter: "blur(0px)", duration: {XF + 0.3}, ease: "power2.out", immediateRender: false }}, {f(a0)});')
+    js.append(f'      tl.fromTo("#{sid} .cam", {{ scale: 1.06, y: 18 }}, {{ scale: 1.0, y: -18, duration: {f(b - a0)}, ease: "power1.inOut" }}, {f(a0)});')
 
 
 # Scene A — moonlit beach, title
@@ -139,8 +148,9 @@ scene_div('sA', f'''
   <linearGradient id="seaA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#11304d"/><stop offset="1" stop-color="#0a1f33"/></linearGradient>
   <linearGradient id="sandA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a7a60"/><stop offset="1" stop-color="#2f2920"/></linearGradient></defs>
   <g class="stars">{stars(90, 980)}</g>
+  <g class="rays" opacity="0.5">{''.join(f'<path d="M540,760 L{540 + 900 * math.cos(math.radians(a - 4)):.0f},{760 + 900 * math.sin(math.radians(a - 4)):.0f} L{540 + 900 * math.cos(math.radians(a + 4)):.0f},{760 + 900 * math.sin(math.radians(a + 4)):.0f} Z" fill="#f3ead6" opacity="0.035"/>' for a in range(0, 360, 24))}</g>
   <g class="moon"><circle cx="540" cy="760" r="170" fill="#f3ead6" opacity="0.14" filter="url(#soft)"/>
-    <circle cx="540" cy="760" r="92" fill="#f3ead6"/><circle cx="512" cy="738" r="16" fill="#d9cfb8" opacity="0.6"/>
+    <circle cx="540" cy="760" r="330" fill="#f3ead6" opacity="0.06" filter="url(#soft)"/><circle cx="540" cy="760" r="92" fill="#f3ead6"/><circle cx="512" cy="738" r="16" fill="#d9cfb8" opacity="0.6"/>
     <circle cx="570" cy="790" r="10" fill="#d9cfb8" opacity="0.5"/></g>
   <rect y="1060" width="1080" height="380" fill="url(#seaA)"/>
   <g class="reflect">{moon_reflect}</g>
@@ -150,7 +160,7 @@ scene_div('sA', f'''
   {sand_specks(260, 0, 1080, 1480, 1920)}
   <path d="M0,1700 C300,1640 600,1760 1080,1660 L1080,1920 L0,1920 Z" fill="#1d1913" opacity="0.6"/>
 </svg>
-<div class="title-block"><div class="kicker">documentário · natureza</div><div class="title">O ritual<br/>da areia</div></div>''')
+<div class="hud title" id="hudA"><div class="lbl">Documentário · Natureza</div><div class="rule"></div><div class="disp"><span class="ln"><span>O ritual</span></span><span class="ln"><span><i>da areia</i></span></span></div></div>''')
 a, b = sc['sA']
 js += [
     '      tl.fromTo("#sA .moon", { y: 180 }, { y: 0, duration: 6.5, ease: "power2.out" }, 0);',
@@ -179,10 +189,10 @@ scene_div('sB', f'''
   <g class="seaB"><path d="{wave_path(520, 18, 380, 0.3, close_to=-200)}" fill="url(#seaB)"/>
     <path class="foamB" d="{wave_path(520, 18, 380, 0.3)}" stroke="#eae4d4" stroke-width="16" stroke-opacity="0.55" fill="none"/>
     <path class="foamB2" d="{wave_path(470, 12, 300, 1.7)}" stroke="#eae4d4" stroke-width="6" stroke-opacity="0.25" fill="none"/></g>
-  <g transform="translate(540,1000) scale(0.95)"><g class="turtleB">{TURTLE_TOP}</g></g>
+  <g transform="translate(540,1000) scale(0.95)"><g class="turtleB"><ellipse cx="18" cy="30" rx="150" ry="200" fill="#2a2419" opacity="0.28" filter="url(#soft2)"/><g class="bodyB">{TURTLE_TOP}</g></g></g>
   <ellipse cx="540" cy="140" rx="700" ry="220" fill="#cfe2f2" opacity="0.08" filter="url(#soft)"/>
 </svg>
-<div class="callout" id="calloutB"><div class="dot"></div><div class="cl-line"></div><div class="cl-text"><b>Fêmea adulta</b><br/>tartaruga-marinha</div></div>''')
+<div class="callout" id="calloutB"><div class="dot"></div><div class="cl-line"></div><div class="cl-text"><div class="lbl">fêmea adulta</div><div class="nm">Tartaruga-marinha</div></div></div>''')
 js += [
     '      tl.fromTo("#sB .turtleB", { y: -600, opacity: 0.5 }, { y: 0, opacity: 1, duration: 5.6, ease: "power1.out" }, 6.8);',
     '      tl.fromTo("#sB .fl-l, #sB .hl-r", { rotation: -16, transformOrigin: "-70px -60px" }, { rotation: 16, duration: 0.7, ease: "sine.inOut", yoyo: true, repeat: 7 }, 6.8);',
@@ -219,7 +229,7 @@ scene_div('sC', f'''
     <line x1="780" y1="880" x2="820" y2="880" stroke="#e9c46a" stroke-width="3"/>
     <line class="dimEnd" x1="780" y1="1320" x2="820" y2="1320" stroke="#e9c46a" stroke-width="3"/></g>
 </svg>
-<div class="metric" id="mC"><span class="num" id="cmNum">0</span><span class="unit">cm</span><div class="lbl">profundidade do ninho</div></div>''')
+<div class="hud num" id="hudC"><div class="lbl">Profundidade do ninho</div><div class="rule"></div><div class="disp"><span class="ln"><span><span id="cmNum">0</span><em>cm</em></span></span></div></div>''')
 t60 = word_time('n3', 'sessenta')
 js += [
     '      tl.fromTo("#sC .side-rear", { rotation: -22, transformOrigin: "-180px 14px" }, { rotation: 18, duration: 0.45, ease: "sine.inOut", yoyo: true, repeat: 9 }, 13.2);',
@@ -249,13 +259,11 @@ scene_div('sD', f'''
     <path d="{CHAMBER}" fill="none" stroke="#d8c7a3" stroke-opacity="0.35" stroke-width="2" stroke-dasharray="8 8"/>
     <g class="eggs">{''.join(eggs)}</g></g>
 </svg>
-<div class="metric big" id="mD"><span class="num" id="eggNum">0</span><div class="lbl">ovos por ninho, em média</div></div>
-<div class="pp" id="ppD"><svg width="120" height="120" viewBox="0 0 120 120"><circle cx="60" cy="60" r="44" fill="url(#gEgg)"/><circle cx="60" cy="60" r="44" fill="none" stroke="#e9c46a" stroke-width="3" stroke-dasharray="6 6"/></svg>
-  <div><b>≈ 4 cm</b><br/>tamanho de uma bola<br/>de pingue-pongue</div></div>''')
+<div class="hud num" id="hudD"><div class="lbl">Ovos por ninho</div><div class="rule"></div><div class="disp"><span class="ln"><span><span id="eggNum">0</span></span></span></div><div class="note">em média · cada um com <em>≈ 4 cm</em>, como uma bola de pingue-pongue</div></div>''')
 t100 = word_time('n4', 'cem')
 tpp = word_time('n4', 'pingue')
 js += [
-    f'      tl.fromTo("#sD .egg", {{ y: -260, opacity: 0 }}, {{ y: 0, opacity: 1, duration: 0.45, ease: "bounce.out", stagger: {f((t100 + 0.4 - 18.9) / max(1, len(eggs)))} }}, 18.9);',
+    f'      tl.fromTo("#sD .egg", {{ y: -180, opacity: 0 }}, {{ y: 0, opacity: 1, duration: 0.6, ease: "power3.out", stagger: {f((t100 + 0.4 - 18.9) / max(1, len(eggs)))} }}, 18.9);',
     '      tl.fromTo("#mD", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 18.8);',
     f'      tl.fromTo("#eggNum", {{ textContent: 0 }}, {{ textContent: 100, duration: {f(t100 + 0.3 - 19.0)}, ease: "power1.inOut", snap: {{ textContent: 1 }} }}, 19.0);',
     f'      tl.fromTo("#ppD", {{ opacity: 0, x: -30 }}, {{ opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }}, {f(word_time("n4", "tamanho") - 0.3)});',
@@ -279,9 +287,7 @@ scene_div('sE', f'''
   <g class="heat" opacity="0"><rect x="0" y="880" width="1080" height="1040" fill="#ee6c3b" opacity="0.18"/></g>
   <g transform="translate(470,842) scale(0.95)"><g class="turtleE">{TURTLE_SIDE}</g></g>
 </svg>
-<div class="thermo" id="thE"><div class="t-head"><span>temperatura da areia</span></div>
-  <div class="t-bar"><div class="t-grad"></div><div class="t-pivot"></div><div class="t-mark"></div></div>
-  <div class="t-labels"><span class="cool">mais fria<br/><b>machos</b></span><span class="mid">≈ 29 °C</span><span class="warm">mais quente<br/><b>fêmeas</b></span></div></div>''')
+<div class="hud thermo" id="thE"><div class="lbl">Temperatura da areia</div><div class="rule"></div><div class="t-bar"><div class="t-grad"></div><div class="t-pivot"></div><div class="t-mark"></div></div><div class="t-labels"><span class="cool"><small>mais fria</small><i>machos</i></span><span class="mid">29 °C</span><span class="warm"><small>mais quente</small><i>fêmeas</i></span></div></div>''')
 tcob = word_time('n5', 'cobre'); tvol = word_time('n5', 'volta'); tcal = word_time('n5', 'calor'); tfem = word_time('n5', 'fêmeas')
 js += [
     f'      tl.fromTo("#sE .fillRect", {{ attr: {{ y: 1340, height: 0 }} }}, {{ attr: {{ y: 881, height: 459 }}, duration: 1.6, ease: "power2.inOut" }}, {f(tcob)});',
@@ -314,7 +320,7 @@ scene_div('sF', f'''
   <ellipse cx="540" cy="1330" rx="190" ry="56" fill="#3c3326" opacity="0.6"/>
   {''.join(hatch)}
 </svg>
-<div class="chip" id="chipF">≈ 60 dias depois</div>''')
+<div class="hud num mid" id="hudF"><div class="lbl">Incubação</div><div class="rule"></div><div class="disp"><span class="ln"><span>≈ 60 <em>dias</em></span></span></div></div>''')
 tfil = word_time('n6', 'filhotes'); tcor = word_time('n6', 'correm'); tbri = word_time('n6', 'brilho')
 js += [
     f'      tl.fromTo("#chipF", {{ opacity: 0, y: -16 }}, {{ opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }}, {f(word_time("n6", "dois") - 0.2)});',
@@ -339,8 +345,8 @@ scene_div('sG', f'''
   <path class="waveG" d="{wave_path(1640, 10, 300, 0.2, close_to=1920)}" fill="#0a2236"/>
   <g transform="translate(540,1600)"><use class="lone" href="#hatch" x="-31" y="-24" width="62" height="48"/></g>
 </svg>
-<div class="stat" id="stG"><span class="one">1</span><span class="of">em cada <b>1.000</b></span><div class="lbl">filhotes chega à vida adulta</div></div>
-<div class="endcard" id="endG"><div class="title small">Tartarugas-marinhas</div><div class="kicker">o ritual da areia</div></div>''')
+<div class="hud num mid" id="hudG" data-layout-allow-overlap><div class="lbl">Sobrevivência</div><div class="rule"></div><div class="disp"><span class="ln"><span>1 <em>em cada</em> 1.000</span></span></div><div class="note">filhotes chega à vida adulta</div></div>
+<div class="hud title" id="hudEnd" data-layout-allow-overlap><div class="lbl">Tartarugas-marinhas</div><div class="rule"></div><div class="disp"><span class="ln"><span>O ritual</span></span><span class="ln"><span><i>da areia</i></span></span></div></div>''')
 tum = word_time('n7', 'um')
 js += [
     f'      tl.fromTo("#stG .one", {{ opacity: 0, scale: 0.7 }}, {{ opacity: 1, scale: 1, duration: 0.9, ease: "expo.out" }}, {f(tum - 0.1)});',
@@ -351,6 +357,42 @@ js += [
     '      tl.fromTo("#sG .lone", { y: 0 }, { y: -40, duration: 5.7, ease: "sine.inOut" }, 39.3);',
     '      tl.to("#fade", { opacity: 1, duration: 0.45, ease: "power1.in" }, 44.55);',
 ]
+
+js = [l for l in js if not any(o in l for o in OLD)]
+for lid, t in (('#leak1', 6.35), ('#leak2', 38.65)):
+    js.append(f'      tl.fromTo("{lid}", {{ opacity: 0, xPercent: -60 }}, {{ opacity: 0.55, xPercent: 0, duration: 0.55, ease: "power2.out" }}, {f(t)});')
+    js.append(f'      tl.to("{lid}", {{ opacity: 0, xPercent: 50, duration: 0.8, ease: "power2.in" }}, {f(t + 0.55)});')
+
+
+def hud_in(sel, t):
+    js.append(f'      hudIn("{sel}", {f(t)});')
+
+
+def hud_out(sel, t):
+    js.append(f'      hudOut("{sel}", {f(t)});')
+
+
+hud_in('#hudA', 0.5)
+hud_out('#hudA', 5.4)
+js.append(f'      tl.fromTo("#calloutB .cl-line", {{ scaleX: 0 }}, {{ scaleX: 1, duration: 0.7, ease: "expo.out" }}, {f(word_time("n2", "fêmea"))});')
+hud_in('#hudC', word_time('n3', 'sessenta') - 1.6)
+hud_out('#hudC', 18.1)
+hud_in('#hudD', 18.8)
+js.append(f'      tl.fromTo("#hudD .note", {{ opacity: 0, y: 12 }}, {{ opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }}, {f(word_time("n4", "tamanho") - 0.2)});')
+hud_out('#hudD', 23.3)
+hud_in('#thE', word_time('n5', 'calor') - 0.3)
+hud_out('#thE', 31.2)
+hud_in('#hudF', word_time('n6', 'dois') - 0.3)
+hud_out('#hudF', word_time('n6', 'correm') + 0.5)
+hud_in('#hudG', word_time('n7', 'um') - 0.2)
+js.append(f'      tl.fromTo("#hudG .note", {{ opacity: 0, y: 12 }}, {{ opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }}, {f(word_time("n7", "chegará"))});')
+hud_out('#hudG', 42.2)
+hud_in('#hudEnd', 42.6)
+js.append('      tl.fromTo("#sB .bodyB", { rotation: -2.5, transformOrigin: "50% 50%" }, { rotation: 2.5, duration: 0.7, ease: "sine.inOut", yoyo: true, repeat: 7 }, 6.8);')
+js.append('      tl.fromTo("#sF .hatch use", { scaleX: 0.86, transformOrigin: "50% 50%" }, { scaleX: 1.08, duration: 0.18, ease: "sine.inOut", yoyo: true, repeat: 23, stagger: 0.03 }, 34.0);')
+js.append('      tl.fromTo("#sA .rays", { rotation: -6, transformOrigin: "540px 760px" }, { rotation: 6, duration: 7, ease: "sine.inOut" }, 0);')
+for i in range(36):
+    js.append(f'      tl.fromTo("#m{i}", {{ y: 0, x: 0 }}, {{ y: {-rnd.randint(160, 420)}, x: {rnd.randint(-80, 80)}, duration: {TOTAL}, ease: "none" }}, 0);')
 
 # star twinkle in every scene (finite repeats)
 js.append('      tl.fromTo(".star", { opacity: 0.25 }, { opacity: 1, duration: 1.3, ease: "sine.inOut", yoyo: true, repeat: 33, stagger: { each: 0.02, from: "random" } }, 0);')
@@ -398,48 +440,54 @@ page = f'''<!doctype html>
     <meta name="viewport" content="width=1080, height=1920" />
     <script src="assets/gsap.min.js"></script>
     <style>
-      :root {{ --text: #f1ece2; --gold: #e9c46a; --serif: "EB Garamond", serif; --sans: "Inter", sans-serif; }}
+      :root {{ --text: #f2ede3; --mute: rgba(242,237,227,.62); --gold: #d6b36a; --serif: "EB Garamond", serif; --sans: "Inter", sans-serif; }}
       * {{ margin: 0; padding: 0; box-sizing: border-box; }}
       html, body {{ width: 1080px; height: 1920px; overflow: hidden; background: #02060d; }}
       #root {{ width: 100%; height: 100%; position: relative; overflow: hidden; font-family: var(--sans); color: var(--text); }}
       .scene {{ position: absolute; inset: 0; overflow: hidden; }}
       .cam {{ position: absolute; inset: 0; transform-origin: 50% 50%; }}
       .cam > svg {{ position: absolute; inset: 0; }}
-      .title-block {{ position: absolute; left: 0; right: 0; top: 330px; text-align: center; }}
-      .kicker {{ font-family: var(--sans); font-weight: 700; font-size: 28px; letter-spacing: 0.42em; text-transform: uppercase; color: var(--gold); }}
-      .title {{ margin-top: 26px; font-family: var(--serif); font-style: italic; font-size: 150px; line-height: 0.95; color: var(--text); text-shadow: 0 6px 40px rgba(0,0,0,.5); }}
-      .title.small {{ font-size: 92px; }}
-      .callout {{ position: absolute; left: 610px; top: 760px; display: flex; align-items: center; }}
-      .callout .dot {{ width: 14px; height: 14px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 6px rgba(233,196,106,.25); }}
-      .callout .cl-line {{ width: 70px; height: 2px; background: var(--gold); transform-origin: 0 50%; }}
-      .callout .cl-text {{ margin-left: 16px; font-size: 26px; letter-spacing: 0.06em; line-height: 1.35; color: var(--text); text-shadow: 0 2px 12px rgba(0,0,0,.6); }}
-      .callout .cl-text b {{ font-family: var(--serif); font-style: italic; font-weight: 600; font-size: 40px; letter-spacing: 0; }}
-      .metric {{ position: absolute; left: 0; right: 0; top: 230px; text-align: center; }}
-      .metric .num {{ font-family: var(--serif); font-size: 230px; line-height: 0.9; color: var(--text); }}
-      .metric .unit {{ font-family: var(--serif); font-style: italic; font-size: 96px; color: var(--gold); margin-left: 12px; }}
-      .metric .lbl, .stat .lbl {{ margin-top: 18px; font-weight: 700; font-size: 28px; letter-spacing: 0.32em; text-transform: uppercase; color: rgba(241,236,226,.75); }}
-      .metric.big .num {{ font-size: 260px; }}
-      .pp {{ position: absolute; left: 110px; top: 560px; display: flex; align-items: center; gap: 26px; font-size: 30px; line-height: 1.35; color: rgba(241,236,226,.85); }}
-      .pp b {{ font-family: var(--serif); font-style: italic; font-size: 46px; color: var(--gold); font-weight: 600; }}
-      .thermo {{ position: absolute; left: 90px; right: 90px; top: 230px; }}
-      .t-head {{ font-weight: 700; font-size: 28px; letter-spacing: 0.32em; text-transform: uppercase; color: rgba(241,236,226,.8); text-align: center; }}
-      .t-bar {{ position: relative; margin-top: 34px; height: 26px; border-radius: 13px; overflow: visible; }}
-      .t-grad {{ position: absolute; inset: 0; border-radius: 13px; background: linear-gradient(90deg, #5aa9e6, #e9d8a6 50%, #ee6c3b); }}
-      .t-pivot {{ position: absolute; left: 50%; top: -14px; width: 2px; height: 54px; background: #f1ece2; opacity: .8; }}
-      .t-mark {{ position: absolute; left: 50%; top: -22px; width: 30px; height: 70px; margin-left: -15px; border-radius: 15px; border: 4px solid #f1ece2; box-shadow: 0 0 24px rgba(255,255,255,.35); }}
-      .t-labels {{ display: flex; justify-content: space-between; align-items: flex-start; margin-top: 30px; font-size: 28px; line-height: 1.35; color: rgba(241,236,226,.75); }}
-      .t-labels b {{ font-family: var(--serif); font-style: italic; font-size: 54px; color: var(--text); font-weight: 600; }}
-      .t-labels .mid {{ font-family: var(--serif); font-size: 46px; color: var(--gold); }}
-      .t-labels .warm {{ text-align: right; }}
-      .chip {{ position: absolute; left: 50%; top: 250px; transform: translateX(-50%); padding: 16px 34px; border: 2px solid var(--gold); border-radius: 999px; font-weight: 700; font-size: 32px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); background: rgba(2,6,13,.35); white-space: nowrap; }}
-      .stat {{ position: absolute; left: 0; right: 0; top: 520px; text-align: center; }}
-      .stat .one {{ display: block; font-family: var(--serif); font-size: 420px; line-height: 0.85; color: var(--text); }}
-      .stat .of {{ display: block; margin-top: 10px; font-family: var(--serif); font-style: italic; font-size: 88px; color: rgba(241,236,226,.85); }}
-      .stat .of b {{ color: var(--gold); font-weight: 600; }}
-      .endcard {{ position: absolute; left: 0; right: 0; top: 700px; text-align: center; }}
-      .endcard .kicker {{ margin-top: 26px; }}
-      .sub {{ position: absolute; left: 80px; right: 80px; top: 1600px; text-align: center; }}
-      .sub span {{ display: inline-block; padding: 10px 22px; font-family: var(--sans); font-weight: 600; font-size: 42px; line-height: 1.25; color: #fff; background: rgba(2,6,13,.55); border-radius: 10px; }}
+      /* one typographic system for every scene: label, gold rule, serif display, italic note */
+      .hud {{ position: absolute; left: 90px; right: 90px; top: 300px; text-align: center; }}
+      .lbl {{ font-family: var(--sans); font-weight: 600; font-size: 22px; letter-spacing: 0.34em; text-transform: uppercase; color: var(--mute); }}
+      .rule {{ width: 56px; height: 2px; margin: 26px auto 22px; background: var(--gold); transform-origin: 50% 50%; }}
+      .disp {{ font-family: var(--serif); font-weight: 400; color: var(--text); font-feature-settings: "lnum" 1; text-shadow: 0 4px 30px rgba(0,0,0,.35); }}
+      .disp i, .disp em {{ font-style: italic; color: var(--gold); }}
+      .ln {{ display: block; overflow: hidden; padding-bottom: 0.08em; }}
+      .ln > span {{ display: inline-block; }}
+      .hud.title .disp {{ font-size: 132px; line-height: 0.98; letter-spacing: -0.01em; }}
+      .hud.title .disp i {{ color: var(--text); }}
+      .hud.num .disp {{ font-size: 200px; line-height: 0.95; }}
+      .hud.num .disp em {{ font-size: 0.34em; margin-left: 0.18em; letter-spacing: 0.01em; }}
+      .hud.num.mid .disp {{ font-size: 132px; }}
+      .hud.num.mid .disp em {{ font-size: 0.5em; margin: 0 0.12em; }}
+      .note {{ margin: 26px auto 0; max-width: 760px; font-family: var(--serif); font-style: italic; font-size: 38px; line-height: 1.3; color: var(--mute); }}
+      .note em {{ color: var(--gold); font-style: italic; }}
+      .callout {{ position: absolute; left: 616px; top: 742px; display: flex; align-items: center; }}
+      .callout .dot {{ width: 12px; height: 12px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 6px rgba(214,179,106,.22); }}
+      .callout .cl-line {{ width: 64px; height: 2px; background: var(--gold); transform-origin: 0 50%; }}
+      .callout .cl-text {{ margin-left: 18px; }}
+      .callout .lbl {{ font-size: 18px; }}
+      .callout .nm {{ margin-top: 6px; font-family: var(--serif); font-style: italic; font-size: 40px; color: var(--text); text-shadow: 0 2px 14px rgba(0,0,0,.6); }}
+      .thermo .t-bar {{ position: relative; margin: 34px 40px 0; height: 14px; }}
+      .t-grad {{ position: absolute; inset: 0; border-radius: 7px; background: linear-gradient(90deg, #6aa6d6, #e6d6ad 50%, #e07848); opacity: .92; }}
+      .t-pivot {{ position: absolute; left: 50%; top: -12px; width: 1px; height: 38px; background: var(--text); opacity: .7; }}
+      .t-mark {{ position: absolute; left: 50%; top: -15px; width: 22px; height: 44px; margin-left: -11px; border-radius: 11px; border: 3px solid var(--text); background: rgba(2,6,13,.25); }}
+      .t-labels {{ display: flex; justify-content: space-between; align-items: flex-end; margin: 30px 40px 0; }}
+      .t-labels > span {{ display: flex; flex-direction: column; gap: 6px; }}
+      .t-labels small {{ font-family: var(--sans); font-weight: 600; font-size: 18px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--mute); }}
+      .t-labels i {{ font-family: var(--serif); font-size: 52px; color: var(--text); }}
+      .t-labels .mid {{ font-family: var(--serif); font-size: 44px; color: var(--gold); }}
+      .t-labels .cool {{ text-align: left; align-items: flex-start; }}
+      .t-labels .warm {{ text-align: right; align-items: flex-end; }}
+      .sub {{ position: absolute; left: 110px; right: 110px; top: 1626px; text-align: center; }}
+      .sub span {{ display: inline-block; font-family: var(--sans); font-weight: 500; font-size: 34px; line-height: 1.4; letter-spacing: 0.005em; color: rgba(255,255,255,.93); text-shadow: 0 2px 6px rgba(0,0,0,.55), 0 6px 24px rgba(0,0,0,.45); }}
+      #motes {{ position: absolute; inset: 0; pointer-events: none; }}
+      .chap {{ position: absolute; left: 90px; top: 192px; display: flex; align-items: center; gap: 14px; font-family: var(--sans); font-weight: 600; font-size: 17px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--mute); }}
+      .chap .n {{ font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 30px; letter-spacing: 0; color: var(--gold); }}
+      .chap .bar {{ width: 34px; height: 1px; background: var(--gold); opacity: .7; transform-origin: 0 50%; }}
+      #grade {{ position: absolute; inset: 0; pointer-events: none; mix-blend-mode: soft-light; background: linear-gradient(180deg, rgba(40,95,150,.38) 0%, rgba(0,0,0,0) 46%, rgba(214,150,80,.28) 100%); }}
+      .leak {{ position: absolute; inset: -10%; pointer-events: none; opacity: 0; mix-blend-mode: screen; background: radial-gradient(ellipse 55% 40% at 30% 40%, rgba(255,214,150,.55), rgba(255,170,90,.18) 45%, rgba(0,0,0,0) 70%); }}
       #grain {{ position: absolute; inset: -200px; opacity: 0.09; mix-blend-mode: overlay; pointer-events: none;
         background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='220' height='220' filter='url(%23n)'/></svg>"); }}
       #vignette {{ position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,.55) 100%); }}
@@ -450,12 +498,23 @@ page = f'''<!doctype html>
     <div id="root" data-composition-id="main" data-start="0" data-duration="{f(TOTAL)}" data-width="1080" data-height="1920">
 {"".join(html)}
 {chr(10).join(sub_html)}
+      <svg id="motes" width="1080" height="1920" viewBox="0 0 1080 1920">{''.join(f'<circle id="m{i}" cx="{rnd.uniform(0, 1080):.0f}" cy="{rnd.uniform(300, 2100):.0f}" r="{rnd.choice([1.5, 2, 2.5, 3.5])}" fill="#f3ead6" opacity="{rnd.uniform(0.08, 0.3):.2f}"/>' for i in range(36))}</svg>
+      <div id="grade"></div>
+      <div id="leak1" class="leak"></div>
+      <div id="leak2" class="leak"></div>
       <div id="grain"></div>
       <div id="vignette"></div>
       <div id="fade"></div>
 {AUDIO}    </div>
     <script>
       const tl = gsap.timeline({{ paused: true }});
+      const hudIn = (sel, t) => {{
+        tl.fromTo(sel + " .lbl", {{ opacity: 0, y: 10 }}, {{ opacity: 1, y: 0, duration: 0.9, ease: "power3.out" }}, t);
+        tl.fromTo(sel + " .rule", {{ scaleX: 0 }}, {{ scaleX: 1, duration: 0.8, ease: "expo.out" }}, t + 0.15);
+        tl.fromTo(sel + " .ln > span", {{ yPercent: 110 }}, {{ yPercent: 0, duration: 1.0, ease: "expo.out", stagger: 0.1 }}, t + 0.22);
+        tl.fromTo(sel + " .t-bar, " + sel + " .t-labels", {{ opacity: 0, y: 14 }}, {{ opacity: 1, y: 0, duration: 0.8, ease: "power3.out", stagger: 0.12 }}, t + 0.3);
+      }};
+      const hudOut = (sel, t) => tl.to(sel, {{ opacity: 0, y: -14, duration: 0.45, ease: "power2.in" }}, t);
 {chr(10).join(js)}
       window.__timelines["main"] = tl;
     </script>

@@ -43,8 +43,16 @@ music *= (1 - 0.55 * speak)[:, None]
 mix = np.zeros((n, 2), np.float32)
 mix += music * 0.55
 mix += load("assets/ocean.wav")[:n] * 0.9
-for tt in (6.6, 12.6, 31.3):
-    place(mix, load("assets/sfx/whoosh-soft.wav"), tt, 0.35)
-place(mix, load("assets/sfx/boom.wav"), 40.0, 0.5)
+# transitions: whoosh peaks in the middle of each blur dissolve
+for a0 in (6.4, 12.4, 18.0, 23.2, 31.2, 38.7):
+    place(mix, load("assets/sfx/transition.wav"), a0 - 0.75, 0.55)
+# a soft shimmer as each title/data block lands
+for t_in in (0.5, 14.76, 18.8, 26.34, 32.22, 39.88, 42.6):
+    place(mix, load("assets/sfx/shimmer.wav"), t_in + 0.15, 0.6)
+# counters tick while the numbers climb (60 cm, 100 eggs)
+for t0, t1, step in ((14.96, 16.56, 0.2), (19.0, 20.48, 0.16)):
+    for tt in np.arange(t0, t1, step):
+        place(mix, load("assets/sfx/tick.wav"), float(tt), 0.7)
+place(mix, load("assets/sfx/boom.wav"), 40.0, 0.55)
 mix += narr
 sf.write("build/soundtrack.wav", mix, SR, subtype="FLOAT")
