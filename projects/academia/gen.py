@@ -7,6 +7,10 @@ for id_, line, t, d in rows:
     t, d = float(t), float(d)
     a, b = sec.get(line, (t, t + d)); sec[line] = (min(a, t), t + d)
 cuts = [float(r[2]) for r in rows]
+if 'L2' not in sec:
+    # The opener is one continuous take: split its caption where the speaker moves on ("Vamos começar...").
+    a0, b0 = sec['L1']; mid = a0 + 6.5
+    sec['L1'], sec['L2'] = (a0, mid), (mid, b0)
 LINES = [
     ('L1', 'novidade na invictus', 'Olha só o que <span class="y">acabou de chegar!</span>'),
     ('L2', 'chegou', 'Um caminhão lotado de <span class="y">equipamentos novos</span>'),
@@ -30,7 +34,7 @@ for key, chip, text in LINES:
     js.append(f'      rise("#c-{key} .line", {f(a + 0.22)});')
     if key != 'CTA':
         js.append(f'      out("#c-{key}", {f(b - 0.25)});')
-    if key != 'L1':
+    if key not in ('L1', 'L2'):   # L2 starts mid-take, over the speaker
         A('whoosh', a - 0.22, 0.57, 0.5, 11)
     A('pop', a + 0.12, 0.72, 0.3, 13)
 R = sec['L6'][0]
@@ -71,9 +75,6 @@ page = f'''<!doctype html>
       </div>
       <div id="topfade"></div>
 {"".join(caps)}      <div id="flash" class="clip" data-start="{f(R - 0.1)}" data-duration="0.7" data-track-index="4"></div>
-
-      <!-- NARRATION (built by mix.py, never over the real speech) -->
-      <audio id="narration" class="clip" src="assets/narration.wav" data-start="0" data-duration="{f(total)}" data-volume="1" data-track-index="9"></audio>
 
       <!-- SOUND DESIGN -->
 {chr(10).join(snd)}
