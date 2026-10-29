@@ -76,8 +76,8 @@ if ($cli) {
 }
 
 Step '4/4  Skills do HyperFrames (globais, so para o Claude Code)'
-npx --yes skills add heygen-com/hyperframes --all -g -a claude-code
-if ($LASTEXITCODE -ne 0) { $failures.Add('npx skills add heygen-com/hyperframes --all -g -a claude-code falhou') }
+npx --yes skills add heygen-com/hyperframes --skill '*' -a claude-code -g -y
+if ($LASTEXITCODE -ne 0) { $failures.Add('npx skills add heygen-com/hyperframes (Claude Code, global) falhou') }
 
 Step 'Teste'
 foreach ($tool in 'ffmpeg', 'node', 'npx', 'git') {
