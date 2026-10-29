@@ -32,7 +32,7 @@ for key, chip, text in LINES:
         js.append(f'      out("#c-{key}", {f(b - 0.25)});')
     if key != 'L1':
         A('whoosh', a - 0.22, 0.57, 0.5, 11)
-    A('pop', a + 0.12, 0.72, 0.45, 13)
+    A('pop', a + 0.12, 0.72, 0.3, 13)
 R = sec['L6'][0]
 A('impact-bass-1', 0.05, 2.0, 0.5, 12)
 A('riser', R - 4.1, 4.15, 0.35, 14)
@@ -67,12 +67,15 @@ page = f'''<!doctype html>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="{f(total)}" data-width="1080" data-height="1920">
       <div id="cam">
-        <video id="base" class="clip" src="assets/base.mp4" data-has-audio="true" data-volume="0.35" playsinline data-start="0" data-duration="{f(total)}" data-track-index="0"></video>
+        <video id="base" class="clip" src="assets/base.mp4" data-has-audio="true" data-volume="1" playsinline data-start="0" data-duration="{f(total)}" data-track-index="0"></video>
       </div>
       <div id="topfade"></div>
 {"".join(caps)}      <div id="flash" class="clip" data-start="{f(R - 0.1)}" data-duration="0.7" data-track-index="4"></div>
 
-      <!-- SOUND DESIGN (narration track goes on its own <audio> when available) -->
+      <!-- NARRATION (built by mix.py, never over the real speech) -->
+      <audio id="narration" class="clip" src="assets/narration.wav" data-start="0" data-duration="{f(total)}" data-volume="1" data-track-index="9"></audio>
+
+      <!-- SOUND DESIGN -->
 {chr(10).join(snd)}
     </div>
     <script>
