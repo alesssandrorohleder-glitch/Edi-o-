@@ -29,8 +29,8 @@ SWEEP2 = (640, 676)
 LANCE = (684, 708)
 STRIKE = 796
 REST_GREEN = [round(880 + 50 * (k / 8) ** 0.5) for k in range(9)]
-CTA = 990
-HANDLE = 1092
+CTA = 1012
+HANDLE = 1150
 
 
 def sec(f):
