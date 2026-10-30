@@ -69,7 +69,7 @@ export const Savings: React.FC<Props> = ({ target }) => {
           lineHeight: 1,
           color: GREEN,
           fontVariantNumeric: "tabular-nums",
-          textShadow: `0 0 ${interpolate(frame, [land, land + 10], [110, 55], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })}px rgba(34, 197, 94, 0.55)`,
+          textShadow: "0 0 55px rgba(34, 197, 94, 0.45)",
           scale: frame < land
             ? interpolate(frame, [0, 10], [0.6, 1], {
                 extrapolateLeft: "clamp",

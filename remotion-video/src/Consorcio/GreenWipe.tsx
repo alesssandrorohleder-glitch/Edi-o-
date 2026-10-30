@@ -1,6 +1,6 @@
 import { AbsoluteFill, Easing, interpolate, useCurrentFrame } from "remotion";
 
-// A skewed green panel that sweeps bottom-to-top across the cut (16 frames, cut at frame 8).
+// A skewed dark-green panel that sweeps bottom-to-top across the cut (16 frames, cut at frame 8).
 export const GreenWipe: React.FC = () => {
   const frame = useCurrentFrame();
   return (
@@ -12,7 +12,7 @@ export const GreenWipe: React.FC = () => {
           right: -200,
           top: 0,
           height: 2600,
-          backgroundColor: "#22c55e",
+          backgroundColor: "#0c2416",
           rotate: "-8deg",
           translate: interpolate(frame, [0, 16], ["0px 2100px", "0px -2700px"], {
             extrapolateLeft: "clamp",
