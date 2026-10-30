@@ -19,10 +19,10 @@
    "id": "G3",
    "name": "end card hold, CTA share",
    "status": "FAIL",
-   "detail": "end hold 3.07 s > 1.40 s; no cuts: final-shot share not computed"
+   "detail": "end hold 3.00 s > 1.40 s; no cuts: final-shot share not computed"
   }
  ],
- "motion_mean_luma_diff": 0.25,
+ "motion_mean_luma_diff": 0.3,
  "human_band": {
   "median": 6.8,
   "q1": 4.4,
@@ -32,10 +32,10 @@
   "dur": 40.0,
   "audible": [
    0.4,
-   39.25
+   39.97
   ],
   "lead": 0.4,
-  "tail": 0.75,
+  "tail": 0.030000000000001137,
   "dropouts": [],
   "onsets": [
    0.39,
@@ -49,14 +49,12 @@
    4.59,
    4.79,
    4.96,
-   5.25,
    5.45,
    5.66,
    5.94,
    6.3500000000000005,
    6.74,
    7.24,
-   7.32,
    9.22,
    9.39,
    9.89,
@@ -111,13 +109,14 @@
    34.69,
    36.09,
    36.4,
-   37.12
+   37.12,
+   39.25
   ],
   "silent": false
  },
  "loudness": {
   "integrated_lufs": "-14.0",
-  "lra_lu": "4.2",
+  "lra_lu": "4.1",
   "true_peak_dbfs": "-1.5"
  }
 }
