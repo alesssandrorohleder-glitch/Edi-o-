@@ -1,5 +1,12 @@
 # NOTE: Thiago Idehara, convite para call (25 s)
 
+## Versão 2 (ajustes pedidos)
+- **Impressora:** o clique e o zumbido agudo de 1,2 kHz viraram um ruído suave de papel, cerca de 10 dB mais baixo.
+- **Letras em movimento:** a fita corre de forma contínua nos 60 meses, cada linha desliza com suavidade, o borrão direcional caiu para um terço e o grão ficou fixo e mais fraco.
+- **Foto:** enquadrada num quadrado. Os cantos foram completados com IA (LaMa, `fotos/thiago-enquadrado.png`) e a foto é impressa em tom contínuo, sem pontilhado, o que acabou com o efeito de tela de LED.
+- **Portões v2:** G0, G2 e G3 PASS (hold final de 1,20 s). Áudio em −14,7 LUFS, pico em −1,5 dBFS.
+
+
 **Arquivos:** `renders/thiago-call.mp4` (master, CRF 18) e `renders/thiago-call-instagram.mp4` (CRF 23, faststart, ~38 MB). O código está em `remotion-video/src/ThiagoCall/`.
 
 ## A ideia
