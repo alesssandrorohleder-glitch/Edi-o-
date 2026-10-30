@@ -28,7 +28,7 @@ const LANCE = [684, 708] as const; // "lance"
 const WIN3 = 1;
 const CASCADE = [880, 930] as const; // "todo mundo é contemplado"
 const CTA = [1012, 1064] as const; // "Agora"
-const HANDLE = 1150;
+const HANDLE = 1160;
 
 const REST = [0, 2, 3, 5, 6, 7, 8, 10, 11];
 const greenAt = (i: number) => {
