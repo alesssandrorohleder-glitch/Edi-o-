@@ -1,0 +1,2 @@
+# cuts from detected scene>=0.3 | scene>=0.12+structure | pixel spike (time s, frame, timecode, source)
+none
