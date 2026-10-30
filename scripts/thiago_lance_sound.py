@@ -152,9 +152,6 @@ for i, f in enumerate(range(8, tl["DURATION"] - 20, 30)):
 ball = tl["BALL"]
 ev("roll", roll(sec(ball[1] - ball[0])), sec(ball[0]), -12)
 ev("ballstop", tick(900, 0.12), sec(ball[1]), -14)
-feint = tl["FEINT"]
-ev("feint_down", swish(0.5, 200, 2500), sec(feint[0]), -18)
-ev("feint_up", swish(0.6, 200, 2500), sec(feint[0] + 30), -20)
 for i, span in enumerate([tl["WRITE_1"], tl["WRITE_2"]]):
     ev(f"pen{i}", scratch(sec(span[1] - span[0]) + 0.05), sec(span[0]), -20)
 ev("stamp_in", swish(0.8, 150, 2000), sec(tl["STAMP_IN"][0]), -18)

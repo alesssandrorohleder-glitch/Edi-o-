@@ -7,7 +7,6 @@ import {
   CARD,
   CHECK,
   DURATION,
-  FEINT,
   LIFT,
   PAN_TO_E2,
   PAN_TO_E3,
@@ -68,8 +67,8 @@ const CAM: ReadonlyArray<readonly [number, number, number, number]> = [
   [SLAM, 600, 2960, 1.0],
   [LIFT[1], 600, 2980, 1.04],
   [CARD[0], 600, 2980, 1.1],
-  [CARD[1], 600, 2160, 1.0],
-  [DURATION, 600, 2140, 1.03],
+  [CARD[1], 600, 2275, 0.93],
+  [DURATION, 600, 2265, 0.95],
 ];
 
 const camera = (t: number) => {
@@ -178,7 +177,7 @@ const penTip = (t: number) => {
   // Before writing: enters from bottom right to the first line's start.
   const start = l2w(LINES[0].x, LINES[0].y + HAND_SIZE * 0.78);
   if (t < LINES[0].span[0]) {
-    const p = interpolate(t, [LINES[0].span[0] - 16, LINES[0].span[0]], [0, 1], { ...clamp, easing: land });
+    const p = interpolate(t, [LINES[0].span[0] - 30, LINES[0].span[0]], [0, 1], { ...clamp, easing: land });
     return { x: interpolate(p, [0, 1], [start.x + 700, start.x]), y: interpolate(p, [0, 1], [start.y + 900, start.y]) };
   }
   for (let i = 0; i < LINES.length; i++) {
@@ -263,18 +262,6 @@ const Ball: React.FC<{ readonly t: number }> = ({ t }) => {
 
 // Stamp seen from above: height h (0 = on the paper) drives scale and shadow.
 const stampState = (t: number) => {
-  const feintPos = { x: 560, y: 1990 };
-  if (t >= FEINT[0] && t < FEINT[1]) {
-    const down = interpolate(t, [FEINT[0], FEINT[0] + 20], [0, 1], { ...clamp, easing: land });
-    const up = interpolate(t, [FEINT[0] + 30, FEINT[1]], [0, 1], { ...clamp, easing: Easing.in(Easing.cubic) });
-    return {
-      x: interpolate(down, [0, 1], [180, feintPos.x]) + up * 520,
-      y: interpolate(down, [0, 1], [1260, feintPos.y]) - up * 820,
-      h: interpolate(down, [0, 1], [1.4, 0.55]) + up * 1.1,
-      rot: 4,
-      on: true,
-    };
-  }
   if (t >= STAMP_IN[0] && t < LIFT[1]) {
     const arrive = interpolate(t, [STAMP_IN[0], STAMP_IN[1]], [0, 1], { ...clamp, easing: land });
     const creep = interpolate(t, [STAMP_IN[1], SLAM - 4], [0, 1], { ...clamp, easing: soft });
@@ -387,7 +374,7 @@ const StampMark: React.FC<{ readonly t: number }> = ({ t }) => {
 };
 
 const CARD_W = 780;
-const CARD_H = 1340;
+const CARD_H = 1260;
 const Card: React.FC<{ readonly t: number }> = ({ t }) => {
   if (t < CARD[0]) return null;
   const p = interpolate(t, [CARD[0], CARD[1]], [0, 1], { ...clamp, easing: Easing.inOut(Easing.cubic) });
@@ -414,11 +401,11 @@ const Card: React.FC<{ readonly t: number }> = ({ t }) => {
         <div style={{ ...line, top: 56 }}>Qual é a sua hora?</div>
         <Img
           src={staticFile("thiago2/thiago.png")}
-          style={{ position: "absolute", left: 50, top: 160, width: CARD_W - 100, height: CARD_W - 100, borderRadius: 4, outline: `3px solid ${INK}`, outlineOffset: 8 }}
+          style={{ position: "absolute", left: 90, top: 160, width: CARD_W - 180, height: CARD_W - 180, borderRadius: 4, outline: `3px solid ${INK}`, outlineOffset: 8 }}
         />
-        <div style={{ ...line, top: 880 }}>{"Eu te mostro\nnuma call."}</div>
-        <div style={{ ...line, top: 1040 }}>Me chama no direct.</div>
-        <div style={{ ...line, top: 1150, fontFamily: FONT, fontWeight: 800, fontSize: 52 }}>
+        <div style={{ ...line, top: 800 }}>{"Eu te mostro\nnuma call."}</div>
+        <div style={{ ...line, top: 960 }}>Me chama no direct.</div>
+        <div style={{ ...line, top: 1070, fontFamily: FONT, fontWeight: 800, fontSize: 52 }}>
           @thiagoidehara_invest
           <svg width={56} height={56} viewBox="0 0 24 24" style={{ display: "inline-block", verticalAlign: "-0.15em", marginLeft: 12 }}>
             <path d="M4 12.5l5 5L20 6.5" fill="none" stroke={GREEN} strokeWidth={2.6} strokeLinecap="round" strokeLinejoin="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - check} />
@@ -438,7 +425,7 @@ export const ThiagoLance: React.FC = () => {
   const ty = H / 2 - cam.y * cam.s + shake;
   const squash = t >= SLAM ? interpolate(t, [SLAM, SLAM + 2, SLAM + 9], [0.986, 0.992, 1], clamp) : 1;
   const tip = penTip(t);
-  const penOn = t >= LINES[0].span[0] - 16 && t < PEN_OUT[1];
+  const penOn = t >= LINES[0].span[0] - 30 && t < PEN_OUT[1];
   const breathe = 1 + 0.04 * Math.sin(t / 22);
 
   return (
