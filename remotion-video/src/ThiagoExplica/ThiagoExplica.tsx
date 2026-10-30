@@ -47,7 +47,7 @@ const ring = (t: number) => {
     y: interpolate(p, [0, 1], [1250, 1170]),
     r: interpolate(p, [0, 1], [390, 330]),
     tok: interpolate(p, [0, 1], [64, 34]),
-    spin: t > CTA[0] ? (t - CTA[0]) * 0.12 : 0,
+    spin: t > CTA[0] ? (t - CTA[0]) * 0.4 : 0,
     p,
   };
 };
@@ -336,7 +336,18 @@ export const ThiagoExplica: React.FC = () => {
             boxShadow: "0 40px 60px rgba(70,50,25,0.28)",
           }}
         >
-          <Img src={staticFile("thiago3/thiago.png")} style={{ position: "absolute", left: -220, top: -115, width: 760, height: 760 }} />
+          <Img
+            src={staticFile("thiago3/thiago.png")}
+            style={{
+              position: "absolute",
+              left: -220,
+              top: -115,
+              width: 760,
+              height: 760,
+              transformOrigin: "490px 330px",
+              transform: `scale(${interpolate(t, [CTA[1], DURATION], [1, 1.07], clamp)})`,
+            }}
+          />
         </div>
       ) : null}
 

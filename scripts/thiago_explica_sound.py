@@ -104,7 +104,7 @@ music = np.zeros(N)
 chords = [[174.6, 220.0, 261.6, 329.6], [220.0, 261.6, 329.6, 392.0], [146.8, 220.0, 261.6, 329.6], [116.5, 174.6, 233.1, 293.7]]
 bar = 0
 t0 = 0.4
-while t0 < DUR - 1.5:
+while t0 < DUR:
     c = chords[bar % 4]
     add(music, t0, rhodes(c, beat * 4), 0.55)
     add(music, t0, tone(c[0] / 2, beat * 4, 1.2, (1, 0.3)), 0.35)
