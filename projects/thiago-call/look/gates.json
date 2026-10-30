@@ -1,0 +1,78 @@
+{
+ "film": "renders/thiago-call.mp4",
+ "duration": 25.003,
+ "fps": 30.0,
+ "gates": [
+  {
+   "id": "G0",
+   "name": "render exists",
+   "status": "PASS",
+   "detail": "duration 25.00 s matches --expect 25.00 s; audio stream present"
+  },
+  {
+   "id": "G2",
+   "name": "no empty frame",
+   "status": "PASS",
+   "detail": "no run of > 3 flat frames"
+  },
+  {
+   "id": "G3",
+   "name": "end card hold, CTA share",
+   "status": "PASS",
+   "detail": "end hold 0.00 s: ends mid-motion (NOTE: fine when intended); no cuts: final-shot share not computed"
+  }
+ ],
+ "motion_mean_luma_diff": 2.02,
+ "human_band": {
+  "median": 6.8,
+  "q1": 4.4,
+  "q3": 9.8
+ },
+ "audio": {
+  "dur": 25.003,
+  "audible": [
+   0.04,
+   24.73
+  ],
+  "lead": 0.04,
+  "tail": 0.2729999999999997,
+  "dropouts": [
+   [
+    13.85,
+    14.13
+   ]
+  ],
+  "onsets": [
+   0.19,
+   3.79,
+   4.4,
+   4.99,
+   5.59,
+   6.19,
+   6.79,
+   7.390000000000001,
+   7.99,
+   8.59,
+   9.19,
+   9.63,
+   10.22,
+   10.52,
+   11.13,
+   11.73,
+   14.120000000000001,
+   16.45,
+   16.990000000000002,
+   18.990000000000002,
+   20.19,
+   21.39,
+   22.59,
+   23.79
+  ],
+  "silent": false
+ },
+ "loudness": {
+  "integrated_lufs": "-14.2",
+  "lra_lu": "7.7",
+  "true_peak_dbfs": "-1.0"
+ }
+}
