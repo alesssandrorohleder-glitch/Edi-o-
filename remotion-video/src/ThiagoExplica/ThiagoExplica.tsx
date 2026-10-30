@@ -336,7 +336,7 @@ export const ThiagoExplica: React.FC = () => {
             boxShadow: "0 40px 60px rgba(70,50,25,0.28)",
           }}
         >
-          <Img src={staticFile("thiago3/thiago.png")} style={{ position: "absolute", left: -220, top: -40, width: 760, height: 760 }} />
+          <Img src={staticFile("thiago3/thiago.png")} style={{ position: "absolute", left: -220, top: -115, width: 760, height: 760 }} />
         </div>
       ) : null}
 
