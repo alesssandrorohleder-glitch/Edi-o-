@@ -44,9 +44,9 @@ const ring = (t: number) => {
   const p = interpolate(t, [CTA[0], CTA[1]], [0, 1], { ...clamp, easing: soft });
   return {
     x: 540,
-    y: interpolate(p, [0, 1], [1250, 1170]),
-    r: interpolate(p, [0, 1], [390, 330]),
-    tok: interpolate(p, [0, 1], [64, 34]),
+    y: interpolate(p, [0, 1], [1250, 990]),
+    r: interpolate(p, [0, 1], [390, 370]),
+    tok: interpolate(p, [0, 1], [64, 38]),
     spin: t > CTA[0] ? (t - CTA[0]) * 0.4 : 0,
     p,
   };
@@ -273,7 +273,7 @@ export const ThiagoExplica: React.FC = () => {
   const win1 = tokens[WIN1];
   const lanceTok = tokens[WIN3];
 
-  const photoR = interpolate(t, [CTA[0] + 10, CTA[1]], [0, 270], { ...clamp, easing: land });
+  const photoR = interpolate(t, [CTA[0] + 10, CTA[1]], [0, 300], { ...clamp, easing: land });
   const handleP = interpolate(t, [HANDLE, HANDLE + 9], [0, 1], { ...clamp, easing: land });
   const heroGlow = interpolate(t, [CASCADE[1], CASCADE[1] + 10, CTA[0]], [0, 1, 0.4], clamp);
 
@@ -326,10 +326,10 @@ export const ThiagoExplica: React.FC = () => {
         <div
           style={{
             position: "absolute",
-            left: R.x - 270,
-            top: R.y - 270,
-            width: 540,
-            height: 540,
+            left: R.x - 300,
+            top: R.y - 300,
+            width: 600,
+            height: 600,
             borderRadius: "50%",
             overflow: "hidden",
             clipPath: `circle(${photoR}px at 50% 50%)`,
@@ -340,11 +340,11 @@ export const ThiagoExplica: React.FC = () => {
             src={staticFile("thiago3/thiago.png")}
             style={{
               position: "absolute",
-              left: -220,
-              top: -115,
-              width: 760,
-              height: 760,
-              transformOrigin: "490px 330px",
+              left: -244,
+              top: -44,
+              width: 844,
+              height: 844,
+              transformOrigin: "544px 330px",
               transform: `scale(${interpolate(t, [CTA[1], DURATION], [1, 1.07], clamp)})`,
             }}
           />
@@ -363,7 +363,7 @@ export const ThiagoExplica: React.FC = () => {
         const next = i >= last - 1 ? undefined : CAPTIONS[i + 1];
         if (t < c.start - 2) return null;
         if (next && t > next.start) return null;
-        return <CaptionBlock key={i} c={c} end={next ? next.start : null} t={t} top={i === last ? 1560 : capTop} size={i === last ? 64 : 84} />;
+        return <CaptionBlock key={i} c={c} end={next ? next.start : null} t={t} top={i === last ? 1440 : capTop} size={i === last ? 64 : 84} />;
       })}
 
       <div
@@ -371,7 +371,7 @@ export const ThiagoExplica: React.FC = () => {
           position: "absolute",
           left: 0,
           right: 0,
-          top: 1680,
+          top: 1550,
           textAlign: "center",
           fontFamily: FONT,
           fontWeight: 600,
