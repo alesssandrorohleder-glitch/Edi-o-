@@ -144,7 +144,7 @@ def pluck(freq, length=1.6):
     x = sum(np.sin(2 * np.pi * freq * k * t) * np.exp(-t * (2 + k * 1.5)) / k for k in range(1, 6))
     return x * env(n, 0.004, 0.3)
 
-for f, hz in [(576, 440.0), (636, 554.4), (684, 659.3)]:
+for f, hz in [(576, 440.0), (644, 554.4), (680, 659.3)]:
     add(music, sec(f), pluck(hz), 0.35)
 
 write(f"{out}/music.wav", music)

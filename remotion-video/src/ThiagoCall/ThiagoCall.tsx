@@ -62,9 +62,10 @@ const CAM: ReadonlyArray<readonly [number, number, number]> = [
   [486, 1.17, 260],
   [514, 1.3, 150],
   [548, 1.3, 210],
-  [600, 1.26, 300],
-  [722, 1.24, 400],
-  [DURATION, 1.24, 400],
+  [596, 1.26, 300],
+  [640, 1.1, 560],
+  [718, 1.08, 720],
+  [DURATION, 1.08, 720],
 ];
 
 const camera = (t: number) => {
@@ -143,6 +144,13 @@ const PrintedLine: React.FC<{ readonly line: Line; readonly t: number }> = ({ li
         </>
       );
     }
+    case "photo":
+      return (
+        <Img
+          src={staticFile("thiago/portrait.png")}
+          style={{ position: "absolute", left: (TAPE_W - 520) / 2, top: 20, width: 520, height: 520, imageRendering: "pixelated" }}
+        />
+      );
     case "handle": {
       const check = interpolate(t, [line.at + 12, line.at + 24], [0, 1], { ...clamp, easing: Easing.out(Easing.cubic) });
       return (

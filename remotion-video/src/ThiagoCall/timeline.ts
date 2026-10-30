@@ -1,7 +1,7 @@
 // Every printed line on the tape. `at` is the frame the printer starts feeding it;
 // the same numbers drive the sound (scripts/thiago_sound.py reads timeline.json, written by dump-timeline).
 
-export type Kind = "blank" | "item" | "big" | "stream" | "rule" | "total" | "handle";
+export type Kind = "blank" | "item" | "big" | "stream" | "rule" | "total" | "photo" | "handle";
 
 export type Line = {
   readonly kind: Kind;
@@ -70,10 +70,12 @@ export const SEGMENT_B: Line[] = [
   big(540, "Ela fecha diferente."),
   blank(568, 40),
   big(576, "Eu faço essa conta\ncom você."),
-  big(636, "Me chama no direct."),
-  blank(676, 20),
-  { kind: "handle", at: 684, h: 130, dur: 10, text: "@thiagoidehara_invest" },
-  blank(700, 70),
+  // Thiago's portrait, printed like any other line: it emerges from the slot row by row.
+  { kind: "photo", at: 598, h: 560, dur: 34 },
+  big(644, "Me chama no direct."),
+  blank(672, 20),
+  { kind: "handle", at: 680, h: 130, dur: 10, text: "@thiagoidehara_invest" },
+  blank(696, 70),
 ];
 
 // Paper already out of the printer when the film starts.
