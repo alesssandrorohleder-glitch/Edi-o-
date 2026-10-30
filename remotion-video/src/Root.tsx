@@ -12,7 +12,7 @@ export const RemotionRoot: React.FC = () => {
         fps={30}
         width={1080}
         height={1920}
-        defaultProps={{ economia: 87000 }}
+        defaultProps={{ economia: 87000, instagram: "@thiagoidehara_invest" }}
       />
       <MyComposition />
     </>
