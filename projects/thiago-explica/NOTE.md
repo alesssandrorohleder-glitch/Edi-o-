@@ -14,7 +14,8 @@ Uma roda de 12 esferas (o grupo) em volta de um pote (o fundo comum). É um diag
 ## Real e ilustrativo
 - **Real:** a foto (com o espaço acima da cabeça completado com IA, LaMa), o @ e os fatos gerais de consórcio (parcela, fundo comum, sorteio e lance, sem juros com taxa de administração, todos contemplados até o fim do grupo).
 - **Ilustrativo:** o grupo de 12 pessoas e o nível do pote. Não há valores nem prazos.
-- **Narração:** Kokoro pt-BR (voz pm_alex), sintetizada e não é a voz do Thiago. Por isso fala dele na terceira pessoa ("Chama o Thiago no direct"). Conferida com o Whisper, que transcreveu as 9 frases iguais ao roteiro.
+- **Narração (v2):** Piper, voz `pt_BR-cadu-medium`, treinada com um locutor brasileiro nativo. Substituiu a Kokoro, que tinha sotaque estrangeiro. Cada frase foi gerada até 6 vezes e ficou a versão que o Whisper transcreveu exatamente igual ao roteiro (9 de 9). A frase 1 virou "Como funciona o consórcio?" e a 5 ganhou pausas, para a pronúncia sair limpa. A voz é sintética e não é a do Thiago, por isso fala dele na terceira pessoa.
+- **Sincronia:** os eventos do diagrama foram realinhados às palavras da voz nova.
 
 ## Portões (`look.py`)
 - **G0, G2 e G3:** PASS. Hold final de 1,20 s.

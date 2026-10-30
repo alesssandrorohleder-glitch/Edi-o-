@@ -21,14 +21,14 @@ rng = np.random.default_rng(9)
 
 DROP_LAND = 42
 SPREAD = 128
-POOL_IN = 176
-COIN_AT = 300
+POOL_IN = 186
+COIN_AT = 312
 SWEEP1 = (462, 510)
-CARD = 540
-SWEEP2 = (640, 676)
-LANCE = (684, 708)
+CARD = 556
+SWEEP2 = (636, 672)
+LANCE = (697, 721)
 STRIKE = 796
-REST_GREEN = [round(880 + 50 * (k / 8) ** 0.5) for k in range(9)]
+REST_GREEN = [round(890 + 51 * (k / 8) ** 0.5) for k in range(9)]
 CTA = 1012
 HANDLE = 1160
 

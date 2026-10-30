@@ -17,16 +17,16 @@ const land = Easing.bezier(0.16, 1, 0.3, 1);
 // ---------- events (frames), anchored to the spoken words ----------
 const DROP = [26, 42] as const; // "consórcio"
 const SPREAD = 128; // "grupo"
-const POOL_IN = [176, 204] as const; // "objetivo"
-const COIN_AT = 300; // "paga"
+const POOL_IN = [186, 214] as const; // "objetivo"
+const COIN_AT = 312; // "paga"
 const SWEEP1 = [462, 510] as const; // lands on "contemplado"
 const WIN1 = 4;
-const CARD = [540, 586] as const; // "carta de crédito"
-const SWEEP2 = [640, 676] as const; // "sorteio"
+const CARD = [556, 602] as const; // "carta de crédito"
+const SWEEP2 = [636, 672] as const; // "sorteio"
 const WIN2 = 9;
-const LANCE = [684, 708] as const; // "lance"
+const LANCE = [697, 721] as const; // "lance"
 const WIN3 = 1;
-const CASCADE = [880, 930] as const; // "todo mundo é contemplado"
+const CASCADE = [890, 941] as const; // "todo mundo é contemplado"
 const CTA = [1012, 1064] as const; // "Agora"
 const HANDLE = 1160;
 
