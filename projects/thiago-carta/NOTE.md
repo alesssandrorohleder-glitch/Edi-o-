@@ -1,5 +1,11 @@
 # NOTE: "A hora do lance" (25 s)
 
+## Versão 2
+- **Carimbo:** não passa mais pelo envelope do sorteio. O sorteio também contempla, então a desistência do carimbo sugeria algo falso. Agora ele aparece uma vez só, no lance.
+- **Caneta:** entra durante o movimento da câmera, e a etiqueta nunca fica vazia e parada.
+- **Final:** mais aberto e com o cartão mais curto, para o CONTEMPLADA ficar inteiro no quadro.
+- **Portões:** G0, G2 e G3 PASS (hold final de 1,40 s, no limite). −14,0 LUFS, pico em −1,5 dBTP.
+
 **Arquivos:** `renders/thiago-lance-instagram.mp4` (CRF 23, ~22 MB) e `renders/thiago-lance.mp4` (master, CRF 18). O código está em `remotion-video/src/ThiagoLance/` e o som em `scripts/thiago_lance_sound.py`.
 
 ## A ideia

@@ -19,10 +19,10 @@
    "id": "G3",
    "name": "end card hold, CTA share",
    "status": "PASS",
-   "detail": "end hold 0.93 s (0.6-1.4); no cuts: final-shot share not computed"
+   "detail": "end hold 1.40 s (0.6-1.4); no cuts: final-shot share not computed"
   }
  ],
- "motion_mean_luma_diff": 3.2,
+ "motion_mean_luma_diff": 2.84,
  "human_band": {
   "median": 6.8,
   "q1": 4.4,
@@ -76,7 +76,7 @@
  },
  "loudness": {
   "integrated_lufs": "-14.0",
-  "lra_lu": "6.1",
-  "true_peak_dbfs": "-1.4"
+  "lra_lu": "6.5",
+  "true_peak_dbfs": "-1.5"
  }
 }
