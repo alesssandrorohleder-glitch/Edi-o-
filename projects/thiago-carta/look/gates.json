@@ -1,0 +1,82 @@
+{
+ "film": "renders/thiago-lance.mp4",
+ "duration": 25.003,
+ "fps": 30.0,
+ "gates": [
+  {
+   "id": "G0",
+   "name": "render exists",
+   "status": "PASS",
+   "detail": "duration 25.00 s matches --expect 25.00 s; audio stream present"
+  },
+  {
+   "id": "G2",
+   "name": "no empty frame",
+   "status": "PASS",
+   "detail": "no run of > 3 flat frames"
+  },
+  {
+   "id": "G3",
+   "name": "end card hold, CTA share",
+   "status": "PASS",
+   "detail": "end hold 0.93 s (0.6-1.4); no cuts: final-shot share not computed"
+  }
+ ],
+ "motion_mean_luma_diff": 3.2,
+ "human_band": {
+  "median": 6.8,
+  "q1": 4.4,
+  "q3": 9.8
+ },
+ "audio": {
+  "dur": 25.003,
+  "audible": [
+   0.01,
+   24.8
+  ],
+  "lead": 0.01,
+  "tail": 0.2029999999999994,
+  "dropouts": [
+   [
+    14.36,
+    15.26
+   ],
+   [
+    15.36,
+    15.66
+   ]
+  ],
+  "onsets": [
+   0.08,
+   3.99,
+   5.19,
+   5.79,
+   6.390000000000001,
+   7.0,
+   7.6000000000000005,
+   8.19,
+   8.790000000000001,
+   9.39,
+   9.99,
+   10.59,
+   11.19,
+   11.790000000000001,
+   12.39,
+   12.99,
+   14.25,
+   15.25,
+   15.65,
+   19.12,
+   19.59,
+   21.13,
+   23.0,
+   23.93
+  ],
+  "silent": false
+ },
+ "loudness": {
+  "integrated_lufs": "-14.0",
+  "lra_lu": "6.1",
+  "true_peak_dbfs": "-1.4"
+ }
+}
