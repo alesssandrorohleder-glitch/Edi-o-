@@ -25,9 +25,9 @@ const big = (at: number, text: string): Line => ({
   at,
   text,
   h: text.split("\n").length * 74 + 46,
-  dur: 10,
+  dur: 16,
 });
-const item = (at: number, text: string, check = false): Line => ({ kind: "item", at, text, h: 76, dur: 7, check });
+const item = (at: number, text: string, check = false): Line => ({ kind: "item", at, text, h: 76, dur: 12, check });
 const blank = (at: number, h: number): Line => ({ kind: "blank", at, h, dur: 8 });
 
 // 60 monthly lines, accelerating: the gap between lines shrinks as the tape runs.
@@ -38,7 +38,7 @@ const stream: Line[] = Array.from({ length: 60 }, (_, i) => {
     kind: "stream" as const,
     at,
     h: 60,
-    dur: Math.max(1, Math.min(6, next - at)),
+    dur: Math.max(1, next - at),
     text: `mês ${String(i + 1).padStart(2, "0")}   parcela + juros`,
   };
 });
@@ -60,7 +60,7 @@ export const SEGMENT_A: Line[] = [
   blank(272, 30),
   ...stream,
   { kind: "rule", at: 400, h: 44, dur: 3 },
-  { kind: "total", at: 403, h: 270, dur: 10, text: "Total ......" },
+  { kind: "total", at: 403, h: 270, dur: 14, text: "Total ......" },
 ];
 
 // Segment B: the clean tape after the tear.
@@ -71,10 +71,10 @@ export const SEGMENT_B: Line[] = [
   blank(568, 40),
   big(576, "Eu faço essa conta\ncom você."),
   // Thiago's portrait, printed like any other line: it emerges from the slot row by row.
-  { kind: "photo", at: 598, h: 560, dur: 34 },
+  { kind: "photo", at: 594, h: 670, dur: 42 },
   big(644, "Me chama no direct."),
   blank(672, 20),
-  { kind: "handle", at: 680, h: 130, dur: 10, text: "@thiagoidehara_invest" },
+  { kind: "handle", at: 680, h: 130, dur: 14, text: "@thiagoidehara_invest" },
   blank(696, 70),
 ];
 

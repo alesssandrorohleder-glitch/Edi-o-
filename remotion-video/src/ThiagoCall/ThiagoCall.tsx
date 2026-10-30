@@ -30,8 +30,18 @@ const easeOut = Easing.bezier(0.16, 1, 0.3, 1);
 const soft = Easing.bezier(0.45, 0, 0.15, 1);
 
 // How much paper a list of lines has pushed out of the slot at frame t.
+// Stream and photo lines feed at a constant speed (one continuous run); the rest glide in and out.
 const fed = (lines: Line[], t: number) =>
-  lines.reduce((sum, l) => sum + l.h * interpolate(t, [l.at, l.at + l.dur], [0, 1], { ...clamp, easing: Easing.out(Easing.cubic) }), 0);
+  lines.reduce(
+    (sum, l) =>
+      sum +
+      l.h *
+        interpolate(t, [l.at, l.at + l.dur], [0, 1], {
+          ...clamp,
+          easing: l.kind === "stream" || l.kind === "photo" ? Easing.linear : Easing.inOut(Easing.sin),
+        }),
+    0,
+  );
 
 const tops = (lines: Line[]) => {
   let y = 0;
@@ -64,8 +74,8 @@ const CAM: ReadonlyArray<readonly [number, number, number]> = [
   [548, 1.3, 210],
   [596, 1.26, 300],
   [640, 1.1, 560],
-  [718, 1.08, 720],
-  [DURATION, 1.08, 720],
+  [718, 1.06, 750],
+  [DURATION, 1.06, 750],
 ];
 
 const camera = (t: number) => {
@@ -148,7 +158,16 @@ const PrintedLine: React.FC<{ readonly line: Line; readonly t: number }> = ({ li
       return (
         <Img
           src={staticFile("thiago/portrait.png")}
-          style={{ position: "absolute", left: (TAPE_W - 520) / 2, top: 20, width: 520, height: 520, imageRendering: "pixelated" }}
+          style={{
+            position: "absolute",
+            left: (TAPE_W - 600) / 2,
+            top: 24,
+            width: 600,
+            height: 600,
+            mixBlendMode: "multiply",
+            outline: `3px solid ${INK}`,
+            outlineOffset: 10,
+          }}
         />
       );
     case "handle": {
@@ -271,7 +290,7 @@ export const ThiagoCall: React.FC = () => {
   const torn = t >= TEAR;
 
   const tapeTop = HEAD - F;
-  const blur = Math.min(Math.abs(v) * s * 0.42, 38);
+  const blur = Math.min(Math.abs(v) * s * 0.12, 10);
   const breathe = 1 + 0.04 * Math.sin(t / 22);
 
   return (
@@ -351,10 +370,10 @@ export const ThiagoCall: React.FC = () => {
       <AbsoluteFill style={{ background: "radial-gradient(ellipse 85% 75% at 62% 38%, rgba(0,0,0,0) 35%, rgba(0,0,0,0.62) 100%)" }} />
       <AbsoluteFill
         style={{
-          backgroundImage: `url(${staticFile(`thiago/grain${t % 4}.png`)})`,
+          backgroundImage: `url(${staticFile("thiago/grain0.png")})`,
           backgroundSize: "512px 512px",
           mixBlendMode: "overlay",
-          opacity: 0.32,
+          opacity: 0.16,
         }}
       />
 

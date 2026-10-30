@@ -151,13 +151,14 @@ write(f"{out}/music.wav", music)
 
 
 # --- SFX
-def printer(length):
+def printer(length, rate=55):
+    """Soft thermal-printer purr: muffled paper-feed noise with a gentle stepper flutter, no tonal whine."""
     n = int(length * SR)
     t = np.arange(n) / SR
-    steps = (np.sin(2 * np.pi * 260 * t) > 0.6).astype(float)
-    clicks = highpass(rng.normal(0, 1, n), 2500) * steps
-    whine = np.sign(np.sin(2 * np.pi * 1180 * t)) * 0.08
-    return (clicks * 0.6 + lowpass(whine, 4000)) * env(n, 0.005, 0.03)
+    flutter = 0.75 + 0.25 * np.sin(2 * np.pi * rate * t)
+    body = highpass(lowpass(rng.normal(0, 1, n), 1800), 250) * flutter
+    motor = np.sin(2 * np.pi * 95 * t) * 0.25
+    return (body + motor) * env(n, 0.04, 0.08)
 
 
 def tear(length=0.55):
@@ -195,16 +196,18 @@ for seg in ("A", "B"):
         if name not in lengths:
             write(f"{out}/sfx/{name}", printer(d))
             lengths[name] = d
-        events.append({"t": round(sec(line["at"]), 3), "sfx": f"sfx/{name}", "gain": -14 if line["kind"] == "item" else -12})
+        events.append({"t": round(sec(line["at"]), 3), "sfx": f"sfx/{name}", "gain": -24 if line["kind"] == "item" else -21})
 
 # The stream: one continuous chatter that speeds up.
 n = int(sec(398 - 280) * SR)
 t = np.arange(n) / SR
-rate = 260 + 900 * (t / t[-1]) ** 1.5
-steps = (np.sin(2 * np.pi * np.cumsum(rate) / SR) > 0.5).astype(float)
-chat = highpass(rng.normal(0, 1, n), 2500) * steps * 0.7 + lowpass(np.sign(np.sin(2 * np.pi * np.cumsum(1100 + 500 * t / t[-1]) / SR)), 4000) * 0.08
-write(f"{out}/sfx/stream.wav", chat * env(n, 0.05, 0.004))
-events.append({"t": sec(280), "sfx": "sfx/stream.wav", "gain": -10})
+# The stream: the same soft purr, brightening a little as the tape speeds up.
+ramp = (t / t[-1]) ** 1.5
+noise = rng.normal(0, 1, n)
+chat = highpass(lowpass(noise, 1600), 250) * (1 - ramp) + highpass(lowpass(noise, 3200), 300) * ramp * 0.8
+chat *= 0.8 + 0.2 * np.sin(2 * np.pi * np.cumsum(55 + 60 * ramp) / SR)
+write(f"{out}/sfx/stream.wav", chat * env(n, 0.3, 0.004))
+events.append({"t": sec(280), "sfx": "sfx/stream.wav", "gain": -19})
 
 write(f"{out}/sfx/key.wav", key())
 write(f"{out}/sfx/tear.wav", tear())
