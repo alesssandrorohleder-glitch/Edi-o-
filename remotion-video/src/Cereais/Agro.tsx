@@ -90,7 +90,23 @@ const Steps: React.FC<{ readonly n: number }> = ({ n }) => (
   </div>
 );
 
-const DataScene: React.FC<{ readonly n?: number; readonly children: React.ReactNode; readonly svg?: React.ReactNode; readonly from?: string }> = ({ n, children, svg, from = C.brand }) => (
+// "Where" badge so every figure states its scope (Brasil or RS).
+const Place: React.FC<{ readonly text: string }> = ({ text }) => {
+  const frame = useCurrentFrame();
+  return (
+    <div style={{ position: "absolute", top: 232, left: 0, right: 0, display: "flex", justifyContent: "center", opacity: interpolate(frame, [0, 12], [0, 1], CLAMP) }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 24px 10px 18px", borderRadius: 999, backgroundColor: C.white, color: C.deep, fontFamily: BODY, fontWeight: 700, fontSize: 28, letterSpacing: "0.12em" }}>
+        <svg width="26" height="32" viewBox="0 0 24 30">
+          <path d="M12 0C5.4 0 0 5.2 0 11.7 0 20.4 12 30 12 30s12-9.6 12-18.3C24 5.2 18.6 0 12 0Z" fill={C.brand} />
+          <circle cx="12" cy="11.5" r="4.5" fill={C.white} />
+        </svg>
+        {text}
+      </div>
+    </div>
+  );
+};
+
+const DataScene: React.FC<{ readonly n?: number; readonly place?: string; readonly children: React.ReactNode; readonly svg?: React.ReactNode; readonly from?: string }> = ({ n, place, children, svg, from = C.brand }) => (
   <AbsoluteFill>
     <BrandBg from={from} to={C.deep} />
     <Svg>
@@ -98,6 +114,7 @@ const DataScene: React.FC<{ readonly n?: number; readonly children: React.ReactN
       {svg}
     </Svg>
     {n !== undefined && <Steps n={n} />}
+    {place !== undefined && <Place text={place} />}
     {children}
   </AbsoluteFill>
 );
@@ -126,7 +143,7 @@ const Gancho: React.FC = () => {
         <Kicker text="PANORAMA DO AGRO" delay={20} />
         <Title text="Os números que movem o campo" size={104} align="center" accentWords={["campo"]} delay={26} />
         <Body delay={50} size={40}>
-          Soja, milho e trigo: o que você precisa saber.
+          Soja, milho e trigo no Brasil e no RS: o que você precisa saber.
         </Body>
       </Stack>
     </DataScene>
@@ -148,6 +165,7 @@ const Safra: React.FC = () => {
   return (
     <DataScene
       n={1}
+      place="BRASIL"
       svg={
         <g transform="translate(540 1080) rotate(-90)">
           <circle r={R} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth={64} />
@@ -161,8 +179,8 @@ const Safra: React.FC = () => {
         </g>
       }
     >
-      <Stack top={260} gap={22}>
-        <Kicker text="SAFRA DE GRÃOS 2025/26" delay={4} />
+      <Stack top={320} gap={22}>
+        <Kicker text="SAFRA BRASILEIRA 2025/26" delay={4} />
         <Big value={dec(value)} unit={"milhões\nde toneladas"} />
         <Chip text="▲ RECORDE · +2,6% NO ANO" delay={50} />
       </Stack>
@@ -192,8 +210,8 @@ const Soja: React.FC = () => {
     { label: "Projeção 2026/27", v: 181.6, color: UP },
   ];
   return (
-    <DataScene n={2} from={C.teal}>
-      <Stack top={260} gap={22}>
+    <DataScene n={2} place="BRASIL" from={C.teal}>
+      <Stack top={320} gap={22}>
         <Kicker text="SOJA" delay={4} />
         <Big value={dec(value)} unit={"milhões\nde toneladas"} />
         <Chip text="★ MAIOR SAFRA DA HISTÓRIA" color={C.gold} delay={46} />
@@ -214,7 +232,7 @@ const Soja: React.FC = () => {
           );
         })}
         <div style={{ display: "flex", justifyContent: "center", marginTop: 16 }}>
-          <Chip text="Área 2026/27: 49,3 mi ha  ▲ 1,4%" delay={120} />
+          <Chip text="Área no Brasil 2026/27: 49,3 mi ha  ▲ 1,4%" delay={120} />
         </div>
       </div>
       <Source text="Fonte: Conab, 12º lev. 2025/26 (set/2026) e 1º lev. 2026/27 (out/2026)." />
@@ -232,6 +250,7 @@ const Exportacao: React.FC = () => {
   return (
     <DataScene
       n={3}
+      place="BRASIL"
       svg={
         <g transform="translate(540 1010) rotate(-90)">
           <circle r={R} fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth={46} />
@@ -239,8 +258,8 @@ const Exportacao: React.FC = () => {
         </g>
       }
     >
-      <Stack top={260} gap={20}>
-        <Kicker text="EXPORTAÇÃO DE SOJA" delay={4} />
+      <Stack top={320} gap={20}>
+        <Kicker text="EXPORTAÇÃO BRASILEIRA DE SOJA" delay={4} />
         <Title text="Recorde atrás de recorde" size={88} align="center" accentWords={["recorde"]} delay={10} />
       </Stack>
       <div style={{ position: "absolute", left: 300, width: 480, top: 900, textAlign: "center" }}>
@@ -272,6 +291,7 @@ const Milho: React.FC = () => {
   return (
     <DataScene
       n={4}
+      place="BRASIL"
       from={C.teal}
       svg={
         <>
@@ -297,10 +317,10 @@ const Milho: React.FC = () => {
         </>
       }
     >
-      <Stack top={260} gap={22}>
+      <Stack top={320} gap={22}>
         <Kicker text="MILHO · PROJEÇÃO 2026/27" delay={4} />
         <Big value={dec(value, 0)} unit={"milhões\nde toneladas"} />
-        <Chip text="▲ +2,4% · CONSUMO INTERNO +6,6% (ETANOL)" delay={46} />
+        <Chip text="▲ +2,4% · CONSUMO NO PAÍS +6,6% (ETANOL)" delay={46} />
       </Stack>
       <Source text="Fonte: Conab, 1º levantamento 2026/27 (out/2026)." />
     </DataScene>
@@ -331,6 +351,7 @@ const Trigo: React.FC = () => {
   return (
     <DataScene
       n={5}
+      place="BRASIL · RS"
       svg={
         <>
           <line x1={150} x2={930} y1={BASE} y2={BASE} stroke="rgba(255,255,255,0.4)" strokeWidth={3} />
@@ -339,12 +360,13 @@ const Trigo: React.FC = () => {
         </>
       }
     >
-      <Stack top={260} gap={22}>
+      <Stack top={320} gap={22}>
         <Kicker text="TRIGO · SAFRA 2026" delay={4} />
         <Big value="5,7" unit={"milhões\nde toneladas"} />
-        <Chip text="▼ −27% NA PRODUÇÃO · ÁREA NO RS −30%" color={DOWN} delay={100} />
+        <Chip text="BRASIL: PRODUÇÃO ▼ 27%" color={DOWN} delay={100} />
+        <Chip text="RIO GRANDE DO SUL: ÁREA PLANTADA ▼ 30%" color={DOWN} delay={118} />
       </Stack>
-      <Source text="Fontes: Conab (out/2026) e Emater/RS (área 2026). 2025 estimado a partir da variação." />
+      <Source text="Produção nacional: Conab (out/2026). Área no RS: Emater/RS (2026). Valor de 2025 estimado a partir da variação." />
     </DataScene>
   );
 };
