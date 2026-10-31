@@ -9,23 +9,23 @@ const W = 1080;
 const H = 1920;
 const FADE = 15;
 
-const Svg: React.FC<{ readonly children: React.ReactNode; readonly style?: React.CSSProperties }> = ({ children, style }) => (
+export const Svg: React.FC<{ readonly children: React.ReactNode; readonly style?: React.CSSProperties }> = ({ children, style }) => (
   <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} style={{ position: "absolute", inset: 0, ...style }}>
     {children}
   </svg>
 );
 
-const BrandBg: React.FC<{ readonly from?: string; readonly to?: string }> = ({ from = C.brand, to = C.deep }) => (
+export const BrandBg: React.FC<{ readonly from?: string; readonly to?: string }> = ({ from = C.brand, to = C.deep }) => (
   <AbsoluteFill style={{ background: `radial-gradient(ellipse 100% 70% at 50% 42%, ${from} 0%, ${to} 100%)` }} />
 );
 
-const Stack: React.FC<{ readonly children: React.ReactNode; readonly top: number; readonly gap?: number }> = ({ children, top, gap = 28 }) => (
+export const Stack: React.FC<{ readonly children: React.ReactNode; readonly top: number; readonly gap?: number }> = ({ children, top, gap = 28 }) => (
   <div style={{ position: "absolute", left: 90, right: 90, top, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap }}>
     {children}
   </div>
 );
 
-const FieldEdge: React.FC<{ readonly color: string; readonly count?: number }> = ({ color, count = 70 }) => {
+export const FieldEdge: React.FC<{ readonly color: string; readonly count?: number }> = ({ color, count = 70 }) => {
   const frame = useCurrentFrame();
   return (
     <>
@@ -37,7 +37,7 @@ const FieldEdge: React.FC<{ readonly color: string; readonly count?: number }> =
 };
 
 // Slow golden motes drifting upward; low, steady opacity (no flicker).
-const Motes: React.FC<{ readonly count?: number }> = ({ count = 40 }) => {
+export const Motes: React.FC<{ readonly count?: number }> = ({ count = 40 }) => {
   const frame = useCurrentFrame();
   return (
     <>
@@ -52,7 +52,7 @@ const Motes: React.FC<{ readonly count?: number }> = ({ count = 40 }) => {
 };
 
 /* 1 — Logo reveal (the opening SFX hit lands at frame 24). */
-const Abertura: React.FC = () => {
+export const Abertura: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const icon = spring({ frame: frame - 16, fps, config: { damping: 13 } });
@@ -288,7 +288,7 @@ const Festas: React.FC = () => {
   );
 };
 
-const Dissolve: React.FC<{ readonly children: React.ReactNode; readonly first?: boolean }> = ({ children, first = false }) => {
+export const Dissolve: React.FC<{ readonly children: React.ReactNode; readonly first?: boolean }> = ({ children, first = false }) => {
   const frame = useCurrentFrame();
   return (
     <AbsoluteFill
