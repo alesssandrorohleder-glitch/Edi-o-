@@ -166,3 +166,11 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - Fotos trocadas por ilustração vetorial (prédios, piscina, churrasqueira, plantas em linha). Preço "R$ 199 MIL*" + "*Condições ilustrativas".
 - Termina com CTA de portfólio. `gerar_de_14.py` reaplica as trocas sobre o index do 14.
 - Render: `node ../_ferramentas/render_h.js index.html out/video 0,4,8,12,16,20,24,28,34,40`.
+
+### 17 — Esmalteria "AMORA" (portfólio fictício do 13) — `17-esmalteria-amora`
+- Mesma animação/tempos/trilha do 13, **sem nada da Cereja**: logo, nome, slogan, filmagens da loja, Caraíva/Pinheiros,
+  endereço, @s e WhatsApp removidos.
+- Marca fictícia AMORA (wordmark tipográfico + amorinha), paleta ameixa (#3A1233/#6E2A6B/#9B3D8F); cerejas → amoras vetoriais.
+- Filmagens trocadas por ilustração: café na xícara e esmaltes nos arcos; pôr do sol na praia no "REFÚGIO pra sua rotina".
+- Cena "nova unidade" genérica ("chegando em seu bairro"). Termina com CTA de portfólio. `gerar_de_13.py` reaplica as trocas.
+- Render: `node ../_ferramentas/render_h.js index.html out/video 0,3.84,7.68,11.52,15.36,19.2,23.04,26.88,30.72,36.48`.
