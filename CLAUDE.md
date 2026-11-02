@@ -186,5 +186,9 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
   "TUDO PRO SEU MOMENTO" → Narguilés / Acessórios / Carvão / Essências / E muito mais (cortes na batida, whip + blur) →
   fumaça "VIVA A EXPERIÊNCIA" → Teleentrega de sexta (pedidos até meio-dia) → Horários (qua/qui/sáb/dom 11h–15h) →
   logo + @gaia.tabacaria + "Venda proibida para menores de 18 anos" (obrigatório — Lei 9.294/96).
-- Trilha melodic tech-house sintetizada (`audio/audio_gaia.py`) + `so_efeitos.mp3`. Sugestão Suno:
-  `Melodic tech house, dark and smoky lounge vibe, deep rolling bassline, punchy kick, airy pads, 128 BPM, instrumental`.
+- v2 (feedback do Ale): tirar zoom sem sentido na abertura, bordas/linhas/pílulas douradas, raios, flashes, ecos de texto e
+  vazamentos de luz ("brega"); fumaça sobreposta bem leve; edição menos engessada → cada take com transição própria
+  (corte seco no beat, whip H/V, zoom-through, push, dissolve, dip, tela dividida, revelação por fumaça) + rampas de velocidade
+  e animações de texto variadas (sobe da máscara, tracking, pop central, palavras trocando a cada batida).
+- Trilha TECHNO sintetizada (`audio/audio_gaia.py`): kick + rumble, baixo rolante, acid com filtro ressonante, sidechain,
+  breakdown com riser + rolo de caixa. Sugestão Suno: `Dark hypnotic techno, rolling bassline, acid 303 line, punchy kick with rumble, 128 BPM, instrumental`.
