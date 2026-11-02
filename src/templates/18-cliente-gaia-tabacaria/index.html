@@ -4,7 +4,7 @@ html,body{margin:0;background:#000}canvas{display:block}</style></head>
 <body><canvas id="c" width="1080" height="1920"></canvas>
 <script src="frames/meta.js"></script>
 <script>
-/* 18 — CLIENTE Gaia Tabacaria (Cerro Largo/RS) · 128bpm · 72 tempos = 33,75s
+/* 18 — CLIENTE Gaia Tabacaria (Cerro Largo/RS) · 128bpm · 78 tempos = 36,56s
    Quadros: frames/C####/%04d.jpg (60fps, estabilizados e com cor uniformizada por preparar_frames.py).
    Render: node render_gaia.js (carrega os quadros sob demanda com window.prep(t) antes de draw(t)). */
 const W=1080,H=1920,c=document.getElementById('c');let x=c.getContext('2d');const X0=x;
@@ -27,8 +27,8 @@ const EDIT=[
  ['C4136',0.3,1,36,38,{}],['C4137',0.4,1,38,40,{}],    // carvão
  ['C4106',0.6,1,40,42,{}],['C4111',0.6,1,42,44,{}],    // essências
  ['C4115',0.5,1,44,45,{}],['C4103',1.2,1,45,46,{}],['C4145',0.8,1,46,47,{}],['C4113',0.6,1,47,48,{}], // acessórios rápidos
- ['C4157',0.75,.55,48,50,{z0:1.1,z1:1.02,hor:1,fx:.62}],['C4150',0.3,.6,50,52,{}],['C4151',0.0,.6,52,54,{}],['C4158',2.9,.55,54,56,{hor:1,fx:.55}], // fumaça
- ['C4116',0.3,.8,56,64,{dark:.62}],                    // fundo das infos
+ ['C4157',0.75,.55,48,50,{z0:1.1,z1:1.02,hor:1,fx:.92}],['C4150',0.3,.6,50,52,{}],['C4151',0.0,.6,52,54,{}],['C4158',2.9,.55,54,56,{hor:1,fx:.55}], // fumaça
+ ['C4116',0.2,.38,56,70,{dark:.62}],                    // fundo das infos
 ];
 const FPS=60,CACHE=new Map();
 function fname(cl2,i){const n=(window.META&&META[cl2])?META[cl2].n:9999;i=Math.max(1,Math.min(n,i));return `frames/${cl2}/${String(i).padStart(4,'0')}.jpg`;}
@@ -108,7 +108,7 @@ function S2(t){ // 12–20b logo
 }
 function cutShot(i,t,{whip=true}={}){const e=EDIT[i];const s0=b(e[3]),s1=b(e[4]);const lt=t-s0;const wi=whip?Math.max(0,1-lt/.12):0,wo=whip?Math.max(0,(t-(s1-.1))/.1):0;
   const dir=i%2;const off=(wi>0?(i%2?1:-1)*wi*260:0)+(wo>0?(i%2?-1:1)*wo*260:0);shot(e,t,{blur:Math.max(wi,wo),dir,dx:dir?0:off,dy:dir?off:0,z:1+.06*Math.exp(-lt*10)});}
-function S3(t){cutShot(2,t);shade(0,700,.65,true);shade(1250,H,.7);
+function S3(t){cutShot(2,t);shade(0,900,.85,true);shade(1250,H,.7);
   kin('TUDO PRO',W/2,520,170,CRM,t,b(20.2));kin('SEU MOMENTO',W/2,690,170,gold(620,760),t,b(21));}
 function prod(i0,i1,word,t,t0,sub){const i=EDIT.findIndex((e,k)=>k>=i0&&k<=i1&&t>=b(e[3])&&t<b(e[4]));cutShot(i<0?i1:i,t);shade(1150,H,.8);shade(0,520,.55,true);
   kin(word,W/2,1380,word.length>9?190:240,CRM,t,t0+.04,{stag:.03});if(sub)tag(sub,W/2,1530,t,t0+.35,{size:42});}
@@ -137,26 +137,26 @@ function card(Y,t,t0,ic,l1,l2,hl){const k=eo5(p(t,t0,t0+.5));if(k<=0)return;x.sa
 function S10(t){infoBg(t); // 56–60b teleentrega
   kin('SEXTA-FEIRA É DIA DE',W/2,420,96,CRM,t,b(56.1),{stag:.015});
   kin('TELEENTREGA',W/2,580,230,gold(500,660),t,b(56.6),{stag:.03});
-  card(860,t,b(57.4),'cal','FAÇA SEU PEDIDO','DURANTE A SEMANA');
-  card(1110,t,b(58.0),'clock','PEDIDOS ATÉ','SEXTA, MEIO-DIA',true);
-  card(1360,t,b(58.6),'moto','SAÍMOS DE CERRO LARGO','AO MEIO-DIA EM PONTO');
+  card(860,t,b(57.6),'cal','FAÇA SEU PEDIDO','DURANTE A SEMANA');
+  card(1110,t,b(58.6),'clock','PEDIDOS ATÉ','SEXTA, MEIO-DIA',true);
+  card(1360,t,b(59.6),'moto','SAÍMOS DE CERRO LARGO','AO MEIO-DIA EM PONTO');
 }
-function S11(t){infoBg(t); // 60–64b horários
-  kin('HORÁRIOS',W/2,520,230,gold(440,600),t,b(60.1));
-  tag('DE ATENDIMENTO',W/2,690,t,b(60.6),{size:46});
-  card(960,t,b(61),'cal','QUARTA E QUINTA','11H ÀS 15H',true);
-  card(1220,t,b(61.6),'cal','SÁBADO E DOMINGO','11H ÀS 15H',true);
+function S11(t){infoBg(t); // 64–70b horários
+  kin('HORÁRIOS',W/2,520,230,gold(440,600),t,b(64.1));
+  tag('DE ATENDIMENTO',W/2,690,t,b(64.6),{size:46});
+  card(960,t,b(65),'cal','QUARTA E QUINTA','11H ÀS 15H',true);
+  card(1220,t,b(65.6),'cal','SÁBADO E DOMINGO','11H ÀS 15H',true);
 }
-function S12(t){ // 64–72b final
-  bgDark(t);const lt=t-b(64);smoke(t,16,.9,7);logo(W/2,780,860,p(lt,.05,1.0));sparks(t,40,.8);
+function S12(t){ // 70–78b final
+  bgDark(t);const lt=t-b(70);smoke(t,16,.9,7);logo(W/2,780,860,p(lt,.05,1.0));sparks(t,40,.8);
   const hk=eo5(p(lt,b(2),b(3)));if(hk>0){x.save();x.globalAlpha=hk;x.translate(W/2,1290+(1-hk)*30);x.fillStyle=gold(1240,1340);x.beginPath();x.roundRect(-380,-62,760,124,62);x.fill();T('@GAIA.TABACARIA',0,5,72,DK,{ls:3});x.restore();}
   T('CERRO LARGO · RS',W/2,1420,52,CRM,{ls:8,a:eo(p(lt,b(3),b(4)))});
   T('VENDA PROIBIDA PARA MENORES DE 18 ANOS',W/2,1515,44,'rgba(243,235,216,.8)',{ls:3,a:eo(p(lt,b(4),b(5)))});
 }
-const SC=[[S0,0,8],[S1,8,12],[S2,12,20],[S3,20,24],[S4,24,32],[S5,32,36],[S6,36,40],[S7,40,44],[S8,44,48],[S9,48,56],[S10,56,60],[S11,60,64],[S12,64,72]].map(([f,a,c2])=>[f,b(a),b(c2)]);
-window.DUR=b(72);
+const SC=[[S0,0,8],[S1,8,12],[S2,12,20],[S3,20,24],[S4,24,32],[S5,32,36],[S6,36,40],[S7,40,44],[S8,44,48],[S9,48,56],[S10,56,64],[S11,64,70],[S12,70,78]].map(([f,a,c2])=>[f,b(a),b(c2)]);
+window.DUR=b(78);
 const TB=document.createElement('canvas');TB.width=W;TB.height=H;
-const FLASH=[8,12,24,48,56,64].map(b);
+const FLASH=[8,12,24,48,56,70].map(b);
 window.draw=function(t){x=X0;x.setTransform(1,0,0,1,0,0);x.globalAlpha=1;x.filter='none';const i=SC.findIndex(([,a,c2])=>t>=a&&t<c2);const k=i<0?SC.length-1:i;const [f]=SC[k];
   x.save();f(t);x.restore();
   // transição suave: fumaça/zoom nas viradas de bloco (cena anterior some em zoom + desfoque)

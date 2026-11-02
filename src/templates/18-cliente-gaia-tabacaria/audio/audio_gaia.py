@@ -1,7 +1,7 @@
 # Trilha eletrônica (melodic tech-house 128bpm) + efeitos do vídeo 18 (Gaia). Gera trilha_final.mp3 e so_efeitos.mp3.
 import numpy as np, wave, subprocess, os
 from scipy.signal import fftconvolve, butter, sosfilt
-SR=44100; BT=60/128; D=72*BT; n=int(SR*D); rng=np.random.default_rng(18); HERE=os.path.dirname(os.path.abspath(__file__))
+SR=44100; BT=60/128; D=78*BT; n=int(SR*D); rng=np.random.default_rng(18); HERE=os.path.dirname(os.path.abspath(__file__))
 M=np.zeros((n,2)); S=np.zeros((n,2))
 def tt(d): return np.arange(int(d*SR))/SR
 def add(B,sig,at,g=1.0,pan=0.0):
@@ -30,9 +30,10 @@ LEAD=[73,76,78,76, 73,71,69,71, 69,73,76,73, 71,68,71,73]
 def sec(beat):  # 'intro','drop','break','outro'
     if beat<8: return 'intro'
     if 48<=beat<56: return 'break'
-    if beat>=68: return 'outro'
+    if beat>=74: return 'outro'
     return 'drop'
-for bar in range(18):
+for bar in range(20):
+    if bar*4>=78: break
     b0=bar*4; tb=b(b0); root,ch=CH[bar%4]; sc=sec(b0)
     add(M,pad([m+12 for m in ch],b(4),900 if sc=='intro' else (1800 if sc=='break' else 1300)),tb,1.2 if sc in('intro','break','outro') else .8)
     if sc in ('intro','break'):
@@ -63,12 +64,12 @@ def hiss(d): t=tt(d); return bpf(rng.standard_normal(len(t)),2500,9000)*np.sin(n
 # (tempo, prioridade, sinal) — prioridade maior vence quando ficam a menos de 0,45s
 ev=[(b(1.2),2,whoosh(.6,300,3000,.05)),(b(2),3,hitL()),(b(4),3,hitL()),(b(6.2),3,whoosh(.8,300,4000,.06)),
     (b(8),9,impact(1)),(b(10),4,hitL()),(b(12),9,impact(.9)),(b(12.6),2,shimmer()),(b(15),2,tick()),(b(19.4),3,whoosh(.4))]
-for k in [20,24,26,28,30,32,34,36,38,40,42,44,45,46,47,50,52,54,60]:
+for k in [20,24,26,28,30,32,34,36,38,40,42,44,45,46,47,50,52,54]:
     ev.append((b(k)-.12,5 if k in(24,32,36,40,44) else 4,whoosh(.32,700,6000,.05 if k in(45,46,47) else .065)))
 for k in [24,32,36,40,44]: ev.append((b(k)+.06,3,hitL()))
-ev+=[(b(48),7,impact(.55)),(b(48.3),1,hiss(b(7))),(b(56),9,impact(1)),(b(57.4),3,pop()),(b(58),3,pop()),(b(58.6),3,pop()),
-     (b(61),3,pop()),(b(61.6),3,pop()),(b(64),9,impact(1)),(b(64.5),2,shimmer()),(b(66),3,pop()),(b(67),2,tick())]
-for st,dd in [(0,b(8)),(b(52),b(4)),(b(60),b(4))]: add(M,riser(dd),st,.9)
+ev+=[(b(48),7,impact(.55)),(b(48.3),1,hiss(b(7))),(b(56),9,impact(1)),(b(57.6),3,pop()),(b(58.6),3,pop()),(b(59.6),3,pop()),(b(63.88),4,whoosh(.32,700,6000,.065)),
+     (b(65),3,pop()),(b(65.6),3,pop()),(b(70),9,impact(1)),(b(70.5),2,shimmer()),(b(72),3,pop()),(b(73),2,tick()),(b(74),2,tick())]
+for st,dd in [(0,b(8)),(b(52),b(4)),(b(66),b(4))]: add(M,riser(dd),st,.9)
 ev.sort(key=lambda e:-e[1]); kept=[]
 for t,pr,sig in ev:
     if pr<=1 or all(abs(t-k)>=.45 for k in kept): add(S,sig,t); kept.append(t) if pr>1 else None

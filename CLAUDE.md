@@ -174,3 +174,17 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - Filmagens trocadas por ilustração: café na xícara e esmaltes nos arcos; pôr do sol na praia no "REFÚGIO pra sua rotina".
 - Cena "nova unidade" genérica ("chegando em seu bairro"). Termina com CTA de portfólio. `gerar_de_13.py` reaplica as trocas.
 - Render: `node ../_ferramentas/render_h.js index.html out/video 0,3.84,7.68,11.52,15.36,19.2,23.04,26.88,30.72,36.48`.
+
+### 18 — CLIENTE: Gaia Tabacaria (Cerro Largo/RS) — `18-cliente-gaia-tabacaria`
+- Filmagens reais do cliente (27 clipes, 60fps; C4106/4123/4136/4156-58 são horizontais e são recortados para 9:16).
+- Pipeline: `./estabilizar.sh <pasta dos .mov>` (vidstab 2 passes + grade leve) → `python preparar_frames.py`
+  (iguala cor/exposição de cada clipe à média do conjunto + look único: pretos levantados, sombras frias/realces quentes) →
+  `node render_gaia.js out/gaia_video` (servidor local + carrega quadros sob demanda; `node render_gaia.js out/s 1.2,3.4` tira prints).
+- Brutos e quadros ficam fora do git (pesados). Logo do cliente (`logo_gaia.png`) usada sem alteração, só com máscara suave na borda.
+- Fontes: Bebas Neue (igual aos posts deles) + Cinzel, em `fonts/`. Paleta: verde/roxo/dourado da logo.
+- Roteiro 128bpm (78 tempos, 36,5s): anel de fumaça em faixa cinema "O RITUAL COMEÇA AQUI" → "SINTA O SABOR" → logo + Cerro Largo →
+  "TUDO PRO SEU MOMENTO" → Narguilés / Acessórios / Carvão / Essências / E muito mais (cortes na batida, whip + blur) →
+  fumaça "VIVA A EXPERIÊNCIA" → Teleentrega de sexta (pedidos até meio-dia) → Horários (qua/qui/sáb/dom 11h–15h) →
+  logo + @gaia.tabacaria + "Venda proibida para menores de 18 anos" (obrigatório — Lei 9.294/96).
+- Trilha melodic tech-house sintetizada (`audio/audio_gaia.py`) + `so_efeitos.mp3`. Sugestão Suno:
+  `Melodic tech house, dark and smoky lounge vibe, deep rolling bassline, punchy kick, airy pads, 128 BPM, instrumental`.

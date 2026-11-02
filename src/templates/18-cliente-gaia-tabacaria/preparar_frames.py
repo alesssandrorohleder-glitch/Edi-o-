@@ -26,7 +26,7 @@ for f in CLIPS:
     od=f'frames/{n}'; os.makedirs(od,exist_ok=True)
     if not os.listdir(od):
         subprocess.run(['ffmpeg','-loglevel','error','-y','-i',f,'-vf',vf,'-q:v','3',f'{od}/%04d.jpg'],check=True)
-    meta[n]={'n':len(os.listdir(od)),'gain':[round(gr,3),round(gg,3),round(gb,3)],'gamma':round(gam,3)}
+    meta[n]={'n':len(os.listdir(od)),'gain':[round(float(v),3) for v in (gr,gg,gb)],'gamma':round(gam,3)}
     print(n,meta[n])
 json.dump(meta,open('frames/meta.json','w'))
 open('frames/meta.js','w').write('window.META='+json.dumps(meta)+';')
