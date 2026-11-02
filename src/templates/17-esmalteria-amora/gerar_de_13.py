@@ -72,7 +72,9 @@ s=s[:i0]+r"""  soft('Essa marca não existe.',W/2,1000,52,CREAM,t,BT*4.2,{kind:'
 }
 """+s[i1:]
 R("const HANDLE='@esmalteriacereja';","")
-R("logo(CREAM,W/2,640,740,","logo(CREAM,W/2,700,640,")
+R("const rv=eio(p(t,BT*.8,BT*3));logo(CREAM,W/2,640,740,rv,t<BT*3.1?0:back(p(t,BT*3.1,BT*4.1),2.2),p(t,BT*4.5,BT*6.5));",
+  "const rv=eio(p(t,BT*.8,BT*3));logo(CREAM,W/2,700,640,rv,0,p(t,BT*4.5,BT*6.5));"
+  "const land=BT*4.1;if(t>BT*3.1){const fy=lerp(-400,425,eo(p(t,BT*3.1,land)));const sw=t>land?Math.sin((t-land)*6)*.22*Math.exp(-(t-land)*2):0;cherries(W/2,fy,70,sw,1);}")
 s=s.replace("// S8 Pinheiros coming soon (their dark-wine grain style)","// S8 nova unidade")
 low=s.lower()
 for bad in ['cereja','caraíva','pinheiros','arthur','99824','@cereja','whatsapp','cl.','logo_letters','im.letters']:
