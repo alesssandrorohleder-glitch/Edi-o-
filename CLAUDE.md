@@ -188,7 +188,7 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
   logo + @gaia.tabacaria + "Venda proibida para menores de 18 anos" (obrigatório — Lei 9.294/96).
 - v2 (feedback do Ale): tirar zoom sem sentido na abertura, bordas/linhas/pílulas douradas, raios, flashes, ecos de texto e
   vazamentos de luz ("brega"); fumaça sobreposta bem leve; edição menos engessada → cada take com transição própria
-  (corte seco no beat, whip H/V, zoom-through, push, dissolve, dip, revelação por fumaça). Sem tela dividida (Ale não gostou de 2 imagens ao mesmo tempo); sequência de fumaça com poucas cenas longas (2 × 1,9s), não muitos cortes curtos + rampas de velocidade
+  (corte seco no beat, whip H/V, zoom-through, push, dissolve, dip, revelação por fumaça). Sem tela dividida (Ale não gostou de 2 imagens ao mesmo tempo); sequência de fumaça com poucas cenas longas (2 × 1,9s), não muitos cortes curtos. Nada de sobreposição/dissolve entre filmagens: transição "zoom" = zoom com desfoque radial no take A, troca seca no meio, take B sai do zoom; final entra passando pelo preto. O take anterior continua rodando durante a transição (sem congelar) + rampas de velocidade
   e animações de texto variadas (sobe da máscara, tracking, pop central, palavras trocando a cada batida).
 - Trilha TECHNO sintetizada (`audio/audio_gaia.py`): kick + rumble, baixo rolante, acid com filtro ressonante, sidechain,
   breakdown com riser + rolo de caixa. Sugestão Suno: `Dark hypnotic techno, rolling bassline, acid 303 line, punchy kick with rumble, 128 BPM, instrumental`.

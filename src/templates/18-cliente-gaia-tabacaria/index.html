@@ -23,13 +23,14 @@ function load(src){if(CACHE.has(src))return CACHE.get(src);const im=new Image();
 const img=src=>{const o=CACHE.get(src);return o&&o.im.naturalWidth?o.im:null;};
 // tempo dentro do clipe: velocidade constante ou rampa (v0→v1)
 function srcT(c2,lt,L){const v0=c2.v??1,v1=c2.v1??v0;return c2.s+v0*lt+(v1-v0)*lt*lt/(2*L);}
-const fidx=(c2,lt,L)=>Math.round(srcT(c2,cl(lt,0,L),L)*FPS)+1;
+// além do fim do take (durante a transição seguinte) o clipe continua rodando na velocidade final
+const fidx=(c2,lt,L)=>{lt=Math.max(0,lt);const st=lt<=L?srcT(c2,lt,L):srcT(c2,L,L)+(c2.v1??c2.v??1)*(lt-L);return Math.round(st*FPS)+1;};
 
 /* ---------- takes ---------- */
 // {a,b: batidas · clip:{k,s,v,v1,fx,z0,z1} ou split:[clipA,clipB] ou g:função gráfica · tin: transição de entrada · td: duração}
 const SHOTS=[
  {a:0,b:8,  band:{k:'C4158',s:.05,v:.6},tin:'fade',td:.5},
- {a:8,b:12, clip:{k:'C4149',s:.45,v:.35,v1:1,z0:1.08,z1:1.0},tin:'cut',shake:1},
+ {a:8,b:12, clip:{k:'C4149',s:.45,v:.3,v1:.6,z0:1.08,z1:1.0},tin:'cut',shake:1},
  {a:12,b:20,g:'logo',tin:'smoke',td:.7},
  {a:20,b:24,clip:{k:'C4142',s:.2,z0:1.18,z1:1.0},tin:'zoom',td:.35},
  {a:24,b:26,clip:{k:'C4127',s:.3,z0:1.06,z1:1.0},tin:'pushV',td:.32},
@@ -47,10 +48,10 @@ const SHOTS=[
  {a:46,b:47,clip:{k:'C4145',s:.8,z0:1.08,z1:1.0},tin:'cut'},
  {a:47,b:48,clip:{k:'C4113',s:.6,z0:1.08,z1:1.0},tin:'cut'},
  {a:48,b:52,clip:{k:'C4157',s:.6,v:.55,fx:.92,z0:1.06,z1:1.0},tin:'dip',td:.5},
- {a:52,b:56,clip:{k:'C4150',s:.25,v:.55,z0:1.0,z1:1.06},tin:'dissolve',td:.8},
+ {a:52,b:56,clip:{k:'C4150',s:.25,v:.55,z0:1.0,z1:1.06},tin:'zoom',td:.5},
  {a:56,b:64,g:'tele',tin:'blur',td:.45,shake:.6},
  {a:64,b:70,g:'hora',tin:'pushL',td:.45},
- {a:70,b:78,g:'final',tin:'dissolve',td:.7,shake:.5},
+ {a:70,b:78,g:'final',tin:'dip',td:.6,shake:.5},
 ];
 SHOTS.forEach(s=>{s.t0=b(s.a);s.t1=b(s.b);s.L=s.t1-s.t0;});
 const INFO={k:'C4116',s:.2,v:.38,t0:b(56),L:b(14)};
@@ -61,7 +62,7 @@ function framesFor(s,t){const lt=t-s.t0,out=[];
   if(s.g==='tele'||s.g==='hora')out.push(fsrc(INFO.k,fidx(INFO,t-INFO.t0,INFO.L)));
   return out;}
 const shotAt=t=>{let i=SHOTS.findIndex(s=>t>=s.t0&&t<s.t1);return i<0?SHOTS.length-1:i;};
-window.prep=async function(t){const i=shotAt(t);let list=framesFor(SHOTS[i],t);if(i>0&&t-SHOTS[i].t0<(SHOTS[i].td||0)+.02)list=list.concat(framesFor(SHOTS[i-1],Math.min(t,SHOTS[i-1].t1-1e-3)));await Promise.all(list.map(s2=>load(s2).pr));};
+window.prep=async function(t){const i=shotAt(t);let list=framesFor(SHOTS[i],t);if(i>0&&t-SHOTS[i].t0<(SHOTS[i].td||0)+.02)list=list.concat(framesFor(SHOTS[i-1],t));await Promise.all(list.map(s2=>load(s2).pr));};
 
 /* ---------- desenho ---------- */
 function cover(im,X,Y,w,h,z=1,fx=.5,fy=.5){if(!im)return;const s=Math.max(w/im.naturalWidth,h/im.naturalHeight)*z;const dw=im.naturalWidth*s,dh=im.naturalHeight*s;x.drawImage(im,X+(w-dw)*fx,Y+(h-dh)*fy,dw,dh);}
@@ -144,12 +145,13 @@ const TB=document.createElement('canvas');TB.width=W;TB.height=H;const TC=docume
 function renderTo(cv,fn){const g=cv.getContext('2d');g.setTransform(1,0,0,1,0,0);g.globalAlpha=1;g.globalCompositeOperation='source-over';g.filter='none';g.clearRect(0,0,W,H);const xx=x;x=g;x.save();fn();x.restore();x=xx;}
 function blurDraw(cv,amt,dir){for(let i=-3;i<=3;i++){x.globalAlpha=i?.15:.4;x.drawImage(cv,dir?0:i*amt,dir?i*amt:0);}x.globalAlpha=1;}
 function composite(i,t){const s=SHOTS[i],ps=SHOTS[i-1];const e=eio(cl((t-s.t0)/s.td));const ty=s.tin;
-  renderTo(TB,()=>drawShot(ps,Math.min(t,ps.t1-1e-3)));renderTo(TC,()=>drawShot(s,t));
+  renderTo(TB,()=>drawShot(ps,t));renderTo(TC,()=>drawShot(s,t));
   if(ty==='dissolve'||ty==='fade'){x.drawImage(TB,0,0);x.globalAlpha=e;x.drawImage(TC,0,0);x.globalAlpha=1;}
   else if(ty==='dip'){const d=Math.sin(e*Math.PI);x.drawImage(e<.5?TB:TC,0,0);x.fillStyle=`rgba(0,0,0,${d*.95})`;x.fillRect(0,0,W,H);}
   else if(ty==='blur'){x.filter=`blur(${(1-e)*30}px)`;x.drawImage(TC,0,0);x.filter='none';x.globalAlpha=1-e;x.filter=`blur(${e*30}px)`;x.drawImage(TB,0,0);x.filter='none';x.globalAlpha=1;}
-  else if(ty==='zoom'){x.save();x.globalAlpha=1;x.translate(W/2,H/2);x.scale(lerp(1.35,1,e),lerp(1.35,1,e));x.translate(-W/2,-H/2);x.drawImage(TC,0,0);x.restore();
-    x.save();x.globalAlpha=1-e;x.translate(W/2,H/2);x.scale(1+e*.6,1+e*.6);x.translate(-W/2,-H/2);x.drawImage(TB,0,0);x.restore();}
+  else if(ty==='zoom'){ // zoom-through sem sobreposição: entra no take A com desfoque radial, troca seca no meio, B sai do zoom
+    const first=e<.5;const k=first?ei(e/.5):1-eo((e-.5)/.5);const cv=first?TB:TC;const z=1+k*.55,bl=k;const cy=H*.46;
+    for(let j=0;j<6;j++){const zz=z*(1+j*.045*bl);x.save();x.globalAlpha=j?.22*bl:1;x.translate(W/2,cy);x.scale(zz,zz);x.translate(-W/2,-cy);x.drawImage(cv,0,0);x.restore();}}
   else if(ty==='whipH'||ty==='whipV'){const v=ty==='whipV'?1:0;const d=(s.dir||1);const off=(v?H:W)*e;const amt=Math.sin(e*Math.PI)*60;
     x.save();x.translate(v?0:-d*off,v?-d*off:0);blurDraw(TB,amt,v);x.restore();x.save();x.translate(v?0:d*((v?H:W)-off),v?d*((v?H:W)-off):0);blurDraw(TC,amt,v);x.restore();}
   else if(ty==='pushV'||ty==='pushL'){const v=ty==='pushV';const off=(v?H:W)*e;x.save();x.translate(v?0:-off,v?-off:0);x.drawImage(TB,0,0);x.restore();x.save();x.translate(v?0:W-off,v?H-off:0);x.drawImage(TC,0,0);x.restore();}
