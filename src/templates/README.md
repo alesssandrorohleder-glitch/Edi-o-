@@ -7,4 +7,5 @@ Uma pasta por vídeo. Leia o `CLAUDE-contexto.md` (estilo, ajustes pedidos, prom
 - `_fontes/` = instale no Windows antes de renderizar.
 - `_ferramentas/` = render_h.js / snap_h.js (Node + Playwright + ffmpeg).
 - `15-pet-shop-focinho/` = pet shop fictício (gerado nesta sessão; trilha em `audio/audio_focinho.py`, cortes `0,4,8,14,20,24,28,34`).
+- `16-construtora-nido/` = versão portfólio (fictícia) do 14 Metrocasa, sem marca/fotos do cliente; `gerar_de_14.py` recria o index a partir do 14.
 - Pastas com `_frames_src/`: rode `python preparar_frames.py` antes (recria as sequências de quadros dos clipes).

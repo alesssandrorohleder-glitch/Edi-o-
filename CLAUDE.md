@@ -158,3 +158,11 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
   1º banho 30% OFF (R$ 69,90 → 48,90) → leva e traz grátis (van) → CTA fictício.
 - Transição: máscara circular (bolha) a 0,45s. Trilha ukulele-pop 120bpm (`audio/audio_focinho.py`, gera também `so_efeitos.mp3`).
 - Render: `node ../_ferramentas/render_h.js index.html out/video 0,4,8,14,20,24,28,34`.
+
+### 16 — Construtora "NIDO" (portfólio fictício do 14) — `16-construtora-nido`
+- Mesma animação/tempos/trilha do 14 (cliente não fechou), **sem nada da Metrocasa**: logo, nome, fotos, renders, plantas,
+  empreendimentos, telefone, @, slogan "Sonhar" e ofertas específicas (Uber/ITBI/149 mil) removidos.
+- Marca fictícia NIDO (casinha vetorial em 3 peças), verde #12866F no lugar do vermelho; slogan "Seu lugar começa aqui."
+- Fotos trocadas por ilustração vetorial (prédios, piscina, churrasqueira, plantas em linha). Preço "R$ 199 MIL*" + "*Condições ilustrativas".
+- Termina com CTA de portfólio. `gerar_de_14.py` reaplica as trocas sobre o index do 14.
+- Render: `node ../_ferramentas/render_h.js index.html out/video 0,4,8,12,16,20,24,28,34,40`.
