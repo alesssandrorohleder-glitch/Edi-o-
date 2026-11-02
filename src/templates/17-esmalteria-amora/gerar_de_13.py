@@ -71,6 +71,9 @@ s=s[:i0]+r"""  soft('Essa marca não existe.',W/2,1000,52,CREAM,t,BT*4.2,{kind:'
   label('@alecreator_motion',W/2,1545,AMB2,t,BT*7.4,{size:44,ls:2});
 }
 """+s[i1:]
+R("logo(VINHO,W/2,1000,880,rv,ck,p(t,BT*6.3,3.7));",
+  "logo(VINHO,W/2,1000,880,rv,0,p(t,BT*6.3,3.7));"
+  "const land3=BT*6.2;if(t>BT*5.2){const fy=lerp(-400,575,eo(p(t,BT*5.2,land3)));const sw=t>land3?Math.sin((t-land3)*6)*.22*Math.exp(-(t-land3)*2):0;cherries(W/2,fy,96,sw,1);}")
 R("const HANDLE='@esmalteriacereja';","")
 R("const rv=eio(p(t,BT*.8,BT*3));logo(CREAM,W/2,640,740,rv,t<BT*3.1?0:back(p(t,BT*3.1,BT*4.1),2.2),p(t,BT*4.5,BT*6.5));",
   "const rv=eio(p(t,BT*.8,BT*3));logo(CREAM,W/2,700,640,rv,0,p(t,BT*4.5,BT*6.5));"
