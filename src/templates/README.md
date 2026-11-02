@@ -6,4 +6,5 @@ Uma pasta por vídeo. Leia o `CLAUDE-contexto.md` (estilo, ajustes pedidos, prom
 - `04-ui-app-pulsa-REMOTION/projeto-remotion` = único projeto Remotion (rode `npm install` e o `.bat`).
 - `_fontes/` = instale no Windows antes de renderizar.
 - `_ferramentas/` = render_h.js / snap_h.js (Node + Playwright + ffmpeg).
+- `15-pet-shop-focinho/` = pet shop fictício (gerado nesta sessão; trilha em `audio/audio_focinho.py`, cortes `0,4,8,14,20,24,28,34`).
 - Pastas com `_frames_src/`: rode `python preparar_frames.py` antes (recria as sequências de quadros dos clipes).

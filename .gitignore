@@ -27,3 +27,5 @@ projects/*/r.jpg
 
 # Templates de vídeo (src/templates) usam clipes .mp4 como fonte
 !src/templates/**/*.mp4
+/15-focinho-pet-shop.mp4
+src/templates/*/out/

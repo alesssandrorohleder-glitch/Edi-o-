@@ -151,3 +151,10 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - Frame blending para clipes 24fps em 30fps; congelar no quadro limpo antes de a IA deformar.
 - Transições: máscara diagonal (ângulo do telhado da Metrocasa), folhas de palmeira varrendo (Cereja), empurrão vertical (Zefyr), dissolve + zoom (Verano).
 - Performance: evitar `ctx.filter = blur()` por frame (cachear em sprite) — renderizar fica 20x mais rápido.
+
+### 15 — Pet shop "FOCINHO" — `15-pet-shop-focinho`
+- Creme/laranja #FF7A3D/navy/menta/amarelo, Poppins; personagens vetoriais (cachorro e gato desenhados no canvas, sem fotos).
+- Roteiro: "Seu pet merece o melhor dia" (patinhas) → logo FOCINHO → banho & tosa (banheira + bolhas) → 4 serviços em cards →
+  1º banho 30% OFF (R$ 69,90 → 48,90) → leva e traz grátis (van) → CTA fictício.
+- Transição: máscara circular (bolha) a 0,45s. Trilha ukulele-pop 120bpm (`audio/audio_focinho.py`, gera também `so_efeitos.mp3`).
+- Render: `node ../_ferramentas/render_h.js index.html out/video 0,4,8,14,20,24,28,34`.
