@@ -1,0 +1,13 @@
+PULSA — PortfolioUI (Remotion)
+
+1) Instale as dependências (só na primeira vez):
+   npm install
+
+2) Ver ao vivo no navegador:
+   npm run studio
+
+3) Renderizar o vídeo final (MP4 H.264, CRF 16):
+   npm run render
+   -> sai em out/PortfolioUI.mp4
+
+Para trocar a marca (cores, nome, textos, números, seu @): edite src/brand.ts

@@ -24,3 +24,6 @@ projects/*/r.jpg
 /cereais-rohleder.mp4
 /remotion-studio-preview.png
 /consorcio-reels.mp4
+
+# Templates de vídeo (src/templates) usam clipes .mp4 como fonte
+!src/templates/**/*.mp4
