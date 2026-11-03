@@ -210,3 +210,8 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
   breakdown no pote, corte seco no logo) + `so_efeitos.mp3`. Render: `node render.js out/video` (WebGL via SwiftShader, ~15 min).
 - Imagens estáticas dos produtos (2048², estúdio + PNG transparente, 10 vistas): `node render_stills.js <pasta>` (vistas em `stills.html`).
 
+- **Fotos "reais" por path tracing** (`photo.html` + `render_photo.js <saida.png> <vista> <amostras> [w] [h]`, lib `three-gpu-pathtracer` 0.0.23
+  com patch de `environmentRotation` p/ three r160): luz física, refração real, softboxes emissivos + fundo em degradê esmeralda.
+  Vistas: serum, serum_aberto, pote, colecao. ~15 min/foto a 1080x1920/160 amostras; depois `nlmeans` p/ tirar ruído.
+- IA de vídeo grátis (Hugging Face ZeroGPU): cota ~2 min/dia por conta (todos os espaços). LTX-Video distilled funcionou
+  (upload via /gradio_api/upload, `gerar_ia_ltx.py`); bons: gota no líquido e fita de seda. FLUX Kontext pede 90s/imagem.

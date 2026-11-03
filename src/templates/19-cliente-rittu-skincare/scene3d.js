@@ -50,7 +50,7 @@ export function build(r){
   function serum(name,sub,ml,scale=1){const g=new THREE.Group();
     const prof=[V2(0,0),V2(.86,0),V2(.95,.05),V2(1,.16),V2(1,2.25),V2(.97,2.42),V2(.86,2.56),V2(.62,2.66),V2(.38,2.72),V2(.36,2.95),V2(0,2.95)];
     const body=new THREE.Mesh(new THREE.LatheGeometry(prof,128),glass);g.add(body);
-    const lp=[V2(0,.12),V2(.88,.12),V2(.88,1.7),V2(0,1.7)];const liq=new THREE.Mesh(new THREE.LatheGeometry(lp,64),liquid);g.add(liq);
+    const lp=[V2(0,.12),V2(.9,.12),V2(.9,2.15),V2(0,2.15)];const liq=new THREE.Mesh(new THREE.LatheGeometry(lp,64),liquid);g.add(liq);
     const lab=new THREE.Mesh(new THREE.CylinderGeometry(1.006,1.006,1.25,128,1,true,-Math.PI*.42,Math.PI*.84),new THREE.MeshStandardMaterial({map:labelTex(name,sub,ml),transparent:true,roughness:.6,metalness:0,depthWrite:false}));
     lab.position.y=1.2;g.add(lab);
     // conta-gotas (grupo que pode subir)
