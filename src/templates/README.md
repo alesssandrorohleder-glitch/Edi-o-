@@ -10,4 +10,5 @@ Uma pasta por vídeo. Leia o `CLAUDE-contexto.md` (estilo, ajustes pedidos, prom
 - `16-construtora-nido/` = versão portfólio (fictícia) do 14 Metrocasa, sem marca/fotos do cliente; `gerar_de_14.py` recria o index a partir do 14.
 - `17-esmalteria-amora/` = versão portfólio (fictícia) do 13 Cereja, sem marca/filmagens do cliente; `gerar_de_13.py` recria o index a partir do 13.
 - `18-cliente-gaia-tabacaria/` = CLIENTE Gaia Tabacaria: filmagens estabilizadas + cor uniformizada; render com `node render_gaia.js out/gaia_video` (ver CLAUDE.md).
+- `19-skincare-noctea/` = skin care de luxo fictício NOCTÉA (astrológico, verde-escuro/preto); `node render.js out/video`.
 - Pastas com `_frames_src/`: rode `python preparar_frames.py` antes (recria as sequências de quadros dos clipes).

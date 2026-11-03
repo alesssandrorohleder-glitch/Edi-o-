@@ -192,3 +192,17 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
   e animações de texto variadas (sobe da máscara, tracking, pop central, palavras trocando a cada batida).
 - Trilha TECHNO sintetizada (`audio/audio_gaia.py`): kick + rumble, baixo rolante, acid com filtro ressonante, sidechain,
   breakdown com riser + rolo de caixa. Sugestão Suno: `Dark hypnotic techno, rolling bassline, acid 303 line, punchy kick with rumble, 128 BPM, instrumental`.
+
+### 19 — Skin care de luxo "NOCTÉA" (portfólio fictício) — `19-skincare-noctea`
+- Estética astrológica alto padrão: céu com nebulosa verde + estrelas cintilando, constelações desenhadas em linha fina,
+  mapa astral com algarismos romanos, esfera com órbitas (frente/trás com profundidade), fases da lua, poeira dourada.
+- Paleta: preto #020504 / verde-escuro #0A2419–#1E5A40 / sálvia #A9C2AF / marfim #EEE7D7 / champanhe só no metal do conta-gotas e tampa.
+- Fontes (em `fonts/`): Cormorant Garamond 300/300i/500 (títulos) + Jost 300/400 (rótulos espaçados). Entradas de texto com
+  desfoque→foco + tracking (`lux`) e letra a letra (`spell`). Transição entre cenas: sobe/desce com desfoque sobre o mesmo céu.
+- Produtos 100% vetoriais: sérum conta-gotas (vidro verde com reflexos, colar metálico, rótulo com estrela), pote de creme, essência;
+  varredura de luz no vidro; gota caindo com anel de onda.
+- Roteiro 38s: constelação "ESCRITO nas estrelas" → esfera/órbitas "Um ritual celestial" → herói Sérum Noturno (texto atrás + mapa astral)
+  → fórmula como constelação (4 ativos) + "72h" → fases da lua "Para cada fase da sua pele" → Coleção ASTRA → logo em estrela → CTA portfólio.
+- Trilha deep house 120bpm (Dm9–B♭maj7–Fmaj7–C, Rhodes/sinos/sub, sidechain) em `audio/audio_noctea.py` + `so_efeitos.mp3`.
+  Sugestão Suno: `Elegant deep house, luxury fashion runway, warm rhodes chords, soft vocal chops, 120 BPM, instrumental`.
+- Render: `node render.js out/video` (prints: `node render.js out/s 3.5,10`).
