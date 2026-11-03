@@ -3,10 +3,10 @@ import * as THREE from './lib/three.module.min.js';
 import {RoomEnvironment} from './lib/RoomEnvironment.js';
 const V2=(a,b)=>new THREE.Vector2(a,b);
 
-function canvasTex(w,h,draw){const cv=document.createElement('canvas');cv.width=w;cv.height=h;draw(cv.getContext('2d'),w,h);const t=new THREE.CanvasTexture(cv);t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=8;return t;}
+function canvasTex(w,h,draw){const cv=document.createElement('canvas');cv.width=w;cv.height=h;draw(cv.getContext('2d'),w,h);const t=new THREE.CanvasTexture(cv);t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=16;return t;}
 function labelTex(name,sub,ml){return canvasTex(2048,1024,(g,w,h)=>{g.clearRect(0,0,w,h);const cx=w*.5;g.fillStyle='rgba(238,231,215,.95)';g.textAlign='center';g.textBaseline='middle';
-  g.font='300 150px Corm';g.letterSpacing='46px';g.fillText(name,cx+23,h*.40);g.fillRect(cx-70,h*.53,140,3);
-  g.font='400 46px Jost';g.letterSpacing='20px';g.fillText(sub,cx+10,h*.62);g.font='300 40px Jost';g.letterSpacing='14px';g.globalAlpha=.7;g.fillText(ml,cx+7,h*.74);
+  g.font='500 170px Corm';g.letterSpacing='40px';g.fillText(name,cx+20,h*.39);g.fillRect(cx-80,h*.53,160,5);
+  g.font='400 70px Jost';g.letterSpacing='16px';g.fillText(sub,cx+8,h*.64);g.font='400 58px Jost';g.letterSpacing='12px';g.globalAlpha=.85;g.fillText(ml,cx+6,h*.78);
   g.globalAlpha=1;g.beginPath();const sx=cx,sy=h*.2,s=26;for(let i=0;i<8;i++){const r=i%2?s*.18:s,a=i*Math.PI/4-Math.PI/2;g.lineTo(sx+Math.cos(a)*r,sy+Math.sin(a)*r);}g.closePath();g.fill();});}
 
 export function build(r){
