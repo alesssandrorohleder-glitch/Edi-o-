@@ -194,15 +194,16 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
   breakdown com riser + rolo de caixa. Sugestão Suno: `Dark hypnotic techno, rolling bassline, acid 303 line, punchy kick with rumble, 128 BPM, instrumental`.
 
 ### 19 — Skin care de luxo "NOCTÉA" (portfólio fictício) — `19-skincare-noctea`
-- Estética astrológica alto padrão: céu com nebulosa verde + estrelas cintilando, constelações desenhadas em linha fina,
-  mapa astral com algarismos romanos, esfera com órbitas (frente/trás com profundidade), fases da lua, poeira dourada.
-- Paleta: preto #020504 / verde-escuro #0A2419–#1E5A40 / sálvia #A9C2AF / marfim #EEE7D7 / champanhe só no metal do conta-gotas e tampa.
-- Fontes (em `fonts/`): Cormorant Garamond 300/300i/500 (títulos) + Jost 300/400 (rótulos espaçados). Entradas de texto com
-  desfoque→foco + tracking (`lux`) e letra a letra (`spell`). Transição entre cenas: sobe/desce com desfoque sobre o mesmo céu.
-- Produtos 100% vetoriais: sérum conta-gotas (vidro verde com reflexos, colar metálico, rótulo com estrela), pote de creme, essência;
-  varredura de luz no vidro; gota caindo com anel de onda.
-- Roteiro 38s: constelação "ESCRITO nas estrelas" → esfera/órbitas "Um ritual celestial" → herói Sérum Noturno (texto atrás + mapa astral)
-  → fórmula como constelação (4 ativos) + "72h" → fases da lua "Para cada fase da sua pele" → Coleção ASTRA → logo em estrela → CTA portfólio.
-- Trilha deep house 120bpm (Dm9–B♭maj7–Fmaj7–C, Rhodes/sinos/sub, sidechain) em `audio/audio_noctea.py` + `so_efeitos.mp3`.
-  Sugestão Suno: `Elegant deep house, luxury fashion runway, warm rhodes chords, soft vocal chops, 120 BPM, instrumental`.
-- Render: `node render.js out/video` (prints: `node render.js out/s 3.5,10`).
+- v1 (astrológica, vetorial — Ale não gostou: escuro/parado, produto "desenhado", astrologia, ritmo) guardada em `v1/`.
+- v2: **produtos em 3D real (three.js r160, `lib/`)** — `scene3d.js`: vidro verde com transmissão/clearcoat, colar dourado com anéis gravados,
+  bulbo de borracha, rótulo em textura de canvas (Cormorant + Jost), pote com creme em espiral, frasco de essência, pódios;
+  estúdio com parede de luz esmeralda (shader), piso espelhado (reflexo por cópia espelhada), sombra de contato + poça de luz,
+  texto atrás do produto como plano 3D. Pós: profundidade de campo (BokehPass, foco = distância câmera→alvo) + brilho 2D
+  nos pontos de luz + vinheta + grão. **Não usar UnrealBloomPass** (gera blocos pretos/NaN nos reflexos no SwiftShader).
+- Editorial de grife: Cormorant Garamond itálico + Jost espaçada; textos sobem de máscara ou entram do desfoque.
+- Takes (120bpm, cortes na batida): macro do colar "A noite" → giro whip "é sua aliada" → conta-gotas sobe (luz varrendo)
+  → gota cai com anel no piso → órbita com "Lua Nova" atrás + REGENERA → 3 ativos em cortes de 1,5s → pote abre (Crème Étoile)
+  → coleção nos pódios (Noite Verde) → logo NOCTÉA → CTA portfólio. Transições: whip H/V, zoom-through, varredura de luz, corte com punch.
+- Trilha melodic house (`audio/audio_noctea.py`: Em–Cmaj7–G–D/F#, pluck com filtro, stabs FM, vocal chops, drop no 2s,
+  breakdown no pote, corte seco no logo) + `so_efeitos.mp3`. Render: `node render.js out/video` (WebGL via SwiftShader, ~15 min).
+
