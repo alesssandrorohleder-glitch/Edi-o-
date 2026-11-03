@@ -49,11 +49,11 @@ const SH=[
      return {hero:{pos:[-2.2,0,-6.5],ry:.4,dropper:0},drop:f<1?[.8,y,.6]:null,ripple:hit>0?[.2+eo(hit)*2.2,(1-hit)*.85,.8,.6]:null,cam:L3([1.7,.7,4.6],[1.9,.5,4.1],k),look:[.8,.9,.4],ap:1.6,fov:30,bgI:.95,bgW:.28,bgC:[.45,.48]};}},
  {a:16,b:24,id:'orbit',st:(k,lt,t)=>{const an=lerp(-.9,.9,sine(k));return {hero:{ry:.15},cam:[Math.sin(an)*10.5,lerp(1.4,2.4,k),Math.cos(an)*10.5],look:[0,1.8,0],fov:30,bgI:1.1+.12*Math.exp(-((t%1))*5),bgW:.33,back:{pos:[0,2.3,-3.2],s:1}};},
      back:t=>backText('Lua Nova',250,.16*eo(p(t,b(16.4),b(18))),10,true)},
- {a:24,b:27,id:'ing1',img:'serum',z:[1.10,1.03],c:[.5,.55], st:(k)=>({ap:1.3,hero:{ry:lerp(.9,.5,k)},cam:L3([-2.9,2.9,5.2],[-2.5,2.5,4.7],k),look:[0,2.0,0],fov:28,bgI:.9,bgW:.26,bgC:[.62,.52]})},
- {a:27,b:30,id:'ing2',img:'serum_aberto',z:[1.02,1.09],c:[.5,.4], st:(k)=>({hero:{ry:lerp(-.2,.1,k)},cam:L3([0,6.2,2.2],[0,5.8,1.6],k),look:[0,3.0,0],fov:30,bgI:.8,bgW:.26})},
- {a:30,b:33,id:'ing3',img:'pote',z:[1.12,1.04],c:[.5,.6], st:(k)=>({ap:1.8,hero:{ry:lerp(.3,-.1,k)},cam:L3([1.8,.25,4.0],[2.2,.35,3.6],k),look:[0,1.3,0],fov:30,bgI:1.0,bgW:.3,bgC:[.38,.52]})},
+ {a:24,b:27,id:'ing1', st:(k)=>({ap:1.3,hero:{ry:lerp(.9,.5,k)},cam:L3([-2.9,2.9,5.2],[-2.5,2.5,4.7],k),look:[0,2.0,0],fov:28,bgI:.9,bgW:.26,bgC:[.62,.52]})},
+ {a:27,b:30,id:'ing2', st:(k)=>({hero:{ry:lerp(-.2,.1,k)},cam:L3([0,6.2,2.2],[0,5.8,1.6],k),look:[0,3.0,0],fov:30,bgI:.8,bgW:.26})},
+ {a:30,b:33,id:'ing3', st:(k)=>({ap:1.8,hero:{ry:lerp(.3,-.1,k)},cam:L3([1.8,.25,4.0],[2.2,.35,3.6],k),look:[0,1.3,0],fov:30,bgI:1.0,bgW:.3,bgC:[.38,.52]})},
  {a:33,b:41,id:'jar',  st:(k,lt,t)=>({jar:{ry:lerp(-.5,.4,k)+Math.PI,lid:2.0*eio(p(k,.12,.55)),lidr:-.35*eio(p(k,.12,.55))},cam:L3([0,3.4,9.4],[0,7.6,6.6],eio(p(k,.1,.9))),look:L3([0,1.0,0],[0,.9,0],k),fov:30,bgI:1.0,bgW:.3})},
- {a:41,b:49,id:'line',img:'colecao',z:[1.0,1.12],c:[.5,.62], st:(k,lt,t)=>({line:{ry:lerp(-.35,.3,sine(k))},cam:L3([0,1.8,13],[0,3.2,11.2],eio(k)),look:[0,2.5,0],fov:30,bgI:1.2,bgW:.4})},
+ {a:41,b:49,id:'line', st:(k,lt,t)=>({line:{ry:lerp(-.35,.3,sine(k))},cam:L3([0,1.8,13],[0,3.2,11.2],eio(k)),look:[0,2.5,0],fov:30,bgI:1.2,bgW:.4})},
  {a:49,b:55,id:'logo', st:(k,lt,t)=>({hero:{ry:lerp(.4,.1,k)},cam:L3([0,2.0,7.2],[0,4.2,15],eio(k)),look:L3([0,1.9,0],[0,4.6,0],eio(k)),fov:30,bgI:lerp(1.1,.35,eio(p(k,.2,.8))),bgW:.3,key:lerp(90,25,p(k,.2,.8)),rim:lerp(140,60,p(k,.2,.8))})},
  {a:55,b:64,id:'cta',  st:(k,lt,t)=>({hero:{ry:lerp(-.4,.4,k)},cam:[0,4.6,14],look:[0,5.6,0],fov:30,bgI:.3,bgW:.25,key:20,rim:50})},
 ];
@@ -98,7 +98,7 @@ function post(t){bl.filter='blur(9px) brightness(.85) contrast(2.4)';bl.drawImag
 const TB=document.createElement('canvas');TB.width=W;TB.height=H;const tb=TB.getContext('2d');
 // tipo de entrada de cada take
 const TIN={whip:['whip',.28],dropper:['light',.4],drop:['cut'],orbit:['zoom',.32],ing1:['whipV',.26],ing2:['cut'],ing3:['cut'],jar:['light',.45],line:['whip',.3],logo:['cut'],cta:['dark',.6]};
-const IMG={};await Promise.all(['serum','serum_aberto','pote','colecao'].map(n=>new Promise(r=>{const im=new Image();im.onload=r;im.src='fotos/'+n+'.jpg';IMG[n]=im;})));
+const IMG={};await Promise.all(SH.filter(s=>s.img).map(s=>s.img).map(n=>new Promise(r=>{const im=new Image();im.onload=r;im.src='fotos/'+n+'.jpg';IMG[n]=im;})));
 const PC=document.createElement('canvas');PC.width=W;PC.height=H;const pc=PC.getContext('2d');
 const SHD=(()=>{const g=X0.createLinearGradient(0,1080,0,1920);g.addColorStop(0,'rgba(1,8,5,0)');g.addColorStop(.45,'rgba(1,8,5,.6)');g.addColorStop(1,'rgba(1,8,5,.85)');return g;})();
 let FR=GL;
