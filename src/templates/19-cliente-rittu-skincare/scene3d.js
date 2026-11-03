@@ -11,7 +11,7 @@ function labelTex(name,sub,ml){return canvasTex(2048,1024,(g,w,h)=>{g.clearRect(
 
 export function build(r){
   r.toneMapping=THREE.ACESFilmicToneMapping;r.toneMappingExposure=1.05;r.outputColorSpace=THREE.SRGBColorSpace;r.shadowMap.enabled=false;
-  const sc=new THREE.Scene();sc.background=new THREE.Color('#010604');
+  const sc=new THREE.Scene();const BGC=new THREE.Color('#010604');sc.background=BGC;
   const pm=new THREE.PMREMGenerator(r);sc.environment=pm.fromScene(new RoomEnvironment(),.035).texture;
   const cam=new THREE.PerspectiveCamera(28,1080/1920,.05,200);
 
@@ -125,6 +125,7 @@ export function build(r){
     key.intensity=st.key??90;rimL.intensity=st.rim??140;rimR.intensity=(st.rim??140)*.6;key.target.position.set(...st.look);rimL.target.position.set(...st.look);rimR.target.position.set(...st.look);
     back.visible=!!st.back;if(st.back){back.position.set(...(st.back.pos||[0,2.4,-3.2]));back.scale.setScalar(st.back.s||1);}
     floor.visible=st.floor!==false;syncMirror();
+    const clean=!!st.clean;bg.visible=bgM.visible=!clean;if(clean){floor.visible=false;for(const k in mir)mir[k].visible=false;sc.background=null;}else sc.background=BGC;
   }
   return {scene:sc,cam,set,backCv,backTex};
 }

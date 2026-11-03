@@ -208,4 +208,5 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
   → coleção nos pódios (Noite Verde) → logo RITTÚ → fechamento da marca. Transições: whip H/V, zoom-through, varredura de luz, corte com punch.
 - Trilha melodic house (`audio/audio_noctea.py`: Em–Cmaj7–G–D/F#, pluck com filtro, stabs FM, vocal chops, drop no 2s,
   breakdown no pote, corte seco no logo) + `so_efeitos.mp3`. Render: `node render.js out/video` (WebGL via SwiftShader, ~15 min).
+- Imagens estáticas dos produtos (2048², estúdio + PNG transparente, 10 vistas): `node render_stills.js <pasta>` (vistas em `stills.html`).
 
