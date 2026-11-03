@@ -193,7 +193,9 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - Trilha TECHNO sintetizada (`audio/audio_gaia.py`): kick + rumble, baixo rolante, acid com filtro ressonante, sidechain,
   breakdown com riser + rolo de caixa. Sugestão Suno: `Dark hypnotic techno, rolling bassline, acid 303 line, punchy kick with rumble, 128 BPM, instrumental`.
 
-### 19 — Skin care de luxo "NOCTÉA" (portfólio fictício) — `19-skincare-noctea`
+### 19 — CLIENTE: Rittú (skin care de luxo) — `19-cliente-rittu-skincare`
+- Nasceu como "NOCTÉA" (nome provisório); marca real = **RITTÚ** → final de cliente (logo + "Sua pele, em outro nível." + "Conheça a coleção"), SEM frase de portfólio.
+- Pendentes do cliente: @ do Instagram, logo oficial, nomes reais dos produtos e ativos/claims (Sérum Noturno, Crème Étoile, 72h, ativos são provisórios).
 - v1 (astrológica, vetorial — Ale não gostou: escuro/parado, produto "desenhado", astrologia, ritmo) guardada em `v1/`.
 - v2: **produtos em 3D real (three.js r160, `lib/`)** — `scene3d.js`: vidro verde com transmissão/clearcoat, colar dourado com anéis gravados,
   bulbo de borracha, rótulo em textura de canvas (Cormorant + Jost), pote com creme em espiral, frasco de essência, pódios;
@@ -203,7 +205,7 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - Editorial de grife: Cormorant Garamond itálico + Jost espaçada; textos sobem de máscara ou entram do desfoque.
 - Takes (120bpm, cortes na batida): macro do colar "A noite" → giro whip "é sua aliada" → conta-gotas sobe (luz varrendo)
   → gota cai com anel no piso → órbita com "Lua Nova" atrás + REGENERA → 3 ativos em cortes de 1,5s → pote abre (Crème Étoile)
-  → coleção nos pódios (Noite Verde) → logo NOCTÉA → CTA portfólio. Transições: whip H/V, zoom-through, varredura de luz, corte com punch.
+  → coleção nos pódios (Noite Verde) → logo RITTÚ → fechamento da marca. Transições: whip H/V, zoom-through, varredura de luz, corte com punch.
 - Trilha melodic house (`audio/audio_noctea.py`: Em–Cmaj7–G–D/F#, pluck com filtro, stabs FM, vocal chops, drop no 2s,
   breakdown no pote, corte seco no logo) + `so_efeitos.mp3`. Render: `node render.js out/video` (WebGL via SwiftShader, ~15 min).
 

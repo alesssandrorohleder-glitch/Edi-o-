@@ -8,7 +8,7 @@
 html,body{margin:0;background:#000}canvas{display:block}#g{position:absolute;left:-9999px}</style></head>
 <body><canvas id="c" width="1080" height="1920"></canvas><canvas id="g" width="1080" height="1920"></canvas>
 <script type="module">
-/* 19 — NOCTÉA v2 · skin care de luxo · produtos 3D (three.js) + tipografia editorial · 120bpm · 32s
+/* 19 — RITTÚ v2 · skin care de luxo · produtos 3D (three.js) + tipografia editorial · 120bpm · 32s
    Tempo em batidas (BT=0,5s). Cada take: câmera com movimento próprio; cortes na batida. */
 import * as THREE from './lib/three.module.min.js';import {build} from './scene3d.js';
 import {EffectComposer} from './lib/EffectComposer.js';import {RenderPass} from './lib/RenderPass.js';import {BokehPass} from './lib/BokehPass.js';import {OutputPass} from './lib/OutputPass.js';
@@ -42,7 +42,7 @@ const BT=.5,b=n=>n*BT;
 // cada take devolve o estado 3D para o tempo local k (0..1) e lt (s)
 const SH=[
  {a:0,b:4,id:'macro',  st:(k,lt,t)=>({hero:{ry:lerp(-.6,.4,k),dropper:0},cam:L3([1.6,4.8,4.0],[2.0,3.0,5.4],eio(k)),look:L3([0,3.9,0],[0,2.6,0],eio(k)),fov:32,bgI:lerp(.35,.9,k),bgW:.25,key:120,rim:220})},
- {a:4,b:8,id:'whip',   st:(k,lt,t)=>({hero:{ry:lerp(-3.6,.15,eo5(cl(k*1.6))),dropper:0},cam:L3([0,1.0,9.0],[0,1.5,10.5],eo(k)),look:[0,1.9,0],fov:30,bgI:1.15,bgW:.32,back:{pos:[0,2.0,-3.2],s:1}}),back:t=>backText('NOCTÉA',300,.18*eo(p(t,b(4.6),b(6))),lerp(120,60,eo(p(t,b(4),b(7)))))},
+ {a:4,b:8,id:'whip',   st:(k,lt,t)=>({hero:{ry:lerp(-3.6,.15,eo5(cl(k*1.6))),dropper:0},cam:L3([0,1.0,9.0],[0,1.5,10.5],eo(k)),look:[0,1.9,0],fov:30,bgI:1.15,bgW:.32,back:{pos:[0,2.0,-3.2],s:1}}),back:t=>backText('RITTÚ',300,.18*eo(p(t,b(4.6),b(6))),lerp(120,60,eo(p(t,b(4),b(7)))))},
  {a:8,b:12,id:'dropper',st:(k,lt,t)=>({hero:{ry:.15,dropper:2.7*eio(p(k,.05,.6))},cam:L3([2.4,3.6,6.6],[1.6,3.9,5.6],eio(k)),look:L3([0,3.6,0],[0,3.8,0],eio(k)),fov:34,bgI:1.0,bgW:.3,
      drop:k>.6?[0,lerp(3.3,3.12,eo(p(k,.6,.95))),0]:null})},
  {a:12,b:16,id:'drop', st:(k,lt,t)=>{const f=p(k,.0,.62);const y=lerp(2.5,.12,f*f);const hit=p(k,.62,1);
@@ -55,7 +55,7 @@ const SH=[
  {a:33,b:41,id:'jar',  st:(k,lt,t)=>({jar:{ry:lerp(-.5,.4,k)+Math.PI,lid:2.0*eio(p(k,.12,.55)),lidr:-.35*eio(p(k,.12,.55))},cam:L3([0,3.4,9.4],[0,7.6,6.6],eio(p(k,.1,.9))),look:L3([0,1.0,0],[0,.9,0],k),fov:30,bgI:1.0,bgW:.3})},
  {a:41,b:49,id:'line', st:(k,lt,t)=>({line:{ry:lerp(-.35,.3,sine(k))},cam:L3([0,1.8,13],[0,3.2,11.2],eio(k)),look:[0,2.5,0],fov:30,bgI:1.2,bgW:.4})},
  {a:49,b:55,id:'logo', st:(k,lt,t)=>({hero:{ry:lerp(.4,.1,k)},cam:L3([0,2.0,7.2],[0,4.2,15],eio(k)),look:L3([0,1.9,0],[0,4.6,0],eio(k)),fov:30,bgI:lerp(1.1,.35,eio(p(k,.2,.8))),bgW:.3,key:lerp(90,25,p(k,.2,.8)),rim:lerp(140,60,p(k,.2,.8))})},
- {a:55,b:64,id:'cta',  st:(k,lt,t)=>({hero:{ry:lerp(-.4,.4,k)},cam:[0,2.0,14],look:[0,1.9,0],fov:30,bgI:.3,bgW:.25,key:20,rim:50})},
+ {a:55,b:64,id:'cta',  st:(k,lt,t)=>({hero:{ry:lerp(-.4,.4,k)},cam:[0,4.6,14],look:[0,5.6,0],fov:30,bgI:.3,bgW:.25,key:20,rim:50})},
 ];
 SH.forEach(s=>{s.t0=b(s.a);s.t1=b(s.b);});
 const shotAt=t=>{const i=SH.findIndex(s=>t>=s.t0&&t<s.t1);return i<0?SH.length-1:i;};
@@ -76,14 +76,14 @@ function TXT(i,t){const id=SH[i].id;const sh=SH[i];
   if(id==='jar'){const sg=x.createLinearGradient(0,1150,0,1700);sg.addColorStop(0,'rgba(1,8,5,0)');sg.addColorStop(1,'rgba(1,8,5,.75)');x.fillStyle=sg;x.fillRect(0,1150,W,550);lux('CRÈME',W/2,1330,46,IV,t,b(33.6),{f:'Jost',ls:18});mask('Étoile',W/2,1440,140,IV,t,b(34),{it:true});lux('textura de seda',W/2,1560,58,SAGE,t,b(36.5),{it:true});}
   if(id==='line'){lux('A COLEÇÃO',W/2,400,44,IV,t,b(41.4),{f:'Jost',ls:20});mask('Noite Verde',W/2,510,140,IV,t,b(42),{it:true});}
   if(id==='logo'){const lt=t-sh.t0;const k=eo(p(lt,1.2,2.2));if(k>0){star(W/2,520,26*k,k);}
-    const ls=lerp(70,38,eo(p(lt,1.4,2.8)));lux('NOCTÉA',W/2,660,150,IV,t,b(51.6),{ls,dur:1.2});rule(W/2,770,240,eio(p(lt,2.2,2.9)),IV,.6);
+    const ls=lerp(70,38,eo(p(lt,1.4,2.8)));lux('RITTÚ',W/2,660,150,IV,t,b(51.6),{ls,dur:1.2});rule(W/2,770,240,eio(p(lt,2.2,2.9)),IV,.6);
     lux('SKIN CARE DE ALTA PERFORMANCE',W/2,840,40,SAGE,t,b(53.2),{f:'Jost',ls:10});}
   if(id==='cta'){const lt=t-sh.t0;x.fillStyle='rgba(1,6,4,.74)';x.fillRect(0,0,W,H);
-    lux('Essa marca não existe.',W/2,600,64,SAGE,t,b(55.4),{it:true});
-    mask('Mas a sua marca',W/2,740,96,IV,t,b(56.2),{});mask('pode ficar assim.',W/2,850,96,IV,t,b(56.6),{it:true});
-    rule(W/2,950,200,eio(p(lt,1.6,2.3)));lux('MOTION  ·  LANÇAMENTOS  ·  3D',W/2,1020,38,SAGE,t,b(58),{f:'Jost',ls:8});
-    const bk=eo5(p(lt,2.6,3.3));if(bk>0){x.save();x.globalAlpha=bk;x.fillStyle=IV;x.beginPath();x.roundRect(W/2-330,1160,660,124,62);x.fill();x.restore();T('Me chama no direct',W/2,1224,52,'#04140D',{w:500,a:bk,ls:1});}
-    lux('@alecreator_motion',W/2,1380,56,IV,t,b(61),{f:'Jost',ls:4});}
+    star(W/2,470,20*eo5(p(lt,.2,.9)),eo5(p(lt,.2,.9)));
+    lux('RITTÚ',W/2,600,120,IV,t,b(55.6),{ls:40,dur:1.1});rule(W/2,690,200,eio(p(lt,1.0,1.7)),IV,.6);
+    mask('Sua pele,',W/2,820,104,IV,t,b(57.2),{it:true});mask('em outro nível.',W/2,940,104,IV,t,b(57.8),{});
+    lux('SÉRUM NOTURNO  ·  CRÈME ÉTOILE  ·  ESSÊNCIA',W/2,1060,34,SAGE,t,b(59),{f:'Jost',ls:6});
+    const bk=eo5(p(lt,2.9,3.6));if(bk>0){x.save();x.globalAlpha=bk;x.strokeStyle=IV;x.lineWidth=1.8;x.beginPath();x.roundRect(W/2-330,1190,660,120,60);x.stroke();x.restore();T('CONHEÇA A COLEÇÃO',W/2,1251,40,IV,{f:'Jost',ls:10,a:bk});}}
 }
 
 /* ---------- pós: brilho difuso (pro-mist), grão, vinheta ---------- */

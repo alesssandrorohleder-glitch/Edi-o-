@@ -1,4 +1,4 @@
-// Estúdio 3D da NOCTÉA (three.js r160). Exporta build(renderer) → {scene, cam, set(state)}.
+// Estúdio 3D da RITTÚ (three.js r160). Exporta build(renderer) → {scene, cam, set(state)}.
 import * as THREE from './lib/three.module.min.js';
 import {RoomEnvironment} from './lib/RoomEnvironment.js';
 const V2=(a,b)=>new THREE.Vector2(a,b);
@@ -64,7 +64,7 @@ export function build(r){
   // ---- pote ----
   function jar(scale=1){const g=new THREE.Group();
     const body=new THREE.Mesh(new THREE.LatheGeometry([V2(0,0),V2(1.45,0),V2(1.55,.08),V2(1.6,.2),V2(1.6,1.15),V2(1.5,1.22),V2(0,1.22)],128),jarMat);g.add(body);
-    const jl=new THREE.Mesh(new THREE.CylinderGeometry(1.605,1.605,.62,128,1,true,-Math.PI*.4,Math.PI*.8),new THREE.MeshStandardMaterial({map:labelTex('NOCTÉA','CRÈME ÉTOILE','50 ML'),transparent:true,roughness:.6,depthWrite:false}));jl.position.y=.6;g.add(jl);
+    const jl=new THREE.Mesh(new THREE.CylinderGeometry(1.605,1.605,.62,128,1,true,-Math.PI*.4,Math.PI*.8),new THREE.MeshStandardMaterial({map:labelTex('RITTÚ','CRÈME ÉTOILE','50 ML'),transparent:true,roughness:.6,depthWrite:false}));jl.position.y=.6;g.add(jl);
     const cr=new THREE.Mesh(new THREE.CylinderGeometry(1.4,1.4,.1,96),cream);cr.position.y=1.2;g.add(cr);
     const lid=new THREE.Group();lid.name='lid';
     const l1=new THREE.Mesh(new THREE.LatheGeometry([V2(0,0),V2(1.62,0),V2(1.64,.06),V2(1.64,.72),V2(1.58,.8),V2(0,.8)],128),matte);lid.add(l1);
@@ -75,7 +75,7 @@ export function build(r){
     const body=new THREE.Mesh(new THREE.LatheGeometry([V2(0,0),V2(.62,0),V2(.66,.08),V2(.66,3.2),V2(.5,3.42),V2(.26,3.5),V2(.25,3.7),V2(0,3.7)],96),glass);g.add(body);
     const cap=new THREE.Mesh(new THREE.CylinderGeometry(.34,.34,1.05,64),matte);cap.position.y=4.2;g.add(cap);
     const cr=new THREE.Mesh(new THREE.CylinderGeometry(.345,.345,.06,64,1,true),gold);cr.position.y=3.72;g.add(cr);
-    const lab=new THREE.Mesh(new THREE.CylinderGeometry(.665,.665,1.4,96,1,true,-Math.PI*.45,Math.PI*.9),new THREE.MeshStandardMaterial({map:labelTex('NOCTÉA','ESSÊNCIA','100 ML'),transparent:true,roughness:.6,depthWrite:false}));lab.position.y=1.7;g.add(lab);
+    const lab=new THREE.Mesh(new THREE.CylinderGeometry(.665,.665,1.4,96,1,true,-Math.PI*.45,Math.PI*.9),new THREE.MeshStandardMaterial({map:labelTex('RITTÚ','ESSÊNCIA','100 ML'),transparent:true,roughness:.6,depthWrite:false}));lab.position.y=1.7;g.add(lab);
     g.scale.setScalar(scale);return g;}
   // ---- pódios ----
   function podium(rad,h){const m=new THREE.Mesh(new THREE.CylinderGeometry(rad,rad,h,128),new THREE.MeshPhysicalMaterial({color:'#03120b',roughness:.18,clearcoat:1,clearcoatRoughness:.06,envMapIntensity:1.4}));m.position.y=h/2;
@@ -87,10 +87,10 @@ export function build(r){
     const sh=new THREE.Mesh(new THREE.PlaneGeometry(rad*2.6,rad*2.6),new THREE.MeshBasicMaterial({map:shTex,transparent:true,depthWrite:false}));sh.rotation.x=-Math.PI/2;sh.position.y=.004;sh.renderOrder=3;g.add(sh);
     if(pool){const pl=new THREE.Mesh(new THREE.PlaneGeometry(rad*2.2,rad*4.2),new THREE.MeshBasicMaterial({map:poolTex,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,opacity:.28,toneMapped:false}));pl.rotation.x=-Math.PI/2;pl.position.set(0,.006,rad*1.7);pl.renderOrder=4;g.add(pl);}
     return g;}
-  const S=serum('NOCTÉA','SÉRUM NOTURNO','30 ML'),J=jar(),E=tall(),P1=podium(1.7,.5),P2=podium(1.25,1.1),P3=podium(1.35,.25);
+  const S=serum('RITTÚ','SÉRUM NOTURNO','30 ML'),J=jar(),E=tall(),P1=podium(1.7,.5),P2=podium(1.25,1.1),P3=podium(1.35,.25);
   const hero=new THREE.Group();hero.add(grounded(S,1.0));sc.add(hero);
   const line=new THREE.Group();line.add(P1,P2,P3);sc.add(line);
-  const J2=jar(.62),E2=tall(.62),S2=serum('NOCTÉA','SÉRUM NOTURNO','30 ML',.78);line.add(J2,E2,S2);[[J2,1.0],[E2,.45],[S2,.8]].forEach(([o,r])=>{const sh=new THREE.Mesh(new THREE.PlaneGeometry(r*2.6,r*2.6),new THREE.MeshBasicMaterial({map:shTex,transparent:true,depthWrite:false}));sh.rotation.x=-Math.PI/2;sh.renderOrder=3;sh.position.copy(o.position);sh.position.y+=.004;line.add(sh);});
+  const J2=jar(.62),E2=tall(.62),S2=serum('RITTÚ','SÉRUM NOTURNO','30 ML',.78);line.add(J2,E2,S2);[[J2,1.0],[E2,.45],[S2,.8]].forEach(([o,r])=>{const sh=new THREE.Mesh(new THREE.PlaneGeometry(r*2.6,r*2.6),new THREE.MeshBasicMaterial({map:shTex,transparent:true,depthWrite:false}));sh.rotation.x=-Math.PI/2;sh.renderOrder=3;sh.position.copy(o.position);sh.position.y+=.004;line.add(sh);});
   P1.position.set(0,0,0);S2.position.set(0,.5,0);P2.position.set(-2.4,0,-.8);E2.position.set(-2.4,1.1,-.8);P3.position.set(2.35,0,-.5);J2.position.set(2.35,.25,-.5);
   const jarG=new THREE.Group();jarG.add(grounded(J,1.6));sc.add(jarG);
   // reflexos: cópias espelhadas
