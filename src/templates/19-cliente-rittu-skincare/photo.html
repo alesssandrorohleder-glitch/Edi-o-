@@ -12,8 +12,8 @@ const S=build(R);const sc=S.scene;
 const V={
  serum:{hero:{ry:.13},cam:[1.6,2.4,12.5],look:[0,2.2,0],fov:26},
  serum_aberto:{hero:{ry:.3,dropper:2.4},cam:[1.4,3.4,15],look:[0,3.3,0],fov:28},
- pote:{jar:{ry:.3,lid:1.5,lidr:-.25},cam:[0,4.4,10.5],look:[0,1.4,0],fov:28},
- colecao:{line:{ry:.2},cam:[0,3.0,15.5],look:[0,2.0,0],fov:28},
+ pote:{jar:{ry:.3,lid:1.1,lidr:-.2},cam:[0,4.2,15],look:[0,1.5,0],fov:30},
+ colecao:{line:{ry:.2},cam:[0,3.4,22],look:[0,2.0,0],fov:30},
 };
 S.set({...V[VIEW],clean:true,t:0});
 // vidro/líquido mais claros só na foto (no path tracing a absorção real escurece demais)
@@ -36,7 +36,7 @@ box(1.4,9,'#e8fff3',5,[6.5,4,1.5],L);           // strip de recorte direita
 {const cv=document.createElement('canvas');cv.width=cv.height=512;const g=cv.getContext('2d');const r=g.createRadialGradient(256,256,0,256,256,256);r.addColorStop(0,'#3fe0a0');r.addColorStop(.35,'#14804f');r.addColorStop(.75,'#04261a');r.addColorStop(1,'#000');g.fillStyle=r;g.fillRect(0,0,512,512);
  const tx=new THREE.CanvasTexture(cv);tx.colorSpace=THREE.SRGBColorSpace;const m=new THREE.Mesh(new THREE.PlaneGeometry(22,22),new THREE.MeshStandardMaterial({color:'#000',emissive:'#ffffff',emissiveMap:tx,emissiveIntensity:2.2}));
  m.position.set(L[0],L[1]+.6,-11);m.lookAt(S.cam.position);sc.add(m);}   // fundo: brilho esmeralda em degradê atrás do produto (vidro acende por transmissão)
-box(5,3,'#fff8ee',1.4,[3,6,11],L);               // rebatedor frontal (ilumina o rótulo)
+box(5,3,'#fff8ee',1.4,[3,6,Math.max(11,S.cam.position.z+1)],L);               // rebatedor frontal (ilumina o rótulo)
 box(8,3,'#ffffff',1.2,[0,11,3],L);              // topo suave
 const pt=new WebGLPathTracer(R);pt.tiles.set(2,2);pt.filterGlossyFactor=.5;pt.minSamples=1;pt.renderDelay=0;pt.fadeDuration=0;pt.bounces=8;pt.transmissiveBounces=10;
 S.cam.aspect=CW/CH;S.cam.updateProjectionMatrix();pt.setScene(sc,S.cam);
