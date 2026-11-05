@@ -14,5 +14,5 @@ Uma pasta por vídeo. Leia o `CLAUDE-contexto.md` (estilo, ajustes pedidos, prom
 - `20-ui-app-kora/` = UI animada KORA (banco digital fictício, iPhone 3D three.js + UI em canvas); `node render.js out/video`.
 - `21-ui-app-aera/` = UI animada AERA (app de viagens fictício, tema claro, iPhone + relógio 3D); `node render.js out/video`.
 - `22-explicativo-kuida/` = explicativo kuida (app de saúde fictício, personagem com rig, canvas 2D); `node render.js out/video`.
-- `23-festival-solsticio/` = lançamento de festival fictício (shader WebGL + tipografia suíça); `node render.js out/video`.
+- `23-festival-onda/` = lançamento de festival fictício ONDA (cromo líquido em shader + tipografia, cena nova a cada 2s); `node render.js out/video`.
 - Pastas com `_frames_src/`: rode `python preparar_frames.py` antes (recria as sequências de quadros dos clipes).

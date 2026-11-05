@@ -244,16 +244,12 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
   moto, campainha, entrega) → íris para a sala "Em poucas horas, você de volta." → círculo teal vira logo kuida → CTA de portfólio.
 - Paleta creme/teal #0F5C56/menta/coral #FF7A66; Poppins + Inter. Trilha pop C–G–Am–F (`audio/audio_kuida.py`, SFX: despertador, espirro, bip, campainha, carimbo).
 
-### 23 — Festival "SOLSTÍCIO" (lançamento de evento, portfólio fictício) — `23-festival-solsticio`
-- Diferente de todos: **shader WebGL** (gradiente líquido fbm + sol em degradê + anéis no bumbo + retícula/halftone) em meia resolução
-  + tipografia suíça/brutalista (Bebas Neue gigante ajustada à largura, grade de colunas, Inter) em canvas 2D. Tudo pulsa no kick (BT=0,5s).
-- Paleta osso #EDE6D6 / preto / vermelho #FF3B1F / azul #2430FF / sol #FFB21F. Line-up e artistas fictícios.
-- Roteiro 120bpm/32s: "DOIS / DIAS / DE / SOL" (uma palavra por batida, cores invertendo) → sol nasce + letras de SOLSTÍCIO caindo →
-  data "20—21" em contador rolante (sol cresce e vira o fundo) → line-up sáb (osso) e dom (azul) linha a linha → números (3 palcos, 40 artistas…) →
-  ingresso gira e entra (Lote 1 R$ 189 + "esgota em" contando) → logo → CTA de portfólio. Transições: íris pelo sol, empurrão vertical, cortina com faixa amarela, dip.
-- v2 (feedback do Ale): resquício do dígito no contador da data (recorte justo), acentos cortados pelas máscaras/linhas (recorte com folga + mais espaço no line-up),
-  **ingresso 3D realista** (three.js: papel com textura/relevo, picote com recortes, faixa holográfica iridescente, luz passando), trilha **TECHNO**
-  (kick + rumble, baixo rolante, acid ressonante, stab) e efeitos mais estéticos (swell reverso → impacto com cauda, blips filtrados com reverb, stab no final).
-- v3: data sem corte no topo (dígito parado desenhado sem recorte); música trocada para **afro/melodic house** (congas, shaker, grave quente,
-  melodia com eco) — versão techno guardada em `audio/audio_solsticio_techno.py`. Suno: `Melodic afro house festival anthem, organic percussion, warm deep bass, uplifting pluck melody, 120 BPM, instrumental`.
-- `audio/audio_solsticio.py`. Render: `node render.js out/video`.
+### 23 — Festival "ONDA" (lançamento de evento, portfólio fictício) — `23-festival-onda`
+- Nasceu como "SOLSTÍCIO" (sol laranja + retícula, `solsticio_v3.html`) — Ale reprovou: nome, laranja "antigo", vídeo vazio e músicas (techno/afro sintetizados).
+- v4 ONDA: **cromo líquido iridescente** frio (shader WebGL meia resolução, violeta/azul + brilhos brancos + reflexos verde-ácido) e **texto preenchido de cromo**
+  (letra clara + cromo por cima, sempre legível); verde ácido #C6FF3D / violeta #6B2BFF / preto / gelo #E9ECF4; Bebas Neue + Inter.
+- **Uma cena nova a cada 2s** (16 cenas) e nada parado: ondas de linhas no bumbo, partículas, selo girando, faixa diagonal correndo, varredura atrás de cada nome,
+  transições de 0,3s variadas (empurrão, círculo com contorno verde, cortina diagonal, zoom).
+- Roteiro: SENTE/ESSA/NOVA/ONDA → logo cromado → 20—21 DEZ (contador) → mapa + pin "BAÍA DO SOL" + coordenadas → line-up sáb (2 cenas) e dom (fundo verde, 2 cenas) →
+  3 PALCOS (luzes) → 40 ARTISTAS (contador + 40 pontos) → 48H (relógio) → ingresso 3D preto/verde com faixa holográfica (gira) + "esgota em" → logo → CTA.
+- Música: base no **techno clean APROVADO do VERANO** (`audio/audio_onda.py`), SFX nos cortes. Antigas em `audio/solsticio_*.py`. Render: `node render.js out/video`.
