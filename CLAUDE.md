@@ -252,4 +252,5 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
   transições de 0,3s variadas (empurrão, círculo com contorno verde, cortina diagonal, zoom).
 - Roteiro: SENTE/ESSA/NOVA/ONDA → logo cromado → 20—21 DEZ (contador) → mapa + pin "BAÍA DO SOL" + coordenadas → line-up sáb (2 cenas) e dom (fundo verde, 2 cenas) →
   3 PALCOS (luzes) → 40 ARTISTAS (contador + 40 pontos) → 48H (relógio) → ingresso 3D preto/verde com faixa holográfica (gira) + "esgota em" → logo → CTA.
-- Música: base no **techno clean APROVADO do VERANO** (`audio/audio_onda.py`), SFX nos cortes. Antigas em `audio/solsticio_*.py`. Render: `node render.js out/video`.
+- ✅ Vídeo aprovado ("ficou perfeito"). Música final = faixa enviada pelo Ale (`audio/musica_ale.mp3`: ~123bpm esticada p/ 120bpm com atempo 0,9757 e alinhada com a batida forte no seg. 2; `trilha_ale.mp3` = música + SFX a 35%). Coordenadas sob "BAÍA DO SOL" removidas.
+- Música sintetizada alternativa: techno clean do VERANO (`audio/audio_onda.py`), SFX nos cortes. Antigas em `audio/solsticio_*.py`. Render: `node render.js out/video`.

@@ -77,7 +77,7 @@ function place(t){const lt=t-6;x.fillStyle=VIO;x.fillRect(0,0,W,H);x.save();x.gl
   const N=Math.floor(k*(P.length-1));x.moveTo(...P[0]);for(let i=1;i<=N;i++)x.lineTo(...P[i]);if(N<P.length-1){const f=k*(P.length-1)-N,a=P[N],b=P[N+1];x.lineTo(lerp(a[0],b[0],f),lerp(a[1],b[1],f));}x.stroke();x.restore();
   const pin=spr(lt-.9);if(pin>0){const X=560,Y=640;for(let i=0;i<3;i++){const q=((lt*1.2+i/3)%1);x.strokeStyle=`rgba(198,255,61,${.8*(1-q)})`;x.lineWidth=4;x.beginPath();x.ellipse(X,Y,30+q*160,(30+q*160)*.4,0,0,7);x.stroke();}
     x.save();x.translate(X,Y-90*pin+90);x.fillStyle=LIME;x.beginPath();x.arc(0,-90,44,0,7);x.fill();x.beginPath();x.moveTo(-36,-66);x.lineTo(0,0);x.lineTo(36,-66);x.fill();x.fillStyle=BLK;x.beginPath();x.arc(0,-90,17,0,7);x.fill();x.restore();}
-  mask('BAÍA DO SOL',W/2,1110,190,ICE,t,6.6);const c2=eo(p(lt,1.0,1.8));T(`${(27+50/60*c2).toFixed(2).replace('.',',')}°S · ${(48+36/60*c2).toFixed(2).replace('.',',')}°W`,W/2,1250,46,LIME,{f:'Inter',w:600,ls:4,a:eo(p(lt,.9,1.2))});}
+  mask('BAÍA DO SOL',W/2,1110,190,ICE,t,6.6);}
 function line(t,t0,names,day,bgc,fg,acc,head){x.fillStyle=bgc;x.fillRect(0,0,W,H);shade(t);if(bgc===BLK){x.save();x.globalAlpha=.22;chromeBG(t,0);x.restore();}particles(t,acc,.35);
   waves(t,1560,22,4,acc,.5,3,16);const pk=spr(t-t0);x.save();x.translate(W/2,300);x.scale(cl(pk,0,1.2),cl(pk,0,1.2));const lb=day,lw=tw(lb,64,'Bebas','',4)+80;rr(-lw/2,-48,lw,96,48);x.fillStyle=acc;x.fill();T(lb,0,4,64,bgc===LIME?LIME:BLK,{ls:4});x.restore();
   let Y=500;names.forEach((n,i)=>{const s=head&&i===0?fit(n,980,360):fit(n,940,210);const yy=Y+s*.5,ti=t0+.12+i*.5;const sweep=eio(p(t,ti,ti+.35));
