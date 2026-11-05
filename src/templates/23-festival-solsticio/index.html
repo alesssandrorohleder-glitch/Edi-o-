@@ -5,11 +5,12 @@
 @font-face{font-family:Inter;font-weight:600;src:url(fonts/Inter-SemiBold.otf)}
 @font-face{font-family:InterD;font-weight:800;src:url(fonts/InterDisplay-ExtraBold.otf)}
 html,body{margin:0;background:#000}canvas{display:block}#g{position:absolute;left:-9999px}</style></head>
-<body><canvas id="c" width="1080" height="1920"></canvas><canvas id="g" width="540" height="960"></canvas>
+<body><canvas id="c" width="1080" height="1920"></canvas><canvas id="g" width="540" height="960"></canvas><canvas id="g3" width="1080" height="1920" style="position:absolute;left:-9999px"></canvas>
 <script type="module">
 /* 23 — SOLSTÍCIO · lançamento de festival de música (portfólio fictício)
    Gradiente líquido + sol em retícula num shader WebGL (meia resolução, ampliado), tipografia suíça/brutalista em canvas 2D,
    tudo pulsando no bumbo (120bpm, BT=0,5s). 32s. */
+import * as THREE from './lib/three.module.min.js';import {RoomEnvironment} from './lib/RoomEnvironment.js';
 for(const f of ['50px Bebas','500 40px Inter','600 40px Inter','800 40px InterD'])await document.fonts.load(f);
 const W=1080,H=1920,c=document.getElementById('c'),X0=c.getContext('2d');let x=X0;
 const BONE='#EDE6D6',INK='#0B0B0C',RED='#FF3B1F',BLUE='#2430FF',SUN='#FFB21F';
@@ -21,8 +22,8 @@ function T(s,X,Y,size,col,{f='Bebas',w='',ls=0,al='center',a=1,base='middle'}={}
 function tw(s,size,f='Bebas',w='',ls=0){x.save();x.font=`${w} ${size}px ${f}`;x.letterSpacing=ls+'px';const m=x.measureText(s).width;x.restore();return m;}
 const fit=(s,wid,max=900,ls=0)=>Math.min(max,wid/tw(s,100,'Bebas','',ls)*100);
 function rr(X,Y,w,h,r){x.beginPath();x.roundRect(X,Y,w,h,r);}
-function mask(s,X,Y,size,col,t,t0,o={}){const k=eo5(p(t,t0,t0+(o.dur??.45)));if(k<=0)return;const out=o.out!=null?eio(p(t,o.out,o.out+.3)):0;if(out>=1)return;x.save();x.beginPath();x.rect(0,Y-size*.62,W,size*1.24);x.clip();
-  T(s,X,Y+(1-k)*size*1.05-out*size*1.1,size,col,{f:o.f??'Bebas',w:o.w??'',al:o.al??'center',ls:o.ls??0});x.restore();}
+function mask(s,X,Y,size,col,t,t0,o={}){const k=eo5(p(t,t0,t0+(o.dur??.45)));if(k<=0)return;const out=o.out!=null?eio(p(t,o.out,o.out+.3)):0;if(out>=1)return;x.save();x.beginPath();x.rect(0,Y-size*.9,W,size*1.55);x.clip();
+  T(s,X,Y+(1-k)*size*1.3-out*size*1.4,size,col,{f:o.f??'Bebas',w:o.w??'',al:o.al??'center',ls:o.ls??0});x.restore();}
 
 /* ---------------- shader: gradiente líquido + sol + anéis no bumbo + retícula ---------------- */
 const glc=document.getElementById('g'),gl=glc.getContext('webgl',{preserveDrawingBuffer:true});
@@ -60,8 +61,8 @@ const TITLE='SOLSTÍCIO';
 function title(t){const lt=t-2,sy=lerp(-.25,.43,eo5(p(lt,0,1.4))),sr=.2;shade(t,{sy,sr,ht:.35});
   const s=fit(TITLE,990,600,4);let X=W/2-tw(TITLE,s,'Bebas','',4)/2;TITLE.split('').forEach((ch,i)=>{const w=tw(ch,s,'Bebas','',4),k=spr(lt-.1-i*.2);if(k>0){x.save();x.translate(X+w/2,1430-(1-cl(k))*700);x.rotate((1-cl(k))*(rnd(i)-.5)*.6);T(ch,0,0,s,BONE);x.restore();}X+=w;});
   mask('FESTIVAL DE MÚSICA · VERÃO 2026',W/2,300,42,BONE,t,2.4,{f:'Inter',w:600,ls:6,out:5.7});}
-function odo(str,X,Y,size,col,t,t0){let cx=X-tw(str,size)/2;str.split('').forEach((ch,i)=>{const w=tw(ch,size);if(/\d/.test(ch)){const fin=+ch,k=eo5(p(t,t0+i*.08,t0+.9+i*.08)),roll=(1-k)*(9+i*3);x.save();x.beginPath();x.rect(cx-10,Y-size*.5,w+20,size*.98);x.clip();
-    for(let j=-1;j<=1;j++){const v=Math.floor(fin+roll)+j,fr=(fin+roll)%1;T(String(((v%10)+10)%10),cx+w/2,Y+(j-fr)*size*.9+(roll===0?0:0),size,col);}x.restore();}else T(ch,cx+w/2,Y,size,col,{a:eo(p(t,t0,t0+.3))});cx+=w;});}
+function odo(str,X,Y,size,col,t,t0){let cx=X-tw(str,size)/2;str.split('').forEach((ch,i)=>{const w=tw(ch,size);if(/\d/.test(ch)){const fin=+ch,k=eo5(p(t,t0+i*.08,t0+.9+i*.08)),roll=(1-k)*(9+i*3);x.save();x.beginPath();x.rect(cx-10,Y-size*.4,w+20,size*.76);x.clip();
+    if(roll<.001)T(ch,cx+w/2,Y,size,col);else for(let j=-1;j<=1;j++){const v=Math.floor(fin+roll)+j,fr=(fin+roll)%1;T(String(((v%10)+10)%10),cx+w/2,Y+(j-fr)*size*.9,size,col);}x.restore();}else T(ch,cx+w/2,Y,size,col,{a:eo(p(t,t0,t0+.3))});cx+=w;});}
 function dateS(t){const lt=t-6,g=eio(p(lt,0,.6));shade(t,{sy:lerp(.43,.55,g),sr:lerp(.2,.95,g),ht:lerp(.35,.55,g)});
   x.save();x.fillStyle=`rgba(11,11,12,${.18*g})`;x.fillRect(0,0,W,H);x.restore();odo('20—21',W/2,820,440,INK,t,6.3);mask('DEZEMBRO',W/2,1130,190,INK,t,6.9,{ls:10});
   const k=spr(t-8.0);if(k>0){x.save();x.translate(W/2,1330);x.scale(k,k);const s='BAÍA DO SOL · SC',w=tw(s,44,'Inter',600,4)+90;rr(-w/2,-50,w,100,50);x.fillStyle=INK;x.fill();T(s,0,2,44,BONE,{f:'Inter',w:600,ls:4});x.restore();}}
@@ -70,26 +71,54 @@ function lineup(t,day){const L=day?D2:D1,t0=day?14:10,BG=day?BLUE:BONE,FG=day?BO
   x.strokeStyle=day?'rgba(237,230,214,.25)':'rgba(11,11,12,.18)';x.lineWidth=2;for(let i=1;i<6;i++){x.beginPath();x.moveTo(i*W/6,0);x.lineTo(i*W/6,H);x.stroke();}
   const k=spr(t-t0-.05);x.save();x.translate(110,300);x.scale(cl(k,0,1.2),cl(k,0,1.2));x.fillStyle=AC;x.beginPath();x.arc(0,0,46,0,7);x.fill();T(day?'21':'20',0,4,52,day?INK:BONE);x.restore();
   mask(day?'DOMINGO · DEZ':'SÁBADO · DEZ',180,302,64,FG,t,t0+.1,{al:'left',ls:2});
-  let Y=420;L.forEach((n,i)=>{const s=fit(n,960,i?260:330);const yy=Y+s*.5;x.save();const ki=eo5(p(t,t0+.2+i*.5,t0+.55+i*.5));if(ki>0){x.fillStyle=FG;x.fillRect(60,Y-6,960*ki,3);}x.restore();
-    mask(n,W/2,yy+8,s,i===0?AC:FG,t,t0+.2+i*.5,{dur:.4});Y+=s*.93+14;});}
+  let Y=400;L.forEach((n,i)=>{const s=fit(n,940,i?205:270);const yy=Y+30+s*.55;x.save();const ki=eo5(p(t,t0+.2+i*.5,t0+.55+i*.5));if(ki>0){x.fillStyle=FG;x.globalAlpha=.6;x.fillRect(60,Y,960*ki,3);}x.restore();
+    mask(n,W/2,yy,s,i===0?AC:FG,t,t0+.2+i*.5,{dur:.4});Y+=s*.95+44;});}
 function numbers(t){x.fillStyle=INK;x.fillRect(0,0,W,H);x.save();x.globalAlpha=.5;shade(t,{sy:.5,sr:.0,ht:1,dk:.55});x.restore();
   const C=[['3','PALCOS',RED],['40','ARTISTAS',SUN],['48','HORAS DE MÚSICA',BONE],['1','PÔR DO SOL NA AREIA','#8F98FF']];x.strokeStyle='rgba(237,230,214,.3)';x.lineWidth=2;
   x.beginPath();x.moveTo(W/2,420);x.lineTo(W/2,1560);x.moveTo(40,990);x.lineTo(W-40,990);x.stroke();
   C.forEach(([n,l,cc],i)=>{const t0=18.4+i*.5,cx=W/4+(i%2)*W/2,cy=640+Math.floor(i/2)*570,k=spr(t-t0);if(k<=0)return;const v=Math.round(+n*eo(p(t,t0,t0+.6)));x.save();x.translate(cx,cy);x.scale(cl(k,0,1.3),cl(k,0,1.3));T(String(v),0,0,330,cc);x.restore();
     const lines=l.split(' ').length>2?[l.split(' ').slice(0,2).join(' '),l.split(' ').slice(2).join(' ')]:[l];lines.forEach((s,j)=>T(s,cx,cy+200+j*52,44,BONE,{f:'Inter',w:600,ls:3,a:eo(p(t,t0+.15,t0+.5))}));});
   mask('MAIS DO QUE UM FESTIVAL',W/2,300,82,BONE,t,18.05,{out:21.7});}
+/* ---------------- ingresso 3D realista: papel com textura, picote com recortes, faixa holográfica iridescente ---------------- */
+const G3=document.getElementById('g3');const R3=new THREE.WebGLRenderer({canvas:G3,antialias:true,alpha:true,preserveDrawingBuffer:true});R3.setSize(W,H,false);R3.setClearColor(0,0);
+R3.toneMapping=THREE.LinearToneMapping;R3.toneMappingExposure=.9;R3.outputColorSpace=THREE.SRGBColorSpace;
+const S3=new THREE.Scene();S3.environment=new THREE.PMREMGenerator(R3).fromScene(new RoomEnvironment(),.04).texture;const C3=new THREE.PerspectiveCamera(30,W/H,.1,200);C3.position.set(0,0,30);
+const K3=new THREE.DirectionalLight('#fff3e6',2.4);K3.position.set(-6,8,10);S3.add(K3);const F3=new THREE.DirectionalLight('#ffb27a',1.2);F3.position.set(8,-3,6);S3.add(F3);
+const TW=11,TH=5.2,PX=3.3; // largura, altura, posição do picote (x)
+const TC=document.createElement('canvas');TC.width=2200;TC.height=1040;{const g=TC.getContext('2d'),sx=2200/TW,X=v=>(v+TW/2)*sx,Yp=v=>(TH/2-v)*sx;
+  g.fillStyle='#F1EADB';g.fillRect(0,0,2200,1040);const id=g.getImageData(0,0,2200,1040),d=id.data;for(let k=0;k<d.length;k+=4){const n=(rnd(k*.013)-.5)*10;d[k]+=n;d[k+1]+=n;d[k+2]+=n;}g.putImageData(id,0,0);
+  // arte do pôster no lado esquerdo
+  const ax=60,ay=60,aw=560,ah=920;g.save();g.beginPath();g.roundRect(ax,ay,aw,ah,18);g.clip();const lg=g.createLinearGradient(0,ay,0,ay+ah);lg.addColorStop(0,'#1b1f8f');lg.addColorStop(.55,'#FF3B1F');lg.addColorStop(1,'#FFB21F');g.fillStyle=lg;g.fillRect(ax,ay,aw,ah);
+  const sg=g.createLinearGradient(0,ay+260,0,ay+620);sg.addColorStop(0,'#FFE07A');sg.addColorStop(1,'#FF5A1F');g.fillStyle=sg;g.beginPath();g.arc(ax+aw/2,ay+440,190,0,7);g.fill();
+  g.fillStyle='rgba(11,11,12,.55)';for(let yy=ay+4;yy<ay+ah;yy+=14)for(let xx=ax+4;xx<ax+aw;xx+=14){const r=3.2*(yy-ay)/ah;g.beginPath();g.arc(xx+((yy/14)%2)*7,yy,r,0,7);g.fill();}
+  g.font='132px Bebas';g.fillStyle='#EDE6D6';g.textAlign='center';g.fillText('SOLSTÍCIO',ax+aw/2,ay+ah-70);g.restore();
+  g.fillStyle='#0B0B0C';g.textAlign='left';g.font='150px Bebas';g.fillText('SOLSTÍCIO',680,200);g.font='600 34px Inter';g.letterSpacing='4px';g.fillText('FESTIVAL DE MÚSICA · VERÃO 2026',684,260);
+  [['DATA','20—21.12'],['LOCAL','BAÍA DO SOL'],['PORTÕES','14H'],['SETOR','PISTA']].forEach(([l,v],k)=>{const xx=684+(k%2)*420,yy=370+Math.floor(k/2)*170;g.font='600 26px Inter';g.letterSpacing='4px';g.fillStyle='rgba(11,11,12,.55)';g.fillText(l,xx,yy);g.font='90px Bebas';g.letterSpacing='2px';g.fillStyle='#0B0B0C';g.fillText(v,xx,yy+86);});
+  g.fillStyle='#FF3B1F';g.beginPath();g.roundRect(684,770,300,90,45);g.fill();g.fillStyle='#EDE6D6';g.font='70px Bebas';g.textAlign='center';g.fillText('LOTE 1',834,840);g.textAlign='left';g.fillStyle='#0B0B0C';g.font='150px Bebas';g.fillText('R$ 189',1020,868);
+  g.font='600 24px Inter';g.letterSpacing='3px';g.fillStyle='rgba(11,11,12,.55)';g.fillText('PASSAPORTE 2 DIAS · INTRANSFERÍVEL',686,940);
+  // picote
+  const px=X(PX);g.fillStyle='rgba(11,11,12,.45)';for(let yy=40;yy<1000;yy+=26){g.beginPath();g.arc(px,yy,4.5,0,7);g.fill();}
+  // canhoto: QR + número vertical
+  const qx=px+70,qs=360,qy=330;g.fillStyle='#fff';g.fillRect(qx-16,qy-16,qs+32,qs+32);const n=29,u=qs/n;g.fillStyle='#0B0B0C';for(let a=0;a<n;a++)for(let b=0;b<n;b++){const f=(a<7&&b<7)||(a>n-8&&b<7)||(a<7&&b>n-8);if(!f&&rnd(a*31+b*7+5)>.5)g.fillRect(qx+a*u,qy+b*u,u+.5,u+.5);}
+  for(const [a,b] of [[0,0],[n-7,0],[0,n-7]]){g.fillRect(qx+a*u,qy+b*u,7*u,7*u);g.fillStyle='#fff';g.fillRect(qx+(a+1)*u,qy+(b+1)*u,5*u,5*u);g.fillStyle='#0B0B0C';g.fillRect(qx+(a+2)*u,qy+(b+2)*u,3*u,3*u);}
+  g.font='86px Bebas';g.fillText('PISTA',qx,230);g.font='600 26px Inter';g.letterSpacing='3px';g.fillText('Nº 000127',qx,780);g.fillStyle='rgba(11,11,12,.55)';g.fillText('ENTRADA ÚNICA',qx,830);}
+function tShape(){const s=new THREE.Shape(),w=TW,h=TH,r=.28,a=w/2-r,b=h/2-r,nr=.32;s.moveTo(-a,-h/2);s.lineTo(PX-nr,-h/2);s.absarc(PX,-h/2,nr,Math.PI,0,true);s.lineTo(a,-h/2);s.absarc(a,-b,r,-Math.PI/2,0);s.lineTo(w/2,b);s.absarc(a,b,r,0,Math.PI/2);
+  s.lineTo(PX+nr,h/2);s.absarc(PX,h/2,nr,0,Math.PI,true);s.lineTo(-a,h/2);s.absarc(-a,b,r,Math.PI/2,Math.PI);s.lineTo(-w/2,-b);s.absarc(-a,-b,r,Math.PI,Math.PI*1.5);return s;}
+const TK=new THREE.Group();S3.add(TK);{const geo=new THREE.ExtrudeGeometry(tShape(),{depth:.035,bevelEnabled:true,bevelThickness:.01,bevelSize:.01,bevelSegments:2,curveSegments:24});geo.translate(0,0,-.018);
+  const ps=geo.attributes.position,uv=geo.attributes.uv;for(let k=0;k<uv.count;k++)uv.setXY(k,ps.getX(k)/TW+.5,ps.getY(k)/TH+.5);
+  const tx=new THREE.CanvasTexture(TC);tx.colorSpace=THREE.SRGBColorSpace;tx.anisotropy=8;const bump=new THREE.CanvasTexture(TC);
+  TK.add(new THREE.Mesh(geo,[new THREE.MeshPhysicalMaterial({map:tx,roughness:.62,clearcoat:.25,clearcoatRoughness:.5,bumpMap:bump,bumpScale:.4}),new THREE.MeshStandardMaterial({color:'#e9e1d0',roughness:.8})]));
+  // faixa holográfica (hot stamping) sobre a arte
+  const foil=new THREE.Mesh(new THREE.PlaneGeometry(.7,TH-.5),new THREE.MeshPhysicalMaterial({color:'#e8e8ee',metalness:1,roughness:.12,iridescence:1,iridescenceIOR:1.8,iridescenceThicknessRange:[150,900]}));foil.position.set(-TW/2+3.05,0,.021);TK.add(foil);
+  const foil2=new THREE.Mesh(new THREE.CircleGeometry(.42,40),foil.material);foil2.position.set(PX+1.45,-1.55,.021);TK.add(foil2);}
+function ticket3D(t,lt){const f=eo5(p(lt,.15,1.15)),fl=eio(p(t,25.6,25.95));TK.position.set(lerp(3,0,f),lerp(-9,.6,f)+fl*14+.08*Math.sin(t*1.6),lerp(-6,0,f));
+  TK.rotation.set(lerp(1.1,-.12,f)+.05*Math.sin(t*1.1),lerp(-2.6,0,f)+.22*Math.sin(t*.9+.4),lerp(.5,.06,f)+.02*Math.sin(t*1.3));TK.scale.setScalar(.74);
+  K3.position.set(-6+Math.sin(t*1.2)*6,8,10);R3.render(S3,C3);}
 function ticket(t){const lt=t-22;shade(t,{sy:.55,sr:.2,ht:.55,pal:.4});mask('INGRESSOS À VENDA',W/2,300,110,BONE,t,22.1,{out:25.7});
-  const f=eo5(p(lt,.2,1.0)),sx=Math.cos((1-f)*Math.PI*.98),fl=1-eio(p(t,25.6,25.95));x.save();x.translate(W/2,lerp(1500,960,f)+(1-fl)*-1200);x.rotate(lerp(.3,-.04,f)+Math.sin(t*1.3)*.012);x.scale(sx,1);
-  x.shadowColor='rgba(0,0,0,.35)';x.shadowBlur=60;x.shadowOffsetY=30;x.fillStyle=sx>0?BONE:RED;x.beginPath();x.roundRect(-430,-300,860,600,34);x.fill();x.shadowColor='transparent';
-  if(sx>0){x.fillStyle=INK;for(const s of [-1,1]){x.beginPath();x.arc(s*430,120,34,0,7);x.fillStyle='rgba(0,0,0,0)';}x.save();x.globalCompositeOperation='destination-out';for(const s of [-1,1]){x.beginPath();x.arc(s*430,120,34,0,7);x.fill();}x.restore();
-    x.setLineDash([14,12]);x.strokeStyle='rgba(11,11,12,.35)';x.lineWidth=3;x.beginPath();x.moveTo(-390,120);x.lineTo(390,120);x.stroke();x.setLineDash([]);
-    T('SOLSTÍCIO',-380,-218,96,INK,{al:'left',ls:3});T('20—21.12 · BAÍA DO SOL',-378,-150,32,INK,{f:'Inter',w:600,al:'left',ls:2});
-    x.fillStyle=RED;x.beginPath();x.roundRect(160,-262,230,82,41);x.fill();T('LOTE 1',275,-218,58,BONE);
-    T('R$ 189',-380,-20,230,RED,{al:'left'});T('PASSAPORTE 2 DIAS',-372,72,34,INK,{f:'Inter',w:600,al:'left',ls:2});
-    for(let i=0;i<46;i++){const w=1+Math.floor(rnd(i+3)*4)*2;x.fillStyle=INK;x.fillRect(-380+i*17,170,w,90);}T('Nº 000127',380,214,30,INK,{f:'Inter',w:600,al:'right'});}
-  x.restore();
+  const f=eo5(p(lt,.15,1.15)),fl=1-eio(p(t,25.6,25.95));x.save();x.globalAlpha=.45*f*fl;const sg=x.createRadialGradient(W/2,1290,0,W/2,1290,460);sg.addColorStop(0,'rgba(0,0,0,.8)');sg.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=sg;x.save();x.translate(W/2,1290);x.scale(1,.18);x.translate(-W/2,-1290);x.fillRect(0,800,W,1000);x.restore();x.restore();
+  ticket3D(t,lt);x.drawImage(G3,0,0);
   const k=eo(p(lt,1.2,1.6));if(k>0){const rem=2*3600+14*60+9-Math.floor(lt*6),hh=Math.floor(rem/3600),mm=Math.floor(rem%3600/60),ss=rem%60,str=[hh,mm,ss].map(v=>String(v).padStart(2,'0')).join(':');
-    T('LOTE 1 ESGOTA EM',W/2,1360,44,BONE,{f:'Inter',w:600,ls:4,a:k*fl});T(str,W/2,1470,150,SUN,{a:k*fl,ls:6});}}
+    T('LOTE 1 ESGOTA EM',W/2,1380,44,BONE,{f:'Inter',w:600,ls:4,a:k*fl});T(str,W/2,1490,150,SUN,{a:k*fl,ls:6});}}
 function logoS(t){const lt=t-26;shade(t,{sy:.6,sr:lerp(.0,.22,spr(lt-.1)*1),ht:.3,pu:t<28.5?kick(t)*.25:kick(t)});
   const s=fit(TITLE,980,600,4),k=eo5(p(lt,.35,.9));x.save();x.beginPath();x.rect(0,1310-s*.6,W,s*1.2);x.clip();T(TITLE,W/2,1310+(1-k)*s,s,BONE,{ls:lerp(30,4,k)});x.restore();
   x.save();const a=eo(p(lt,.9,1.3));x.globalAlpha=a;const s2='20—21 DEZEMBRO · BAÍA DO SOL',w2=tw(s2,42,'Inter',600,4)+90;rr(W/2-w2/2,1440,w2,96,48);x.fillStyle=INK;x.fill();x.restore();T(s2,W/2,1490,42,BONE,{f:'Inter',w:600,ls:4,a});}

@@ -251,4 +251,7 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - Roteiro 120bpm/32s: "DOIS / DIAS / DE / SOL" (uma palavra por batida, cores invertendo) → sol nasce + letras de SOLSTÍCIO caindo →
   data "20—21" em contador rolante (sol cresce e vira o fundo) → line-up sáb (osso) e dom (azul) linha a linha → números (3 palcos, 40 artistas…) →
   ingresso gira e entra (Lote 1 R$ 189 + "esgota em" contando) → logo → CTA de portfólio. Transições: íris pelo sol, empurrão vertical, cortina com faixa amarela, dip.
-- Trilha festival house Am–F–C–G com boom de impacto (`audio/audio_solsticio.py`). Render: `node render.js out/video`.
+- v2 (feedback do Ale): resquício do dígito no contador da data (recorte justo), acentos cortados pelas máscaras/linhas (recorte com folga + mais espaço no line-up),
+  **ingresso 3D realista** (three.js: papel com textura/relevo, picote com recortes, faixa holográfica iridescente, luz passando), trilha **TECHNO**
+  (kick + rumble, baixo rolante, acid ressonante, stab) e efeitos mais estéticos (swell reverso → impacto com cauda, blips filtrados com reverb, stab no final).
+- `audio/audio_solsticio.py`. Render: `node render.js out/video`.
