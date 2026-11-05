@@ -234,3 +234,12 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - Roteiro 120bpm/32s: "Sua próxima viagem começa aqui." → celular cai e assenta → busca "Lisboa" (card levanta, −11% hoje, alerta de preço na Dynamic Island)
   → mapa + reserva (confete) → cartão de embarque → relógio "Avisos no pulso" → montagem (hotel, roteiro, gastos em €, check-in) → costas com logo "Viaje leve." → CTA.
 - Trilha house solar E–C#m–A–B (`audio/audio_aera.py`, base no da KORA). Render: `node render.js out/video`.
+
+### 22 — Explicativo "kuida" (app de saúde, portfólio fictício, evolução do 05 Lavo) — `22-explicativo-kuida`
+- Canvas 2D (sem WebGL): ilustração flat "premium" (degradês suaves, sombras, grão, vinheta), personagem com rig (`person()`: tronco,
+  cabeça, braço/perna com cotovelo/joelho, piscar, boca falando, febre/rubor) — Bia, Dr. Rafael e o entregador.
+- Truque: o celular pequeno na mão é o MESMO `phoneMock()` do celular grande → zoom contínuo entra na tela.
+- Roteiro 120bpm/36s: "Acordou mal?" (despertador, espirro, termômetro 38,2°) → 1 Conte o que sente (toques nos sintomas) →
+  2 Consulta por vídeo (médico fala, balões) → 3 Receita na hora (sai do celular, assinatura, carimbo) → 4 Remédio na porta (cidade com parallax,
+  moto, campainha, entrega) → íris para a sala "Em poucas horas, você de volta." → círculo teal vira logo kuida → CTA de portfólio.
+- Paleta creme/teal #0F5C56/menta/coral #FF7A66; Poppins + Inter. Trilha pop C–G–Am–F (`audio/audio_kuida.py`, SFX: despertador, espirro, bip, campainha, carimbo).
