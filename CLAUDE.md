@@ -215,3 +215,13 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
   Vistas: serum, serum_aberto, pote, colecao. ~15 min/foto a 1080x1920/160 amostras; depois `nlmeans` p/ tirar ruído.
 - IA de vídeo grátis (Hugging Face ZeroGPU): cota ~2 min/dia por conta (todos os espaços). LTX-Video distilled funcionou
   (upload via /gradio_api/upload, `gerar_ia_ltx.py`); bons: gota no líquido e fita de seda. FLUX Kontext pede 90s/imagem.
+
+### 20 — UI animada "KORA" (banco digital, portfólio fictício, "nível acima do Pulsa") — `20-ui-app-kora`
+- iPhone 3D em three.js (titânio, lentes, botões; `lib/` = three r160 + RoomEnvironment), tela = canvas 720×1560 desenhado por quadro
+  e usado como textura (`drawScreen`). Camadas da UI saltam da tela em 3D (card de saldo, selo +12,4%, widgets de vidro), cartão de metal
+  com borda iridescente. Fundo/textos/partículas em 2D por cima (WebGL com fundo transparente). Motion blur por subamostras nos giros.
+- Paleta: preto #05060A, íris #7B6CFF → ciano #4DE3FF, menta #3DF5A7; Inter / Inter Display (`fonts/`).
+- Roteiro 120bpm/32s: "Seu dinheiro sem atrito." → celular sobe girando + boot do logo → home (saldo contando, card levanta, Pix chega
+  pela Dynamic Island) → push na tela: Pix (digita 250, desliza, sucesso + confete) → cartão de metal → widgets (cashback, cofrinho, 112% do CDI)
+  → montagem na batida (gastos, investimentos, cartão, Face ID) → costas do aparelho com logo + sonic logo → CTA de portfólio.
+- Trilha house limpa D–Bm–G–A + UI SFX (`audio/audio_kora.py`, gera `so_efeitos.mp3`). Render: `node render.js out/video` (~30 min, SwiftShader).

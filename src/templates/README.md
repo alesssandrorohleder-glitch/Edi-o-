@@ -11,4 +11,5 @@ Uma pasta por vídeo. Leia o `CLAUDE-contexto.md` (estilo, ajustes pedidos, prom
 - `17-esmalteria-amora/` = versão portfólio (fictícia) do 13 Cereja, sem marca/filmagens do cliente; `gerar_de_13.py` recria o index a partir do 13.
 - `18-cliente-gaia-tabacaria/` = CLIENTE Gaia Tabacaria: filmagens estabilizadas + cor uniformizada; render com `node render_gaia.js out/gaia_video` (ver CLAUDE.md).
 - `19-cliente-rittu-skincare/` = CLIENTE Rittú (skin care de luxo, produtos 3D three.js, verde-escuro/preto); `node render.js out/video`.
+- `20-ui-app-kora/` = UI animada KORA (banco digital fictício, iPhone 3D three.js + UI em canvas); `node render.js out/video`.
 - Pastas com `_frames_src/`: rode `python preparar_frames.py` antes (recria as sequências de quadros dos clipes).
