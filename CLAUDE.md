@@ -243,3 +243,12 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
   2 Consulta por vídeo (médico fala, balões) → 3 Receita na hora (sai do celular, assinatura, carimbo) → 4 Remédio na porta (cidade com parallax,
   moto, campainha, entrega) → íris para a sala "Em poucas horas, você de volta." → círculo teal vira logo kuida → CTA de portfólio.
 - Paleta creme/teal #0F5C56/menta/coral #FF7A66; Poppins + Inter. Trilha pop C–G–Am–F (`audio/audio_kuida.py`, SFX: despertador, espirro, bip, campainha, carimbo).
+
+### 23 — Festival "SOLSTÍCIO" (lançamento de evento, portfólio fictício) — `23-festival-solsticio`
+- Diferente de todos: **shader WebGL** (gradiente líquido fbm + sol em degradê + anéis no bumbo + retícula/halftone) em meia resolução
+  + tipografia suíça/brutalista (Bebas Neue gigante ajustada à largura, grade de colunas, Inter) em canvas 2D. Tudo pulsa no kick (BT=0,5s).
+- Paleta osso #EDE6D6 / preto / vermelho #FF3B1F / azul #2430FF / sol #FFB21F. Line-up e artistas fictícios.
+- Roteiro 120bpm/32s: "DOIS / DIAS / DE / SOL" (uma palavra por batida, cores invertendo) → sol nasce + letras de SOLSTÍCIO caindo →
+  data "20—21" em contador rolante (sol cresce e vira o fundo) → line-up sáb (osso) e dom (azul) linha a linha → números (3 palcos, 40 artistas…) →
+  ingresso gira e entra (Lote 1 R$ 189 + "esgota em" contando) → logo → CTA de portfólio. Transições: íris pelo sol, empurrão vertical, cortina com faixa amarela, dip.
+- Trilha festival house Am–F–C–G com boom de impacto (`audio/audio_solsticio.py`). Render: `node render.js out/video`.
