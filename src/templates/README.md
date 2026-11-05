@@ -12,4 +12,5 @@ Uma pasta por vídeo. Leia o `CLAUDE-contexto.md` (estilo, ajustes pedidos, prom
 - `18-cliente-gaia-tabacaria/` = CLIENTE Gaia Tabacaria: filmagens estabilizadas + cor uniformizada; render com `node render_gaia.js out/gaia_video` (ver CLAUDE.md).
 - `19-cliente-rittu-skincare/` = CLIENTE Rittú (skin care de luxo, produtos 3D three.js, verde-escuro/preto); `node render.js out/video`.
 - `20-ui-app-kora/` = UI animada KORA (banco digital fictício, iPhone 3D three.js + UI em canvas); `node render.js out/video`.
+- `21-ui-app-aera/` = UI animada AERA (app de viagens fictício, tema claro, iPhone + relógio 3D); `node render.js out/video`.
 - Pastas com `_frames_src/`: rode `python preparar_frames.py` antes (recria as sequências de quadros dos clipes).

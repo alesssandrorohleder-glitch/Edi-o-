@@ -216,7 +216,7 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - IA de vídeo grátis (Hugging Face ZeroGPU): cota ~2 min/dia por conta (todos os espaços). LTX-Video distilled funcionou
   (upload via /gradio_api/upload, `gerar_ia_ltx.py`); bons: gota no líquido e fita de seda. FLUX Kontext pede 90s/imagem.
 
-### 20 — UI animada "KORA" (banco digital, portfólio fictício, "nível acima do Pulsa") — `20-ui-app-kora`
+### 20 — UI animada "KORA" (banco digital, portfólio fictício, "nível acima do Pulsa") — `20-ui-app-kora` — ✅ ESTILO APROVADO ("muito profissional"): usar como base para UI animada
 - iPhone 3D em three.js (titânio, lentes, botões; `lib/` = three r160 + RoomEnvironment), tela = canvas 720×1560 desenhado por quadro
   e usado como textura (`drawScreen`). Camadas da UI saltam da tela em 3D (card de saldo, selo +12,4%, widgets de vidro), cartão de metal
   com borda iridescente. Fundo/textos/partículas em 2D por cima (WebGL com fundo transparente). Motion blur por subamostras nos giros.
@@ -225,3 +225,12 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
   pela Dynamic Island) → push na tela: Pix (digita 250, desliza, sucesso + confete) → cartão de metal → widgets (cashback, cofrinho, 112% do CDI)
   → montagem na batida (gastos, investimentos, cartão, Face ID) → costas do aparelho com logo + sonic logo → CTA de portfólio.
 - Trilha house limpa D–Bm–G–A + UI SFX (`audio/audio_kora.py`, gera `so_efeitos.mp3`). Render: `node render.js out/video` (~30 min, SwiftShader).
+
+### 21 — UI animada "AERA" (app de viagens, portfólio fictício, evolução do 20) — `21-ui-app-aera`
+- Mesma base técnica do KORA, em **tema claro estilo keynote**: iPhone titânio branco, sombra real na parede (`ShadowMaterial` + VSM),
+  **relógio 3D** com troca de foco entre aparelhos (camadas 1/2 renderizadas separadas + desfoque), cartão de embarque 3D com recortes,
+  palavra gigante "LISBOA" atrás do celular (plano 3D), mapa pontilhado com rota e avião, ilustrações de destino vetoriais (sem fotos).
+- Paleta: papel #F2EFE9, tinta #101216, laranja #FF5A1F; Inter / Inter Display. Logo fictício "aera." (círculo laranja + aviãozinho).
+- Roteiro 120bpm/32s: "Sua próxima viagem começa aqui." → celular cai e assenta → busca "Lisboa" (card levanta, −11% hoje, alerta de preço na Dynamic Island)
+  → mapa + reserva (confete) → cartão de embarque → relógio "Avisos no pulso" → montagem (hotel, roteiro, gastos em €, check-in) → costas com logo "Viaje leve." → CTA.
+- Trilha house solar E–C#m–A–B (`audio/audio_aera.py`, base no da KORA). Render: `node render.js out/video`.
