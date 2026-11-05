@@ -254,4 +254,6 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - v2 (feedback do Ale): resquício do dígito no contador da data (recorte justo), acentos cortados pelas máscaras/linhas (recorte com folga + mais espaço no line-up),
   **ingresso 3D realista** (three.js: papel com textura/relevo, picote com recortes, faixa holográfica iridescente, luz passando), trilha **TECHNO**
   (kick + rumble, baixo rolante, acid ressonante, stab) e efeitos mais estéticos (swell reverso → impacto com cauda, blips filtrados com reverb, stab no final).
+- v3: data sem corte no topo (dígito parado desenhado sem recorte); música trocada para **afro/melodic house** (congas, shaker, grave quente,
+  melodia com eco) — versão techno guardada em `audio/audio_solsticio_techno.py`. Suno: `Melodic afro house festival anthem, organic percussion, warm deep bass, uplifting pluck melody, 120 BPM, instrumental`.
 - `audio/audio_solsticio.py`. Render: `node render.js out/video`.

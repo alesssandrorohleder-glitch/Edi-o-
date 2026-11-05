@@ -61,8 +61,8 @@ const TITLE='SOLSTÍCIO';
 function title(t){const lt=t-2,sy=lerp(-.25,.43,eo5(p(lt,0,1.4))),sr=.2;shade(t,{sy,sr,ht:.35});
   const s=fit(TITLE,990,600,4);let X=W/2-tw(TITLE,s,'Bebas','',4)/2;TITLE.split('').forEach((ch,i)=>{const w=tw(ch,s,'Bebas','',4),k=spr(lt-.1-i*.2);if(k>0){x.save();x.translate(X+w/2,1430-(1-cl(k))*700);x.rotate((1-cl(k))*(rnd(i)-.5)*.6);T(ch,0,0,s,BONE);x.restore();}X+=w;});
   mask('FESTIVAL DE MÚSICA · VERÃO 2026',W/2,300,42,BONE,t,2.4,{f:'Inter',w:600,ls:6,out:5.7});}
-function odo(str,X,Y,size,col,t,t0){let cx=X-tw(str,size)/2;str.split('').forEach((ch,i)=>{const w=tw(ch,size);if(/\d/.test(ch)){const fin=+ch,k=eo5(p(t,t0+i*.08,t0+.9+i*.08)),roll=(1-k)*(9+i*3);x.save();x.beginPath();x.rect(cx-10,Y-size*.4,w+20,size*.76);x.clip();
-    if(roll<.001)T(ch,cx+w/2,Y,size,col);else for(let j=-1;j<=1;j++){const v=Math.floor(fin+roll)+j,fr=(fin+roll)%1;T(String(((v%10)+10)%10),cx+w/2,Y+(j-fr)*size*.9,size,col);}x.restore();}else T(ch,cx+w/2,Y,size,col,{a:eo(p(t,t0,t0+.3))});cx+=w;});}
+function odo(str,X,Y,size,col,t,t0){let cx=X-tw(str,size)/2;str.split('').forEach((ch,i)=>{const w=tw(ch,size);if(/\d/.test(ch)){const fin=+ch,k=eo5(p(t,t0+i*.08,t0+.9+i*.08)),roll=(1-k)*(9+i*3);if(roll<.001){T(ch,cx+w/2,Y,size,col);cx+=w;return;}x.save();x.beginPath();x.rect(cx-10,Y-size*.5,w+20,size*.88);x.clip();
+     for(let j=-1;j<=1;j++){const v=Math.floor(fin+roll)+j,fr=(fin+roll)%1;T(String(((v%10)+10)%10),cx+w/2,Y+(j-fr)*size*.9,size,col);}x.restore();}else T(ch,cx+w/2,Y,size,col,{a:eo(p(t,t0,t0+.3))});cx+=w;});}
 function dateS(t){const lt=t-6,g=eio(p(lt,0,.6));shade(t,{sy:lerp(.43,.55,g),sr:lerp(.2,.95,g),ht:lerp(.35,.55,g)});
   x.save();x.fillStyle=`rgba(11,11,12,${.18*g})`;x.fillRect(0,0,W,H);x.restore();odo('20—21',W/2,820,440,INK,t,6.3);mask('DEZEMBRO',W/2,1130,190,INK,t,6.9,{ls:10});
   const k=spr(t-8.0);if(k>0){x.save();x.translate(W/2,1330);x.scale(k,k);const s='BAÍA DO SOL · SC',w=tw(s,44,'Inter',600,4)+90;rr(-w/2,-50,w,100,50);x.fillStyle=INK;x.fill();T(s,0,2,44,BONE,{f:'Inter',w:600,ls:4});x.restore();}}

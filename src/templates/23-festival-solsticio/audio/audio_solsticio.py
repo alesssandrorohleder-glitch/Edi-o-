@@ -1,4 +1,4 @@
-# SOLSTÍCIO — trilha TECHNO 120bpm (Lá menor): kick com rumble, baixo rolante, hats 16 avos, clap com reverb,
+# SOLSTÍCIO — trilha AFRO / MELODIC HOUSE 120bpm (versão techno em audio_solsticio_techno.py) (Lá menor): kick com rumble, baixo rolante, hats 16 avos, clap com reverb,
 # linha acid com filtro ressonante, stab escuro, breakdown no logo. Efeitos "cinematográficos": swell reverso,
 # impactos com cauda, blips filtrados com reverb, stab no final. Gera trilha_final.mp3 e so_efeitos.mp3.
 import numpy as np, subprocess, os
@@ -33,36 +33,41 @@ def stab(ms,d=.6):
 def pad(ms,d):
     t=tt(d); s=sum(np.sin(2*np.pi*mf(m)*t)+.25*np.sin(2*np.pi*mf(m)*2*t) for m in ms)/len(ms); return lp(s,900)*np.minimum(1,t/.6)*np.minimum(1,(d-t)/.6)
 def bell(m,d=1.2): t=tt(d); f=mf(m); return (np.sin(2*np.pi*f*t)+.3*np.sin(2*np.pi*f*2*t)*np.exp(-t*5))*np.exp(-t*3)*np.minimum(1,t/.002)
-# ---------- arranjo ----------
-ROOT=[45,45,41,43]          # A1 A1 F1 G1 (2 compassos cada → progressão sombria)
-ACID=[57,57,69,57,60,57,64,57,57,69,57,62,57,60,67,57]
+# ---------- arranjo: afro / melodic house (Am–F–C–G) ----------
+def conga(f=220,d=.25): t=tt(d); fr=f*(1+.5*np.exp(-t*40)); return (np.sin(2*np.pi*np.cumsum(fr)/SR)*np.exp(-t*14)+.15*bp(rng.standard_normal(len(t)),800,3000)*np.exp(-t*60))
+def shaker(): t=tt(.08); return bp(rng.standard_normal(len(t)),5000,11000)*np.sin(np.pi*np.minimum(1,t/.08))
+def rim(): t=tt(.06); return bp(rng.standard_normal(len(t)),1500,4000)*np.exp(-t*80)+.4*np.sin(2*np.pi*1700*t)*np.exp(-t*60)
+def softkick(): t=tt(.45); f=48+120*np.exp(-t*30); return np.sin(2*np.pi*np.cumsum(f)/SR)*np.exp(-t*6)
+def pluck2(m,d=.6): t=tt(d); f=mf(m); s=sum(a*np.sin(2*np.pi*f*h*t)*np.exp(-t*(4+h*3)) for h,a in ((1,1),(2,.5),(3,.25),(4,.12))); return s*np.minimum(1,t/.003)
+def deepbass(m,d): t=tt(d); f=mf(m); return (np.sin(2*np.pi*f*t)+.25*np.sin(2*np.pi*2*f*t))*np.exp(-t*3.5)*np.minimum(1,t/.006)
+CH=[(45,[57,60,64,69]),(41,[53,57,60,65]),(48,[55,60,64,67]),(43,[55,59,62,67])]
+LEAD=[69,72,76,74,72,69,67,69, 69,72,76,79,76,74,72,74]
 def sec(t): return 'hook' if t<2 else 'brk' if 26<=t<29 else 'cta' if t>=29 else 'main'
 for k in range(64):
-    tb=k*BT; s=sec(tb); bar=int(tb//2); root=ROOT[(bar//2)%4]
-    if s!='brk':
-        add(mus,tb,kick(),1.0); add(mus,tb+.02,rumble(.48),.35 if s!='cta' else .2)
+    tb=k*BT; s=sec(tb); bar=int(tb//2); root,ns=CH[bar%4]
+    if s=='hook': add(mus,tb,softkick(),.8); add(mus,tb+BT/2,conga(330),.25,.3)
     if s in('main','cta'):
-        if k%2==1: add(mus,tb,clap(),.38); add(vm,tb,clap(),.25)
-        for q in range(4):
-            v=.12 if q==2 else .06; add(mus,tb+q*BT/4,hat(),v,.3*(q%2*2-1))
-        add(mus,tb+BT/2,hat(True),.11,-.2)
-        for q in (1,2,3): add(mus,tb+q*BT/4,bass(root+12,BT/4*.9),.42 if s=='main' else .25)
-    if s=='main' and 10<=tb<26:
-        prog=p=(tb-10)/16
-        for q in range(4):
-            j=(k*4+q)%16; cut=500+2600*(.5+.5*np.sin(tb*.9+q*.4))*(.4+.6*prog)
-            if (k*4+q)%3!=2: add(mus,tb+q*BT/4,acid(ACID[j],BT/4*.85,cut),.16,.15); add(vm,tb+q*BT/4,acid(ACID[j],BT/4*.85,cut),.05)
-    if s=='main' and k%8==7: add(mus,tb+BT*.5,stab([57,60,64]),.16); add(vm,tb+BT*.5,stab([57,60,64]),.2)
-# breakdown do logo: pad escuro + sonic logo
-add(mus,26.0,pad([45,57,60,64],3.1),.5); add(vm,26.0,pad([57,60,64],3.1),.3)
+        add(mus,tb,softkick(),.95)
+        if k%2==1: add(mus,tb,rim(),.28,-.2); add(vm,tb,rim(),.2)
+        for q in range(4): add(mus,tb+q*BT/4,shaker(),.05 if q%2==0 else .09,.35)
+        pat=[(0,220,-.3),(.75,330,.3),(1.5,220,-.3)] if k%2==0 else [(.25,260,.2),(.75,330,.3)]
+        for off,f,pn in pat:
+            if off<1: add(mus,tb+off*BT,conga(f),.3,pn)
+        add(mus,tb+BT*.5,deepbass(root,BT*.45),.6); add(mus,tb+BT*.75,deepbass(root+12,BT*.2),.25)
+    if s=='main' and tb>=6:
+        m=LEAD[(k*2)%16]; add(mus,tb,pluck2(m+12,.5),.11,.2); add(vm,tb,pluck2(m+12,.5),.18)
+        add(mus,tb+BT*.75,pluck2(LEAD[(k*2+1)%16]+12,.4),.07,-.25); add(vm,tb+BT*.75,pluck2(LEAD[(k*2+1)%16]+12,.4),.12)
+        # eco (delay pontuado) da melodia
+        add(mus,tb+BT*.75+.375,pluck2(m+12,.5),.04,-.4)
+    if s!='brk' and k%4==0: add(mus,tb,pad([n for n in ns],2.0),.22); add(vm,tb,pad(ns,2.0),.15)
+add(mus,26.0,pad([57,60,64,69],3.1),.5); add(vm,26.0,pad([57,64,69],3.1),.35)
 for j,m in enumerate((69,72,76,81)): add(mus,26.35+j*.14,bell(m,1.8),.18,(j-1.5)*.35); add(vm,26.35+j*.14,bell(m,1.8),.3)
-# riser antes do drop e antes do CTA
-t=tt(1.9); add(mus,.1,bp(rng.standard_normal(len(t)),300,7000)*(t/1.9)**2.5,.14); t=tt(2.6); add(mus,26.3,hp(rng.standard_normal(len(t)),2000)*(t/2.6)**3,.09)
+t=tt(1.9); add(mus,.1,bp(rng.standard_normal(len(t)),300,7000)*(t/1.9)**2.5,.12)
 # sidechain
 env=np.ones(N)
 for k in range(64):
     tb=k*BT
-    if sec(tb)!='brk': i=int(tb*SR); n=min(int(.32*SR),N-i); env[i:i+n]=1-.6*np.exp(-np.arange(n)/SR*12)
+    if sec(tb)!='brk': i=int(tb*SR); n=min(int(.32*SR),N-i); env[i:i+n]=1-.4*np.exp(-np.arange(n)/SR*12)
 # ---------- efeitos (níveis suaves; mais fortes só nos impactos) ----------
 def blip(f=1500): t=tt(.12); return np.sin(2*np.pi*f*t)*np.exp(-t*45)*np.minimum(1,t/.002)
 def swish(d=.55,lo=300,hi=6000,peak=.7):
