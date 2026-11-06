@@ -34,6 +34,8 @@ def ticket_in(): # ingresso voando e girando (vibração de papel no ar) + "snap
     snap=np.zeros(len(t));i=int(.6*SR);n=int(.12*SR);ts=np.arange(n)/SR
     snap[i:i+n]=hp(rng.standard_normal(n),3000)*np.exp(-ts*90)*.9+np.sin(2*np.pi*140*ts)*np.exp(-ts*35)*.6
     return air*.8+snap
+def name_in(k=0): # nome entrando: sopro curtinho e agudo (bem discreto), timbre muda um pouco a cada nome
+    d=.16;t=tt(d);c=5200+700*((k*37)%5);return bp(rng.standard_normal(len(t)),c*.7,c*1.4)*np.sin(np.pi*t/d)**2+.25*np.sin(2*np.pi*(c/4)*t)*np.exp(-t*60)
 def shimmer():     # faixa holográfica girando
     t=tt(.9);return bp(rng.standard_normal(len(t)),7000,13000)*np.sin(np.pi*t/.9)**2*.7
 def boom():        # logo final: sub profundo
@@ -43,8 +45,10 @@ def rev(d=.8):     # swell reverso para o CTA
 def chime():       # @ final: dois sinos suaves
     t=tt(1.4);s=np.sin(2*np.pi*1318.5*t)*np.exp(-t*3.5);i=int(.12*SR);s[i:]+=.7*np.sin(2*np.pi*1975.5*t[:-i])*np.exp(-t[:-i]*3.5);return s
 # (tempo de início, som, ganho) — só movimentos grandes, nunca a menos de 0,45s um do outro
-EV=[(1.9,impact,.55),(3.75,air,.35),(5.7,tape,.3),(6.85,drop,.3),(7.3,lambda:riser(.7),.22),(11.8,glass,.18),(15.75,sweepL,.3),
+NAMES=[(t0+.12+i*.5) for t0 in (8,10,12,14) for i in range(3)]
+EV=[(1.9,impact,.55),(3.75,air,.35),(5.7,tape,.3),(6.85,drop,.3),(7.3,lambda:riser(.7),.22),(12.12,glass,.12),(15.75,sweepL,.3),
     (21.9,ticket_in,.42),(24.0,shimmer,.25),(25.95,boom,.5),(27.3,rev,.25),(30.5,chime,.2)]
+EV+=[(tn,(lambda k=k:name_in(k)),.07) for k,tn in enumerate(NAMES) if abs(tn-12.12)>.01]
 ts=sorted(e[0] for e in EV);assert all(b-a>=.45 for a,b in zip(ts,ts[1:]))
 sf=np.zeros(N);vs=np.zeros(N)
 for t0,f,g in EV:
