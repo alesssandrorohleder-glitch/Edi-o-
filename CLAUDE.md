@@ -263,3 +263,13 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
   2 MOLDAR (martelo na bigorna a cada batida) → modalidades em brasa → 3 TEMPERAR (peça na água + vapor) → check-in no app → FORJADO NA DISCIPLINA (halter 3D + vapor) →
   24H (split-flap) → preço estampado em chapa de aço (R$ 89,90 em brasa) → "1ª SEMANA GRÁTIS" marcada a ferro quente na madeira → logo → CTA.
 - Trilha phonk 120bpm + efeitos de forja (`audio/audio_forja.py`: bigorna nas palavras e marteladas, chiado na água/ferro, fogo). Render: `node render.js out/video`.
+
+### 25 — Festa "FREAKNC" (estética do @freaknclabel — label/festa underground) — `25-festa-freaknc`
+- Estética absorvida dos posts deles: **roxo #9B2FE0 + amarelo-mostarda #F4C22B + preto/grafite**, fotos em **retícula duotone**, nome repetido em pilha
+  (condensada gigante — Anton), **letra psicodélica distorcida** (`warpText`, Bowlby One fatiada com seno), **nome em arco** em volta de círculo, **janela Windows XP**
+  "FREAKNC PRESENTS:", código de barras, "YOUR UNDERGROUND LABEL"/"PRESENTS:"/"2026", texto justificado (Archivo Black). Logo "freaknc" recriado (Fredoka 700 + "k" espelhado)
+  — **trocar pelo arquivo oficial** se o Ale mandar. Fontes baixadas do Google Fonts em `fonts/`.
+- Artistas = silhuetas ilustradas em retícula (`djFig` + `halftone`), **placeholder para as fotos reais**. Line-up/data/local/preço fictícios (NOVAK, MARA V, LUMI, KAEL B2B RUSSO; 13.12; local secreto; lote 1 R$ 40).
+- Roteiro 120bpm/32s (cena a cada 2s): BUILT/FOR THE/DANCE/FLOOR → logo + PRESENTS → FREAK OUT #01 (psicodélico) → 13.12 → artistas (pilha / arco / janela XP / B2B grade 2026) →
+  manifesto justificado → HOUSE·TECH HOUSE·MINIMAL + público → LOCAL SECRETO → ingresso → INGRESSOS NO LINK DA BIO → logo "Built for the dancefloor." → @freaknclabel.
+- Trilha: techno clean do VERANO adaptado (`audio/audio_freaknc.py`) — ideal o Ale mandar a música (como no ONDA). Render: `node render.js out/video`.
