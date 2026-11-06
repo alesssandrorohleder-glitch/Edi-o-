@@ -254,3 +254,12 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
   3 PALCOS (luzes) → 40 ARTISTAS (contador + 40 pontos) → 48H (relógio) → ingresso 3D preto/verde com faixa holográfica (gira) + "esgota em" → logo → CTA.
 - ✅ Vídeo aprovado ("ficou perfeito"). Música final = faixa enviada pelo Ale (`audio/musica_ale.mp3`: ~123bpm esticada p/ 120bpm com atempo 0,9757 e alinhada com a batida forte no seg. 2; `trilha_ale.mp3` = música + efeitos sutis e variados só nos movimentos grandes — `audio/sfx_onda.py`: impacto, ar, swoosh, plop do pin, riser, vidro, varredura, papel, brilho holográfico, sub, swell reverso, sino). Coordenadas sob "BAÍA DO SOL" removidas.
 - Música sintetizada alternativa: techno clean do VERANO (`audio/audio_onda.py`), SFX nos cortes. Antigas em `audio/solsticio_*.py`. Render: `node render.js out/video`.
+
+### 24 — Academia "FORJA" (academia 24h, portfólio fictício) — `24-academia-forja`
+- Mesmo formato aprovado do ONDA (cena nova a cada 2s, nada parado), energia alta: preto / branco / vermelho #FF2E2E, Bebas inclinada (skew) + Inter.
+- 3D (three.js, camada transparente): **halter sextavado** (borracha + pegada recartilhada + anel vermelho), **anilha bumper 20 KG** com face texturizada,
+  **kettlebell**; impactos com tremor de câmera (`HITS`), faíscas, faixas diagonais correndo, poeira no impacto.
+- Roteiro 120bpm/32s: SEM/DESCULPA/SÓ/RESULTADO → halter cai (clank) → logo FORJA + ACADEMIA 24H → anilha rola (+300 equipamentos) → ECG 72→168 BPM →
+  modalidades (2 cenas) → kettlebell balançando (personal incluso) → check-in no app (QR → ok + 12 dias seguidos) → anéis de evolução → relógio 24H (split-flap) →
+  plano anual R$ 89,90 → carimbo "1ª SEMANA GRÁTIS" → logo "Seu limite é o começo." → CTA de portfólio.
+- Trilha phonk 120bpm (`audio/audio_forja.py`: 808 distorcido, kick/clap trap, rolos de hat, melodia de cowbell) + efeitos próprios por momento. Render: `node render.js out/video`.
