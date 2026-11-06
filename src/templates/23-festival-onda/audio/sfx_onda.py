@@ -28,6 +28,12 @@ def sweepL(d=.6):  # varredura de luz (palcos)
     t=tt(d);e=np.sin(np.pi*t/d);return sweep(rng.standard_normal(len(t)),6000,800)*e*.8
 def paper():       # ingresso entrando: papel/flick
     t=tt(.35);return hp(rng.standard_normal(len(t)),2500)*(np.exp(-t*25)+.5*np.exp(-np.abs(t-.12)*60))
+def ticket_in(): # ingresso voando e girando (vibração de papel no ar) + "snap" ao assentar
+    d=.8;t=tt(d);flut=.55+.45*np.sin(2*np.pi*np.cumsum(22-14*t/d)/SR);env=np.sin(np.pi*np.minimum(t/.62,1)/1)**1.2*(t<.62)
+    air=sweep(rng.standard_normal(len(t)),5000,900)*flut*env
+    snap=np.zeros(len(t));i=int(.6*SR);n=int(.12*SR);ts=np.arange(n)/SR
+    snap[i:i+n]=hp(rng.standard_normal(n),3000)*np.exp(-ts*90)*.9+np.sin(2*np.pi*140*ts)*np.exp(-ts*35)*.6
+    return air*.8+snap
 def shimmer():     # faixa holográfica girando
     t=tt(.9);return bp(rng.standard_normal(len(t)),7000,13000)*np.sin(np.pi*t/.9)**2*.7
 def boom():        # logo final: sub profundo
@@ -38,7 +44,7 @@ def chime():       # @ final: dois sinos suaves
     t=tt(1.4);s=np.sin(2*np.pi*1318.5*t)*np.exp(-t*3.5);i=int(.12*SR);s[i:]+=.7*np.sin(2*np.pi*1975.5*t[:-i])*np.exp(-t[:-i]*3.5);return s
 # (tempo de início, som, ganho) — só movimentos grandes, nunca a menos de 0,45s um do outro
 EV=[(1.9,impact,.55),(3.75,air,.35),(5.7,tape,.3),(6.85,drop,.3),(7.3,lambda:riser(.7),.22),(11.8,glass,.18),(15.75,sweepL,.3),
-    (21.75,paper,.35),(24.0,shimmer,.25),(25.95,boom,.5),(27.3,rev,.25),(30.5,chime,.2)]
+    (21.9,ticket_in,.42),(24.0,shimmer,.25),(25.95,boom,.5),(27.3,rev,.25),(30.5,chime,.2)]
 ts=sorted(e[0] for e in EV);assert all(b-a>=.45 for a,b in zip(ts,ts[1:]))
 sf=np.zeros(N);vs=np.zeros(N)
 for t0,f,g in EV:
