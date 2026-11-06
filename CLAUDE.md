@@ -272,4 +272,7 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - Artistas = silhuetas ilustradas em retícula (`djFig` + `halftone`), **placeholder para as fotos reais**. Line-up/data/local/preço fictícios (NOVAK, MARA V, LUMI, KAEL B2B RUSSO; 13.12; local secreto; lote 1 R$ 40).
 - Roteiro 120bpm/32s (cena a cada 2s): BUILT/FOR THE/DANCE/FLOOR → logo + PRESENTS → FREAK OUT #01 (psicodélico) → 13.12 → artistas (pilha / arco / janela XP / B2B grade 2026) →
   manifesto justificado → HOUSE·TECH HOUSE·MINIMAL + público → LOCAL SECRETO → ingresso → INGRESSOS NO LINK DA BIO → logo "Built for the dancefloor." → @freaknclabel.
-- Trilha: techno clean do VERANO adaptado (`audio/audio_freaknc.py`) — ideal o Ale mandar a música (como no ONDA). Render: `node render.js out/video`.
+- v2 ("muito genérico"): linguagem de **colagem impressa** — stop-motion 12qps (`hold`/`jit`), fita adesiva, rabiscos de marcador animados (`scribble`, `arrowS`, `highlight`),
+  adesivos serrilhados, textura de papel/xerox por cima, transição de **papel rasgado**, nomes esticados na vertical, cursor do Windows clicando. Logo **oficial** recortado do print do Ale (`logo_freaknc_mask.png`, tingido nas 2 cores da marca). v1 em `v1_limpo.html`.
+- Música = faixa do Ale (`audio/musica_ale.mp3`: 129bpm → 120bpm, entrada forte alinhada no seg. 2, 4 compassos do meio repetidos p/ fechar 32s); `trilha_ale.mp3` = música + SFX a 50%.
+- Pendente: **fotos reais dos DJs** (recortar + retícula duotone) no lugar das silhuetas. Render: `node render.js out/video`.
