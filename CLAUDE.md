@@ -275,4 +275,6 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - v2 ("muito genérico"): linguagem de **colagem impressa** — stop-motion 12qps (`hold`/`jit`), fita adesiva, rabiscos de marcador animados (`scribble`, `arrowS`, `highlight`),
   adesivos serrilhados, textura de papel/xerox por cima, transição de **papel rasgado**, nomes esticados na vertical, cursor do Windows clicando. Logo **oficial** recortado do print do Ale (`logo_freaknc_mask.png`, tingido nas 2 cores da marca). v1 em `v1_limpo.html`.
 - Música = faixa do Ale (`audio/musica_ale.mp3`: 129bpm → 120bpm, entrada forte alinhada no seg. 2, 4 compassos do meio repetidos p/ fechar 32s); `trilha_ale.mp3` = música + SFX a 50%.
-- Pendente: **fotos reais dos DJs** (recortar + retícula duotone) no lugar das silhuetas. Render: `node render.js out/video`.
+- v3: **mídias reais do Ale** em `midia/` (fora do git): vídeo do HOMRICH nos CDJs (recorte só da filmagem, trecho limpo 13–15,6s) em cartão com fita, retrato KOSMA 88 no círculo com arco,
+  EN_RRICH tocando dentro da janela XP, grade 2026 com EN_RRICH + KOSMA 88, vídeo da festa (luz vermelha) atrás do manifesto, vídeo do público (cabine) em HOUSE/TECH HOUSE/MINIMAL.
+  Quadros extraídos a 30fps com ffmpeg (`frameAt`). Render: `node render.js out/video`.
