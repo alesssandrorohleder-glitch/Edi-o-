@@ -1,5 +1,5 @@
 # ONDA — efeitos sonoros sutis e variados, só nos movimentos grandes (um tipo de som para cada momento).
-# Gera so_efeitos.mp3 e mixa com a música do Ale em trilha_ale.mp3 (música inteira + efeitos discretos com leve ducking).
+# Gera so_efeitos.mp3 e mixa com a música do Ale em trilha_ale.mp3 (música inteira, sem ducking + efeitos discretos).
 import numpy as np, subprocess, os
 from scipy.signal import butter, sosfilt, fftconvolve
 SR=44100; DUR=32.0; N=int(SR*DUR); H=os.path.dirname(os.path.abspath(__file__)); rng=np.random.default_rng(5)
@@ -51,5 +51,5 @@ def mp3(x,name):
     subprocess.run(['ffmpeg','-loglevel','error','-y','-f','s16le','-ar',str(SR),'-ac','2','-i','-','-b:a','256k',os.path.join(H,name)],input=raw,check=True)
 mp3(fx/np.max(np.abs(fx))*.8,'so_efeitos.mp3')
 subprocess.run(['ffmpeg','-loglevel','error','-y','-i',os.path.join(H,'musica_ale.mp3'),'-i',os.path.join(H,'so_efeitos.mp3'),'-filter_complex',
-  '[1]volume=0.55,asplit=2[f1][f2];[0][f1]sidechaincompress=threshold=0.08:ratio=2.5:attack=8:release=220[m];[m][f2]amix=inputs=2:normalize=0,alimiter=limit=0.95',
+  '[1]volume=0.55[f];[0][f]amix=inputs=2:normalize=0,alimiter=limit=0.95',
   '-b:a','256k',os.path.join(H,'trilha_ale.mp3')],check=True);print('ok')
