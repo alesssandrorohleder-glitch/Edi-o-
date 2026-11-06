@@ -1,4 +1,4 @@
-# FORJA — phonk de academia 120bpm (Mi menor): 808 distorcido com glide, kick/clap de trap, hats com rolos,
+# FORJA — phonk de academia 120bpm + efeitos de forja (bigorna, chiado de metal na água, fogo) (Mi menor): 808 distorcido com glide, kick/clap de trap, hats com rolos,
 # melodia de cowbell (marca do phonk). Efeitos próprios por momento. Gera trilha_final.mp3 e so_efeitos.mp3.
 import numpy as np, subprocess, os
 from scipy.signal import butter, sosfilt, fftconvolve
@@ -72,9 +72,16 @@ def flaps():
 def punch(): t=tt(.6);return np.tanh(3*np.sin(2*np.pi*np.cumsum(70*np.exp(-t*8)+40)/SR)*np.exp(-t*8))+.3*bp(rng.standard_normal(len(t)),300,3000)*np.exp(-t*25)
 def thud(): t=tt(.4);return np.sin(2*np.pi*95*t)*np.exp(-t*18)+.5*bp(rng.standard_normal(len(t)),200,1500)*np.exp(-t*30)
 def rev(d=.6): t=tt(d);return hp(rng.standard_normal(len(t)),1500)*(t/d)**3
-EV=[(1.6,lambda:rev(.4),.18),(2.35,clank,.35),(2.36+0.45,sub,0),(4.0,lambda:whoosh(.45,300,6000),.25),(6.05,roll,.3),(8.6,beep,.06),(9.25,beep,.06),
-    (10.1,lambda:whoosh(.35,800,7000),.14),(12.1,lambda:whoosh(.35,600,5000),.14),(14.1,chain,.22),(16.95,ok,.14),(18.2,lambda:whoosh(.6,200,3000),.14),
-    (20.05,flaps,.18),(22.0,punch,.4),(24.05,thud,.45),(25.95,clank,.3),(27.5,lambda:rev(.5),.18),(28.05,lambda:whoosh(.6,150,1500),.15),(30.5,punch,.25)]
+def clang(f0=950,d=1.4): t=tt(d);s=sum(a*np.sin(2*np.pi*f0*r*t)*np.exp(-t*k) for r,a,k in ((1,1,3.2),(1.81,.7,4.5),(2.87,.45,6),(4.1,.3,8),(5.43,.18,11)));return s+.5*hp(rng.standard_normal(len(t)),3000)*np.exp(-t*120)
+def sizzle(d=1.4):
+    t=tt(d);n=hp(rng.standard_normal(len(t)),3500)*.5;cr=np.zeros(len(t));idx=rng.integers(0,len(t),400);cr[idx]=rng.standard_normal(400)*3;cr=hp(cr,2000)
+    return (n+cr)*np.minimum(1,t/.03)*np.exp(-t*2.2)
+def fire(d=1.8): t=tt(d);return (lp(rng.standard_normal(len(t)),900)*2+.3*bp(rng.standard_normal(len(t)),2000,6000))*np.minimum(1,t/d*1.5)*np.exp(-np.maximum(t-d*.7,0)*8)
+EV=[(0.0,lambda:clang(900),.22),(0.5,lambda:clang(1010),.22),(1.0,lambda:clang(860),.22),(1.5,lambda:clang(1200),.28),(2.0,lambda:whoosh(.6,150,1500),.2),
+    (4.0,sub,.35),(6.0,fire,.18),(8.17,lambda:clang(980,.9),.26),(8.67,lambda:clang(1050,.9),.26),(9.17,lambda:clang(940,.9),.26),(9.67,lambda:clang(1120,.9),.28),
+    (10.17,lambda:sizzle(.5),.07),(10.67,lambda:sizzle(.5),.07),(11.17,lambda:sizzle(.5),.07),(12.17,lambda:sizzle(.5),.07),(12.67,lambda:sizzle(.5),.07),(13.17,lambda:sizzle(.5),.07),
+    (14.55,sizzle,.32),(16.95,ok,.14),(18.2,lambda:whoosh(.7,150,1200),.18),(20.05,flaps,.18),(22.85,lambda:clang(760,1.6),.32),(24.25,lambda:sizzle(1.6),.34),
+    (26.0,lambda:clang(700,1.8),.28),(28.05,lambda:whoosh(.6,150,1500),.15),(28.75,lambda:clang(1300,.8),.14),(30.5,punch,.22)]
 EV=[e for e in EV if e[2]>0]
 ts=sorted(e[0] for e in EV);assert all(b-a>=.45 for a,b in zip(ts,ts[1:]))
 for t0,f,g in EV: s=f();s=s/np.max(np.abs(s))*g;add(F,t0,s);add(V,t0,s*.6)

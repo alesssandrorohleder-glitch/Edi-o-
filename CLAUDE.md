@@ -256,10 +256,10 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - Música sintetizada alternativa: techno clean do VERANO (`audio/audio_onda.py`), SFX nos cortes. Antigas em `audio/solsticio_*.py`. Render: `node render.js out/video`.
 
 ### 24 — Academia "FORJA" (academia 24h, portfólio fictício) — `24-academia-forja`
-- Mesmo formato aprovado do ONDA (cena nova a cada 2s, nada parado), energia alta: preto / branco / vermelho #FF2E2E, Bebas inclinada (skew) + Inter.
-- 3D (three.js, camada transparente): **halter sextavado** (borracha + pegada recartilhada + anel vermelho), **anilha bumper 20 KG** com face texturizada,
-  **kettlebell**; impactos com tremor de câmera (`HITS`), faíscas, faixas diagonais correndo, poeira no impacto.
-- Roteiro 120bpm/32s: SEM/DESCULPA/SÓ/RESULTADO → halter cai (clank) → logo FORJA + ACADEMIA 24H → anilha rola (+300 equipamentos) → ECG 72→168 BPM →
-  modalidades (2 cenas) → kettlebell balançando (personal incluso) → check-in no app (QR → ok + 12 dias seguidos) → anéis de evolução → relógio 24H (split-flap) →
-  plano anual R$ 89,90 → carimbo "1ª SEMANA GRÁTIS" → logo "Seu limite é o começo." → CTA de portfólio.
-- Trilha phonk 120bpm (`audio/audio_forja.py`: 808 distorcido, kick/clap trap, rolos de hat, melodia de cowbell) + efeitos próprios por momento. Render: `node render.js out/video`.
+- v1 (preto/vermelho, halter/anilha/kettlebell 3D, `v1_generico.html`) — Ale: "muito genérico".
+- v2 **com conceito: FORJA = forjar aço** ("Todo aço começa bruto. Você é a matéria-prima."): metal em brasa (cor de corpo negro branco→amarelo→laranja→vermelho → aço),
+  `hotText()` (letra incandescente que esfria até aço escovado), faíscas de forja com rastro e gravidade, brasas, vapor, shader de **metal fundido** (crosta escura + rachaduras brilhando).
+- Roteiro 120bpm/32s (cena a cada 2s): TODO/AÇO/COMEÇA/BRUTO. → matéria-prima (metal fundido) → logo em brasa esfriando → 1 AQUECER (barra esquentando, °C) →
+  2 MOLDAR (martelo na bigorna a cada batida) → modalidades em brasa → 3 TEMPERAR (peça na água + vapor) → check-in no app → FORJADO NA DISCIPLINA (halter 3D + vapor) →
+  24H (split-flap) → preço estampado em chapa de aço (R$ 89,90 em brasa) → "1ª SEMANA GRÁTIS" marcada a ferro quente na madeira → logo → CTA.
+- Trilha phonk 120bpm + efeitos de forja (`audio/audio_forja.py`: bigorna nas palavras e marteladas, chiado na água/ferro, fogo). Render: `node render.js out/video`.
