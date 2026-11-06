@@ -170,6 +170,8 @@ function cta(t){const lt=t-28;bgForge(t,.4);embers(t,.5);mask('ESSA MARCA NÃO E
   T('Motion design · Vídeos para Reels · Identidade',W/2,990,40,WHT,{f:'Inter',w:500,a:eo(p(lt,1.4,1.8))});
   const bk=spr(lt-2.0);if(bk>0){x.save();x.translate(W/2,1130);x.scale(cl(bk,0,1.2),cl(bk,0,1.2));const g=x.createLinearGradient(-300,0,300,0);g.addColorStop(0,'#E2380F');g.addColorStop(1,'#FF9A2A');rr(-300,-55,600,110,55);x.fillStyle=g;x.fill();T('Me chama no direct',0,2,40,WHT,{f:'Inter',w:600});x.restore();}
   mask('@ALECREATOR_MOTION',W/2,1290,92,WHT,t,30.5,{ls:2,sk:SK});}
+function flap(d,X,Y,t,t0){const k=p(t,t0,t0+.9),n=Math.floor(k*10),v=k>=1?d:String((+d+10-((10-n)%10))%10);const w=210,h=300;x.save();x.translate(X,Y);rr(-w/2,-h/2,w,h,22);x.fillStyle=CHAR;x.fill();x.fillStyle='rgba(0,0,0,.6)';x.fillRect(-w/2,-3,w,6);
+  T(k>=1?d:String(Math.floor(rnd(Math.floor(t*20)+X)*10)),0,8,250,WHT);x.restore();}
 let HEATDB=0;
 const SC=[[0,2,hook],[2,4,prima],[4,6,logo],[6,8,aquecer],[8,10,moldar],[10,12,t=>mods(t,10,['MUSCULAÇÃO','FUNCIONAL','CROSS'])],[12,14,t=>mods(t,12,['SPINNING','LUTAS','YOGA'])],
   [14,16,temperar],[16,18,checkin],[18,20,forjado],[20,22,hours],[22,24,price],[24,26,brand],[26,28,lockup],[28,32,cta]];
