@@ -36,7 +36,15 @@ function drawDoll(t,cut=false){d.setTransform(1,0,0,1,0,0);const o=openAt(t),wv=
     // interior da boca
     d.beginPath();d.moveTo(-MW,0);for(let X=-MW;X<=MW;X+=2){const dx=Math.max(0,1-Math.abs(X/MW)**PW)**.75;d.lineTo(X,D*dx);}d.closePath();
     const gi=d.createLinearGradient(0,0,0,D);gi.addColorStop(0,'#3a0d10');gi.addColorStop(1,'#6b2026');d.fillStyle=gi;d.fill();
-    if(D>4){d.save();d.clip();d.fillStyle='#ece2d8';d.beginPath();d.ellipse(0,-1,MW*.62,Math.min(6,D*.38),0,0,Math.PI);d.fill();d.fillStyle='#c0565e';d.beginPath();d.ellipse(0,D*1.05,MW*.5,D*.45,0,Math.PI,0);d.fill();d.restore();}
+    // dentes reais da própria imagem (não desenhados): ficam presos no lábio de cima, com sombra suave por cima
+    if(D>2){d.save();d.clip();d.fillStyle='#b5525b';d.globalAlpha=.85;d.beginPath();d.ellipse(0,D*1.1,MW*.5,D*.5,0,Math.PI,0);d.fill();d.globalAlpha=1;
+      // dentes de cima: marfim (não branco), um a um, menores e mais escuros para os lados
+      const th=Math.min(8,D*.42),TW=[10.5,8.5,7,5.5,4.5];let xs=0;
+      for(let side of [1,-1]){xs=0;TW.forEach((tw,i)=>{const x0=side>0?xs:-xs-tw,cx=x0+tw/2,f=i/(TW.length-1),hh=th*(1-.28*f);
+        const g=d.createLinearGradient(0,0,0,hh);const L=1-.22*f;g.addColorStop(0,`rgb(${200*L|0},${184*L|0},${172*L|0})`);g.addColorStop(.6,`rgb(${226*L|0},${213*L|0},${201*L|0})`);g.addColorStop(1,`rgb(${214*L|0},${199*L|0},${188*L|0})`);
+        d.fillStyle=g;d.beginPath();d.moveTo(x0+.4,-1);d.lineTo(x0+.4,hh-1.6);d.quadraticCurveTo(x0+.4,hh,cx,hh);d.quadraticCurveTo(x0+tw-.4,hh,x0+tw-.4,hh-1.6);d.lineTo(x0+tw-.4,-1);d.fill();xs+=tw;});}
+      const sh=d.createLinearGradient(0,0,0,D);sh.addColorStop(0,'rgba(40,8,12,.38)');sh.addColorStop(.25,'rgba(40,8,12,0)');sh.addColorStop(.8,'rgba(40,8,12,0)');sh.addColorStop(1,'rgba(40,8,12,.35)');
+      d.fillStyle=sh;d.fillRect(-MW-4,0,MW*2+8,D+2);d.restore();}
     // lábio inferior + queixo descem (faixas verticais, base fica presa)
     const HH=150;for(let X=-MW-16;X<=MW+16;X+=2){const dx=Math.max(0,1-Math.abs(X/(MW+8))**PW)**1.1,dd=D*dx;if(dd<.3)continue;
       d.save();d.beginPath();d.rect(X,dd,2.4,HH-dd);d.clip();d.translate(0,dd);d.scale(1,(HH-dd)/HH);d.rotate(-MA);d.translate(-M[0],-M[1]);d.drawImage(BASE,0,0);d.restore();}
