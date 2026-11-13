@@ -16,7 +16,7 @@ const cl=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)),p=(t,a,b)=>cl((t-a)/(b-a)),lerp=
 const eo=t=>1-Math.pow(1-t,3),eo5=t=>1-Math.pow(1-t,5),eio=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
 const spr=t=>t<=0?0:1-Math.exp(-7*t)*Math.cos(11*t);const rnd=s=>{const r=Math.sin(s*127.1+311.7)*43758.5453;return r-Math.floor(r)};
 const ld=src=>new Promise(r=>{const im=new Image();im.onload=()=>r(im);im.src=src;});
-const DOLL=await ld('midia/boneca.png'),REC=await ld('midia/boneca_rec.png'),FOL=await ld('midia/foliculo.jpg');const LS=await (await fetch('lipsync.json')).json();
+const DOLL=await ld('midia/boneca.png'),DOLLN=await ld('midia/boneca_sem_dente.png'),REC=await ld('midia/boneca_rec.png'),FOL=await ld('midia/foliculo.jpg');const LS=await (await fetch('lipsync.json')).json();
 function T(s,X,Y,size,col,{f='Pop',w=700,al='center',a=1,ls=0,stroke=null}={}){if(a<=0)return;x.save();x.globalAlpha*=a;x.font=`${w} ${size}px ${f}`;x.letterSpacing=ls+'px';x.textAlign=al;x.textBaseline='middle';
   if(stroke){x.lineJoin='round';x.strokeStyle=stroke[0];x.lineWidth=stroke[1];x.strokeText(s,X,Y);}x.fillStyle=col;x.fillText(s,X,Y);x.restore();}
 function tw(s,size,f='Pop',w=700){x.save();x.font=`${w} ${size}px ${f}`;const m=x.measureText(s).width;x.restore();return m;}
@@ -28,8 +28,8 @@ const M=[566,370],MA=.255,MW0=46,MD=23;            // centro da boca, ângulo da
 const EYES=[[537,244,34,23,.12],[668,293,34,22,.24]];
 const wideAt=t=>{const f=t*30,i=Math.floor(f),k=f-i;const W_=LS.wide||[];return lerp(W_[i]??.5,W_[i+1]??.5,k);};
 const openAt=t=>{const f=t*30,i=Math.floor(f),k=f-i;const a=LS.open[i]??0,b=LS.open[i+1]??0;return lerp(a,b,k);};
-const blinkAt=t=>{for(const b of [.6,3.4,6.1,9.3,12.2,15.0,17.6]){const q=(t-b)/.16;if(q>=0&&q<=1)return Math.sin(q*Math.PI);}return 0;};
-function drawDoll(t){d.setTransform(1,0,0,1,0,0);d.drawImage(DOLL,0,0);const o=openAt(t),wv=wideAt(t);
+const blinkAt=t=>{for(const b of [.6,2.3,3.4,3.62,5.6,7.9,9.3,10.5,12.2,12.42,14.1,15.6,16.7]){const q=(t-b)/.16;if(q>=0&&q<=1)return Math.sin(q*Math.PI);}return 0;};
+function drawDoll(t,cut=false){d.setTransform(1,0,0,1,0,0);const o=openAt(t),wv=wideAt(t);const BASE=o*MD>.6?DOLLN:DOLL;d.drawImage(BASE,0,0);
   // formato varia com a vogal: "o/u" = mais estreita e funda; "e/i" = mais larga e rasa
   const D=o*MD*(1.12-.32*wv),MW=MW0*(.84+.26*wv),PW=1.6-.7*wv;
   if(D>.6){d.save();d.translate(...M);d.rotate(MA);
@@ -39,12 +39,24 @@ function drawDoll(t){d.setTransform(1,0,0,1,0,0);d.drawImage(DOLL,0,0);const o=o
     if(D>4){d.save();d.clip();d.fillStyle='#ece2d8';d.beginPath();d.ellipse(0,-1,MW*.62,Math.min(6,D*.38),0,0,Math.PI);d.fill();d.fillStyle='#c0565e';d.beginPath();d.ellipse(0,D*1.05,MW*.5,D*.45,0,Math.PI,0);d.fill();d.restore();}
     // lábio inferior + queixo descem (faixas verticais, base fica presa)
     const HH=150;for(let X=-MW-16;X<=MW+16;X+=2){const dx=Math.max(0,1-Math.abs(X/(MW+8))**PW)**1.1,dd=D*dx;if(dd<.3)continue;
-      d.save();d.beginPath();d.rect(X,dd,2.4,HH-dd);d.clip();d.translate(0,dd);d.scale(1,(HH-dd)/HH);d.rotate(-MA);d.translate(-M[0],-M[1]);d.drawImage(DOLL,0,0);d.restore();}
+      d.save();d.beginPath();d.rect(X,dd,2.4,HH-dd);d.clip();d.translate(0,dd);d.scale(1,(HH-dd)/HH);d.rotate(-MA);d.translate(-M[0],-M[1]);d.drawImage(BASE,0,0);d.restore();}
     d.restore();}
   const bl=blinkAt(t);if(bl>0)EYES.forEach(([ex,ey,rx,ry,an])=>{d.save();d.translate(ex,ey);d.rotate(an);d.beginPath();d.ellipse(0,0,rx+3,ry+3,0,0,7);d.clip();
     const lid=-ry-3+(ry*2+6)*bl;const g=d.createLinearGradient(0,-ry,0,lid);g.addColorStop(0,'#d99a7e');g.addColorStop(1,'#e8ad91');d.fillStyle=g;d.fillRect(-rx-4,-ry-4,rx*2+8,lid+ry+4);
     d.strokeStyle='#4a2a22';d.lineWidth=4;d.beginPath();d.moveTo(-rx-2,lid);d.quadraticCurveTo(0,lid+5*bl,rx+2,lid);d.stroke();d.restore();});
-  return DC;}
+  return headWarp(t,cut);}
+// cabeça inclina sozinha (o corpo fica): linhas acima do pescoço deslocadas em proporção à altura, transição suave no pescoço
+const HC=document.createElement('canvas');HC.width=DOLL.width;HC.height=DOLL.height;const hc=HC.getContext('2d');
+const MK=document.createElement('canvas');MK.width=DOLL.width;MK.height=DOLL.height;const mk=MK.getContext('2d');
+const EMPH=[3.8,7.28,8.38,10.84,14.74,16.1];
+const accent=t=>EMPH.reduce((a,w,i)=>a+(i%2?-1:1)*Math.exp(-(((t-w-.05)/.22)**2)),0);
+const tiltAt=(t,cut)=>(Math.sin(t*1.45)*.018+Math.sin(t*2.7+1)*.008+accent(t)*.022)*(cut?1.4:1);
+function headWarp(t,cut){const tl=tiltAt(t,cut),NY=470;
+  mk.globalCompositeOperation='source-over';mk.clearRect(0,0,MK.width,MK.height);mk.drawImage(DC,0,0);mk.globalCompositeOperation='destination-in';mk.drawImage(REC,0,0);
+  hc.clearRect(0,0,HC.width,HC.height);if(!cut)hc.drawImage(DC,0,0);
+  for(let y=0;y<HC.height;y+=3){const wgt=y<430?1:y>520?0:1-((y-430)/90)**2*(3-2*(y-430)/90);const off=tl*(NY-y)*wgt;
+    if(!cut&&Math.abs(off)<.2)continue;hc.drawImage(MK,0,y,MK.width,3,off,y,MK.width,3);}
+  return HC;}
 // boneca no quadro: cover 9:16 com balanço
 function dollFull(t,zoom=1,fx=.5,fy=.29){const im=drawDoll(t);const s=Math.max(W/im.width,H/im.height)*zoom,dw=im.width*s,dh=im.height*s;
   // movimento leve: balanço do corpo, respiração, deslocamento lateral e acenos de cabeça nas palavras fortes
@@ -54,11 +66,11 @@ function dollFull(t,zoom=1,fx=.5,fy=.29){const im=drawDoll(t);const s=Math.max(W
   x.drawImage(im,W/2-dw*fx,H*fy-dh*(M[1]/im.height)+0,dw,dh);x.restore();}
 // boneca recortada (sem fundo), de corpo inteiro, narrando no canto inferior direito
 const RC=document.createElement('canvas');RC.width=DOLL.width;RC.height=DOLL.height;const rcx=RC.getContext('2d');
-function dollMini(t,X,Y,h,k){if(k<=0)return;const im=drawDoll(t);rcx.globalCompositeOperation='source-over';rcx.clearRect(0,0,RC.width,RC.height);rcx.drawImage(im,0,0);
-  rcx.globalCompositeOperation='destination-in';rcx.drawImage(REC,0,0);const s=h/RC.height,w=RC.width*s;
-  const nod=[7.28,8.38,10.84,14.74,16.1].reduce((a,q)=>a+Math.exp(-(((t-q-.12)/.16)**2)),0);
-  x.save();x.translate(X,Y);x.scale(k,k);x.rotate(Math.sin(t*1.2)*.02+nod*.015);x.translate(0,-Math.abs(Math.sin(t*2.2))*5-openAt(t)*4-nod*6);
-  x.shadowColor='rgba(40,10,40,.35)';x.shadowBlur=30;x.shadowOffsetY=10;x.drawImage(RC,-w/2,-h,w,h);x.restore();}
+function dollMini(t,X,Y,h,k){if(k<=0)return;const im=drawDoll(t,true),s=h/im.height,w=im.width*s;
+  const hop=EMPH.reduce((a,q)=>{const u=(t-q+.05)/.42;return a+(u>0&&u<1?Math.sin(u*Math.PI):0);},0);
+  const sq=1+Math.sin(t*4.4)*.012*openAt(t)-hop*.03,st=1/sq;
+  x.save();x.translate(X+Math.sin(t*.9)*10,Y-hop*26);x.scale(k*st,k*sq);x.rotate(Math.sin(t*1.2)*.025+accent(t)*.03);
+  x.shadowColor='rgba(40,10,40,.35)';x.shadowBlur=30;x.shadowOffsetY=10+hop*14;x.drawImage(im,-w/2,-h,w,h);x.restore();}
 function dollPip(t,X,Y,r,k){if(k<=0)return;const im=drawDoll(t);x.save();x.translate(X,Y);x.scale(k,k);x.shadowColor='rgba(40,10,50,.45)';x.shadowBlur=40;x.fillStyle=WHT;x.beginPath();x.arc(0,0,r+10,0,7);x.fill();x.shadowColor='transparent';
   x.beginPath();x.arc(0,0,r,0,7);x.clip();const s=r*2.3/(im.width*.42),cx=600,cy=380;x.rotate(Math.sin(t*1.6)*.03);x.drawImage(im,-cx*s,-cy*s-openAt(t)*3,im.width*s,im.height*s);x.restore();
   x.save();x.strokeStyle=PUR;x.lineWidth=8;x.beginPath();x.arc(X,Y,(r+10)*k,0,7);x.stroke();x.restore();}
