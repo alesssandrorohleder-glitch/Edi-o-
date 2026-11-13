@@ -2,7 +2,7 @@
 import json,numpy as np
 from scipy.io import wavfile
 from scipy.signal import butter,sosfiltfilt
-sr,a=wavfile.read('audio/voz.wav');a=a.astype(np.float32);a=a.mean(1) if a.ndim>1 else a;a/=np.abs(a).max()+1e-9
+sr,a=wavfile.read('audio/voz2.wav');a=a.astype(np.float32);a=a.mean(1) if a.ndim>1 else a;a/=np.abs(a).max()+1e-9
 L=json.load(open('lipsync.json'));W=L['words'];n=len(L['open']);fps=30
 v=sosfiltfilt(butter(4,[250,3000],'band',fs=sr,output='sos'),a)
 win=int(.045*sr);op=np.zeros(n);wd=np.zeros(n)

@@ -281,7 +281,11 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 
 ### 26 — CLIENTE (Haskell) "DENSI RESIST" — explicativo com boneca narrando — `26-haskell-densi-resist`
 - Áudio da narração enviado pelo Ale (transcrito com faster-whisper `small`, palavras com tempo em `lipsync.json`); boneca 3D de feltro (imagem do Ale) **fala com lip-sync**:
-  boca deformada por faixas (lábio inferior/queixo descem conforme a energia vocal 250–3000 Hz, sibilantes fecham), interior + dentes + língua, piscadas, balanço. Centro/ângulo da boca: M=[566,370], 0,255 rad.
+  boca deformada por faixas (lábio inferior/queixo descem conforme a energia vocal 250–3000 Hz, sibilantes fecham), piscadas, balanço. Centro/ângulo da boca: M=[566,370], 0,255 rad.
+- **Boca aprovada só no formato "natural"**: o corte segue a linha REAL do lábio de baixo traçada na imagem (`LIP`), então dentes e lábio de cima da própria imagem ficam no lugar;
+  NUNCA desenhar dentes brancos/lábios por cima nem cortar em linha reta (gera "dois lábios"/dentes duplicados — Ale reprovou). Abertura pequena (MD=17), `lipsync2.py` (dinâmica por sílaba + largura por vogal).
+- Áudio final = `audio/voz2.wav` (19,9s, termina em "juntos vão melhorar em 85% a queda capilar" → card JUNTOS 85%). **Sem legenda** (Ale pediu para tirar). Tempos antigos remapeados por `warp()` (`KN`).
+  Cabeça inclina separada do corpo (`headWarp`, usa o recorte), pulinhos nas palavras fortes (`EMPH`).
 - Roteiro 18,5s: boneca "Amigas, eu li tudo…" + selo DENSI RESIST → mergulho no fio (imagem de referência do folículo, Ken Burns) → ATIVO EXCLUSIVO Haskell → MINOXI CARE G2 + ancoragem
   (raízes de luz, anéis, bullets) → sobe pelo fio → PEPTÍDEOS PRO (corrente de esferas enrolando o fio) → NIACINAMIDA (filme protetor brilhante) → termina na NIACINAMIDA (17,2s, sem final: o trecho entra no meio de outro vídeo). Tudo em Poppins.
   Nas cenas microscópicas (fio em tela cheia) a boneca aparece recortada sem fundo (`midia/boneca_rec.png`, rembg isnet), corpo inteiro no canto inferior direito narrando (`dollMini`, lip-sync mascarado pelo recorte); boneca com movimento leve (balanço, respiração, acenos nas palavras fortes); legenda palavra a palavra com destaque roxo #6B2C7E. Sem logo oficial (o do briefing veio cortado) — pedir o arquivo.
