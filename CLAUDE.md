@@ -278,3 +278,10 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - v3: **mídias reais do Ale** em `midia/` (fora do git): vídeo do HOMRICH nos CDJs (recorte só da filmagem, trecho limpo 13–15,6s) em cartão com fita, retrato KOSMA 88 no círculo com arco,
   EN_RRICH tocando dentro da janela XP, grade 2026 com EN_RRICH + KOSMA 88, vídeo da festa (luz vermelha) atrás do manifesto, vídeo do público (cabine) em HOUSE/TECH HOUSE/MINIMAL.
   Quadros extraídos a 30fps com ffmpeg (`frameAt`). Render: `node render.js out/video`.
+
+### 26 — CLIENTE (Haskell) "DENSI RESIST" — explicativo com boneca narrando — `26-haskell-densi-resist`
+- Áudio da narração enviado pelo Ale (transcrito com faster-whisper `small`, palavras com tempo em `lipsync.json`); boneca 3D de feltro (imagem do Ale) **fala com lip-sync**:
+  boca deformada por faixas (lábio inferior/queixo descem conforme a energia vocal 250–3000 Hz, sibilantes fecham), interior + dentes + língua, piscadas, balanço. Centro/ângulo da boca: M=[566,370], 0,255 rad.
+- Roteiro 18,5s: boneca "Amigas, eu li tudo…" + selo DENSI RESIST → mergulho no fio (imagem de referência do folículo, Ken Burns) → ATIVO EXCLUSIVO Haskell → MINOXI CARE G2 + ancoragem
+  (raízes de luz, anéis, bullets) → sobe pelo fio → PEPTÍDEOS PRO (corrente de esferas enrolando o fio) → NIACINAMIDA (filme protetor brilhante) → boneca + card "Fios fortes desde a raiz".
+  Boneca em círculo (PIP) narrando nas cenas microscópicas; legenda palavra a palavra com destaque roxo #6B2C7E. Sem logo oficial (o do briefing veio cortado) — pedir o arquivo.

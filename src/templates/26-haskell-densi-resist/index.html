@@ -1,0 +1,116 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Pop;font-weight:700;src:url(fonts/Poppins-Bold.ttf)}
+@font-face{font-family:Pop;font-weight:500;src:url(fonts/Poppins-Medium.ttf)}
+@font-face{font-family:Archivo;font-weight:900;src:url(fonts/Archivo-900.woff2)}
+html,body{margin:0;background:#000}canvas{display:block}</style></head>
+<body><canvas id="c" width="1080" height="1920"></canvas>
+<script type="module">
+/* 26 — Haskell DENSI RESIST · explicativo com a boneca narrando (lip-sync pelo áudio do Ale) + mergulho microscópico no fio.
+   Boca: deformação por faixas (lábio inferior/queixo descem conforme a energia da voz, lipsync.json), interior + dentes;
+   piscadas; balanço do corpo. Cenas sincronizadas com as palavras (words). 18,5s. */
+for(const f of ['700 50px Pop','500 50px Pop','900 50px Archivo'])await document.fonts.load(f);
+const W=1080,H=1920,c=document.getElementById('c'),x=c.getContext('2d');
+const PUR='#6B2C7E',LIL='#C9A6DA',WHT='#FFFFFF',INK='#2A1630',GOLD='#F6C98E';
+const cl=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)),p=(t,a,b)=>cl((t-a)/(b-a)),lerp=(a,b,k)=>a+(b-a)*k;
+const eo=t=>1-Math.pow(1-t,3),eo5=t=>1-Math.pow(1-t,5),eio=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+const spr=t=>t<=0?0:1-Math.exp(-7*t)*Math.cos(11*t);const rnd=s=>{const r=Math.sin(s*127.1+311.7)*43758.5453;return r-Math.floor(r)};
+const ld=src=>new Promise(r=>{const im=new Image();im.onload=()=>r(im);im.src=src;});
+const DOLL=await ld('midia/boneca.png'),FOL=await ld('midia/foliculo.jpg');const LS=await (await fetch('lipsync.json')).json();
+function T(s,X,Y,size,col,{f='Pop',w=700,al='center',a=1,ls=0,stroke=null}={}){if(a<=0)return;x.save();x.globalAlpha*=a;x.font=`${w} ${size}px ${f}`;x.letterSpacing=ls+'px';x.textAlign=al;x.textBaseline='middle';
+  if(stroke){x.lineJoin='round';x.strokeStyle=stroke[0];x.lineWidth=stroke[1];x.strokeText(s,X,Y);}x.fillStyle=col;x.fillText(s,X,Y);x.restore();}
+function tw(s,size,f='Pop',w=700){x.save();x.font=`${w} ${size}px ${f}`;const m=x.measureText(s).width;x.restore();return m;}
+function rr(X,Y,w,h,r){x.beginPath();x.roundRect(X,Y,w,h,r);}
+
+/* ---------------- boneca: boca, piscada ---------------- */
+const DC=document.createElement('canvas');DC.width=DOLL.width;DC.height=DOLL.height;const d=DC.getContext('2d');
+const M=[566,370],MA=.255,MW=46,MD=25;            // centro da boca, ângulo da boca, meia largura, abertura máx (px da imagem)
+const EYES=[[537,244,34,23,.12],[668,293,34,22,.24]];
+const openAt=t=>{const f=t*30,i=Math.floor(f),k=f-i;const a=LS.open[i]??0,b=LS.open[i+1]??0;return lerp(a,b,k);};
+const blinkAt=t=>{for(const b of [.6,3.4,6.1,9.3,12.2,15.0,17.6]){const q=(t-b)/.16;if(q>=0&&q<=1)return Math.sin(q*Math.PI);}return 0;};
+function drawDoll(t){d.setTransform(1,0,0,1,0,0);d.drawImage(DOLL,0,0);const o=openAt(t),D=o*MD;
+  if(D>.6){d.save();d.translate(...M);d.rotate(MA);
+    // interior da boca
+    d.beginPath();d.moveTo(-MW,0);for(let X=-MW;X<=MW;X+=2){const dx=Math.max(0,1-(X/MW)**2);d.lineTo(X,D*dx);}d.closePath();
+    const gi=d.createLinearGradient(0,0,0,D);gi.addColorStop(0,'#3a0d10');gi.addColorStop(1,'#6b2026');d.fillStyle=gi;d.fill();
+    if(D>4){d.save();d.clip();d.fillStyle='#ece2d8';d.beginPath();d.ellipse(0,-1,MW*.62,Math.min(6,D*.38),0,0,Math.PI);d.fill();d.fillStyle='#c0565e';d.beginPath();d.ellipse(0,D*1.05,MW*.5,D*.45,0,Math.PI,0);d.fill();d.restore();}
+    // lábio inferior + queixo descem (faixas verticais, base fica presa)
+    const HH=150;for(let X=-MW-14;X<=MW+14;X+=2){const dx=Math.max(0,1-(X/(MW+6))**2)**1.2,dd=D*dx;if(dd<.3)continue;
+      d.save();d.beginPath();d.rect(X,dd,2.4,HH-dd);d.clip();d.translate(0,dd);d.scale(1,(HH-dd)/HH);d.rotate(-MA);d.translate(-M[0],-M[1]);d.drawImage(DOLL,0,0);d.restore();}
+    d.restore();}
+  const bl=blinkAt(t);if(bl>0)EYES.forEach(([ex,ey,rx,ry,an])=>{d.save();d.translate(ex,ey);d.rotate(an);d.beginPath();d.ellipse(0,0,rx+3,ry+3,0,0,7);d.clip();
+    const lid=-ry-3+(ry*2+6)*bl;const g=d.createLinearGradient(0,-ry,0,lid);g.addColorStop(0,'#d99a7e');g.addColorStop(1,'#e8ad91');d.fillStyle=g;d.fillRect(-rx-4,-ry-4,rx*2+8,lid+ry+4);
+    d.strokeStyle='#4a2a22';d.lineWidth=4;d.beginPath();d.moveTo(-rx-2,lid);d.quadraticCurveTo(0,lid+5*bl,rx+2,lid);d.stroke();d.restore();});
+  return DC;}
+// boneca no quadro: cover 9:16 com balanço
+function dollFull(t,zoom=1,fx=.5,fy=.29){const im=drawDoll(t);const s=Math.max(W/im.width,H/im.height)*zoom,dw=im.width*s,dh=im.height*s;
+  const sway=Math.sin(t*1.3)*.008+Math.sin(t*2.7)*.004,bob=openAt(t)*4;x.save();x.translate(W/2,H);x.rotate(sway);x.translate(-W/2,-H-bob);
+  x.drawImage(im,W/2-dw*fx,H*fy-dh*(M[1]/im.height)+0,dw,dh);x.restore();}
+function dollPip(t,X,Y,r,k){if(k<=0)return;const im=drawDoll(t);x.save();x.translate(X,Y);x.scale(k,k);x.shadowColor='rgba(40,10,50,.45)';x.shadowBlur=40;x.fillStyle=WHT;x.beginPath();x.arc(0,0,r+10,0,7);x.fill();x.shadowColor='transparent';
+  x.beginPath();x.arc(0,0,r,0,7);x.clip();const s=r*2.3/(im.width*.42),cx=600,cy=380;x.rotate(Math.sin(t*1.6)*.03);x.drawImage(im,-cx*s,-cy*s-openAt(t)*3,im.width*s,im.height*s);x.restore();
+  x.save();x.strokeStyle=PUR;x.lineWidth=8;x.beginPath();x.arc(X,Y,(r+10)*k,0,7);x.stroke();x.restore();}
+
+/* ---------------- microscópio (imagem de referência + camadas animadas) ---------------- */
+function micro(t,z,fx,fy,blur=0){const s=Math.max(W/FOL.width,H/FOL.height)*z,dw=FOL.width*s,dh=FOL.height*s;const ox=cl(W/2-dw*fx,W-dw,0),oy=cl(H/2-dh*fy,H-dh,0);x.save();if(blur)x.filter=`blur(${blur}px)`;x.drawImage(FOL,ox,oy,dw,dh);x.restore();return {s,ox,oy};}
+const map=(m,X,Y)=>[m.ox+X*m.s,m.oy+Y*m.s];
+const PT=[...Array(70)].map((_,i)=>({x:rnd(i)*W,y:rnd(i+3)*H,s:1.5+rnd(i+7)*4,v:20+rnd(i+11)*60,ph:rnd(i+13)*7}));
+function motes(t,a=.8,col='255,236,214'){x.save();x.globalCompositeOperation='lighter';PT.forEach(q=>{const Y=((q.y-t*q.v)%H+H)%H,k=.5+.5*Math.sin(t*2+q.ph);const g=x.createRadialGradient(q.x,Y,0,q.x,Y,q.s*4);g.addColorStop(0,`rgba(${col},${a*k})`);g.addColorStop(1,`rgba(${col},0)`);x.fillStyle=g;x.fillRect(q.x-q.s*4,Y-q.s*4,q.s*8,q.s*8);});x.restore();}
+// ancoragem: raízes de luz saindo do bulbo + anéis
+function anchor(t,m,k){if(k<=0)return;const [bx,by]=map(m,512,1000);x.save();x.globalCompositeOperation='lighter';
+  for(let i=0;i<7;i++){const an=Math.PI/2+(i-3)*.32,len=260+rnd(i)*160;x.strokeStyle=`rgba(255,200,140,${.75*k})`;x.lineWidth=5;x.lineCap='round';x.shadowColor='#ffb070';x.shadowBlur=20;x.beginPath();x.moveTo(bx,by+40);
+    const n=40;for(let j=1;j<=n*k;j++){const u=j/n;x.lineTo(bx+Math.cos(an)*len*u+Math.sin(u*9+i)*14,by+40+Math.sin(an)*len*u);}x.stroke();}
+  for(let i=0;i<3;i++){const q=((t*.8+i/3)%1);x.strokeStyle=`rgba(255,220,170,${.7*(1-q)*k})`;x.lineWidth=4;x.beginPath();x.ellipse(bx,by-20,120+q*260,(120+q*260)*.42,0,0,7);x.stroke();}x.restore();}
+// peptídeos: corrente de esferas enrolando o fio
+const SHAFT=[[512,980],[540,700],[575,450],[620,230],[690,0]];
+function shaftPt(u){const n=SHAFT.length-1,i=Math.min(n-1,Math.floor(u*n)),k=u*n-i;return [lerp(SHAFT[i][0],SHAFT[i+1][0],k),lerp(SHAFT[i][1],SHAFT[i+1][1],k)];}
+function peptides(t,m,k){if(k<=0)return;x.save();const N=46;for(let pass=0;pass<2;pass++)for(let i=0;i<N*k;i++){const u=.08+i/N*.85,[px,py]=shaftPt(u),ph=u*38+t*3,side=Math.sin(ph),front=Math.cos(ph)>0;if((pass===1)!==front)continue;
+    const [X,Y]=map(m,px+side*26,py);const r=(front?13:9)*m.s;x.globalAlpha=front?1:.55;const g=x.createRadialGradient(X-r*.3,Y-r*.3,1,X,Y,r);g.addColorStop(0,'#F3E6FA');g.addColorStop(.5,LIL);g.addColorStop(1,PUR);x.fillStyle=g;x.beginPath();x.arc(X,Y,r,0,7);x.fill();}x.restore();}
+// niacinamida: filme protetor brilhante sobre o couro cabeludo
+function film(t,m,k){if(k<=0)return;x.save();const [x0,y0]=map(m,0,600),[x1,y1]=map(m,1024,690);x.globalAlpha=.55*k;const g=x.createLinearGradient(0,y0-30,0,y1);g.addColorStop(0,'rgba(220,200,255,0)');g.addColorStop(.5,'rgba(215,190,255,.9)');g.addColorStop(1,'rgba(220,200,255,0)');
+  x.fillStyle=g;x.beginPath();x.moveTo(x0,y0);for(let X=x0;X<=x1;X+=20)x.lineTo(X,y0+Math.sin(X*.01+t*2)*8);x.lineTo(x1,y1);x.lineTo(x0,y1);x.closePath();x.fill();
+  const sx=lerp(x0-200,x1+200,(t*.5)%1);x.globalCompositeOperation='lighter';x.globalAlpha=k;const h=x.createLinearGradient(sx-150,0,sx+150,0);h.addColorStop(0,'rgba(255,255,255,0)');h.addColorStop(.5,'rgba(255,255,255,.6)');h.addColorStop(1,'rgba(255,255,255,0)');x.fillStyle=h;x.fillRect(sx-150,y0-30,300,y1-y0+40);x.restore();}
+
+/* ---------------- textos ---------------- */
+function card(title,sub,X,Y,k,{w=820}={}){if(k<=0)return;x.save();x.translate(X,Y+(1-eo5(cl(k)))*60);x.globalAlpha=cl(k*1.5);x.shadowColor='rgba(40,10,50,.35)';x.shadowBlur=40;x.shadowOffsetY=14;rr(-w/2,-95,w,sub?190:130,36);x.fillStyle=PUR;x.fill();x.shadowColor='transparent';
+  T(title,0,sub?-30:-30,64,WHT,{ls:1});if(sub)T(sub,0,40,40,LIL,{w:500});x.restore();}
+function bullet(s,X,Y,k){if(k<=0)return;x.save();x.translate(X+(1-eo5(cl(k)))*-80,Y);x.globalAlpha=cl(k*1.5);const w=tw(s,42)+120;rr(0,-46,w,92,46);x.fillStyle='rgba(255,255,255,.92)';x.fill();x.fillStyle=PUR;x.beginPath();x.arc(46,0,20,0,7);x.fill();
+  x.strokeStyle=WHT;x.lineWidth=5;x.lineCap='round';x.beginPath();x.moveTo(37,0);x.lineTo(44,8);x.lineTo(56,-8);x.stroke();T(s,84,2,42,INK,{al:'left'});x.restore();}
+// legenda palavra a palavra (grupos curtos), palavra atual em destaque
+const WS=LS.words,GR=[];{let g=[];WS.forEach((w,i)=>{g.push(w);const nx=WS[i+1];if(!nx||g.length>=4||/[.,]$/.test(w[2])||nx[0]-w[1]>.35){GR.push(g);g=[];}});}
+function captions(t,Y){const g=GR.find(g=>t>=g[0][0]-.08&&t<=(GR[GR.indexOf(g)+1]?.[0][0]??g[g.length-1][1]+.6)-.05);if(!g)return;const ws=g.map(w=>w[2].toUpperCase());let size=62,sp=18;const raw=ws.reduce((s,w)=>s+tw(w,62),0)+sp*(ws.length-1);if(raw>960)size=62*960/raw;const tot=ws.reduce((s,w)=>s+tw(w,size),0)+sp*(ws.length-1);let X=W/2-tot/2;
+  const k=eo5(p(t,g[0][0]-.08,g[0][0]+.12));ws.forEach((w,i)=>{const on=t>=g[i][0]-.03,cur=on&&t<g[i][1]+.05,ww=tw(w,size);x.save();x.translate(X+ww/2,Y+(1-k)*30);if(cur){const s=1+.08*spr(t-g[i][0]);x.scale(s,s);}
+    if(cur){rr(-ww/2-12,-44,ww+24,88,20);x.fillStyle=PUR;x.fill();}T(w,0,4,size,on?WHT:'rgba(255,255,255,.55)',{stroke:cur?null:['rgba(40,10,50,.85)',10],a:k});x.restore();X+=ww+sp;});}
+
+/* ---------------- roteiro (sincronizado com as palavras) ---------------- */
+// 0–5,0 boneca | 5,0–8,2 mergulho + "ativo Haskell" | 8,2–12,6 MINOXI CARE G2 + ancoragem | 12,6–14,6 sobe pelo fio | 14,6–15,7 PEPTÍDEOS PRO | 15,7–17,2 NIACINAMIDA | 17,2–18,5 boneca + produto
+window.DUR=18.5;
+window.draw=function(t){x.setTransform(1,0,0,1,0,0);x.globalAlpha=1;x.filter='none';x.globalCompositeOperation='source-over';
+  if(t<5.0){const z=1+.04*t+ei(p(t,4.55,5.0))*1.6;dollFull(t,z,.5,.29+ei(p(t,4.55,5.0))*.05);
+    if(t>=3.75){const k=spr(t-3.8);x.save();x.translate(W/2,1250);x.rotate(-.03);x.scale(cl(k,0,1.15),cl(k,0,1.15));x.shadowColor='rgba(40,10,50,.4)';x.shadowBlur=40;rr(-330,-100,660,200,40);x.fillStyle='rgba(255,255,255,.95)';x.fill();x.shadowColor='transparent';
+      T('DENSI',0,-34,84,'#9C9C9C',{f:'Archivo',w:900,ls:2});T('RESIST',0,46,84,'#9C9C9C',{f:'Archivo',w:900,ls:2});x.restore();}
+    captions(t,1500);if(t>4.75){x.fillStyle=`rgba(255,245,240,${p(t,4.75,5.0)})`;x.fillRect(0,0,W,H);}}
+  else if(t<17.2){let m;
+    if(t<12.6){const z=lerp(1.25,1.0,eo5(p(t,5.0,6.2)))+.08*p(t,6.2,12.6);m=micro(t,z,.5,lerp(.6,.62,p(t,5,12.6)),t<5.4?(1-p(t,5,5.4))*14:0);}
+    else{const u=eio(p(t,12.6,14.4));m=micro(t,lerp(1.08,1.55,u),lerp(.5,.56,u),lerp(.62,.28,u));}
+    if(t>=10.8&&t<12.9)anchor(t,m,eo(p(t,10.84,11.6))*(1-p(t,12.6,12.9)));
+    if(t>=14.6)peptides(t,m,eo(p(t,14.74,15.5)));if(t>=15.7)film(t,m,eo(p(t,16.0,16.6)));
+    motes(t,.7);
+    if(t<5.15){x.fillStyle=`rgba(255,245,240,${1-p(t,5.0,5.15)})`;x.fillRect(0,0,W,H);}
+    // textos por momento
+    if(t>=6.8&&t<8.3)card('ATIVO EXCLUSIVO','desenvolvido pela Haskell',W/2,360,p(t,6.86,7.2)*(1-p(t,8.1,8.3)));
+    if(t>=8.3&&t<12.7)card('MINOXI CARE G2','tecnologia antiqueda',W/2,360,p(t,8.38,8.7)*(1-p(t,12.5,12.7)));
+    if(t>=10.8&&t<12.7){bullet('Ancoragem dos fios',90,620,p(t,10.84,11.1)*(1-p(t,12.5,12.7)));bullet('Menos queda e afinamento',90,740,p(t,11.2,11.45)*(1-p(t,12.5,12.7)));bullet('Mais densidade',90,860,p(t,11.6,11.85)*(1-p(t,12.5,12.7)));}
+    if(t>=12.7&&t<14.6)card('+ NA FÓRMULA','ativos que fortalecem',W/2,360,p(t,12.7,13.0)*(1-p(t,14.4,14.6)));
+    if(t>=14.6&&t<15.75){card('PEPTÍDEOS PRO','mais resistência · menos quebra',W/2,360,p(t,14.74,15.0)*(1-p(t,15.6,15.75)));}
+    if(t>=15.7)card('NIACINAMIDA','filme protetor · fios fortes desde a raiz',W/2,360,p(t,16.1,16.4)*(1-p(t,17.0,17.2)),{w:900});
+    dollPip(t,W-230,1390,160,spr(t-5.3));captions(t,1130);
+    if(t>16.95){x.fillStyle=`rgba(255,245,240,${p(t,16.95,17.2)})`;x.fillRect(0,0,W,H);}}
+  else{dollFull(t,1.05,.5,.29);if(t<17.4){x.fillStyle=`rgba(255,245,240,${1-p(t,17.2,17.4)})`;x.fillRect(0,0,W,H);}
+    const k=spr(t-17.3);x.save();x.translate(W/2,1380);x.scale(cl(k,0,1.15),cl(k,0,1.15));x.shadowColor='rgba(40,10,50,.4)';x.shadowBlur=40;rr(-380,-150,760,300,44);x.fillStyle='rgba(255,255,255,.96)';x.fill();x.shadowColor='transparent';
+    T('DENSI RESIST',0,-50,92,'#8E8E8E',{f:'Archivo',w:900,ls:2});x.fillStyle=PUR;rr(-300,20,600,80,40);x.fill();T('FIOS FORTES DESDE A RAIZ',0,61,36,WHT);x.restore();}
+  // vinheta leve
+  const g=x.createRadialGradient(W/2,H/2,H*.38,W/2,H/2,H*.8);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(30,10,30,.22)');x.fillStyle=g;x.fillRect(0,0,W,H);
+  const fo=p(t,18.1,18.5);if(fo>0){x.fillStyle=`rgba(255,245,240,${fo})`;x.fillRect(0,0,W,H);}};
+function ei(t){return t*t*t;}
+window.ready=true;
+</script></body></html>

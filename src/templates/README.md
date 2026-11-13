@@ -17,4 +17,5 @@ Uma pasta por vídeo. Leia o `CLAUDE-contexto.md` (estilo, ajustes pedidos, prom
 - `23-festival-onda/` = lançamento de festival fictício ONDA (cromo líquido em shader + tipografia, cena nova a cada 2s); `node render.js out/video`.
 - `24-academia-forja/` = academia fictícia FORJA (halter/anilha/kettlebell 3D, cena a cada 2s, phonk); `node render.js out/video`.
 - `25-festa-freaknc/` = anúncio de festa na estética do @freaknclabel (retícula duotone, roxo/amarelo, janela XP); `node render.js out/video`.
+- `26-haskell-densi-resist/` = CLIENTE Haskell, explicativo com boneca narrando (lip-sync) + microscópio do fio; `node render.js out/video`.
 - Pastas com `_frames_src/`: rode `python preparar_frames.py` antes (recria as sequências de quadros dos clipes).
