@@ -16,7 +16,7 @@ const cl=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)),p=(t,a,b)=>cl((t-a)/(b-a)),lerp=
 const eo=t=>1-Math.pow(1-t,3),eo5=t=>1-Math.pow(1-t,5),eio=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
 const spr=t=>t<=0?0:1-Math.exp(-7*t)*Math.cos(11*t);const rnd=s=>{const r=Math.sin(s*127.1+311.7)*43758.5453;return r-Math.floor(r)};
 const ld=src=>new Promise(r=>{const im=new Image();im.onload=()=>r(im);im.src=src;});
-const DOLL=await ld('midia/boneca.png'),FOL=await ld('midia/foliculo.jpg');const LS=await (await fetch('lipsync.json')).json();
+const DOLL=await ld('midia/boneca.png'),REC=await ld('midia/boneca_rec.png'),FOL=await ld('midia/foliculo.jpg');const LS=await (await fetch('lipsync.json')).json();
 function T(s,X,Y,size,col,{f='Pop',w=700,al='center',a=1,ls=0,stroke=null}={}){if(a<=0)return;x.save();x.globalAlpha*=a;x.font=`${w} ${size}px ${f}`;x.letterSpacing=ls+'px';x.textAlign=al;x.textBaseline='middle';
   if(stroke){x.lineJoin='round';x.strokeStyle=stroke[0];x.lineWidth=stroke[1];x.strokeText(s,X,Y);}x.fillStyle=col;x.fillText(s,X,Y);x.restore();}
 function tw(s,size,f='Pop',w=700){x.save();x.font=`${w} ${size}px ${f}`;const m=x.measureText(s).width;x.restore();return m;}
@@ -49,9 +49,13 @@ function dollFull(t,zoom=1,fx=.5,fy=.29){const im=drawDoll(t);const s=Math.max(W
   const sway=Math.sin(t*1.1)*.022+Math.sin(t*2.3+1)*.008+nod*.012,bob=openAt(t)*7+nod*10,br=1.06+Math.sin(t*2.1)*.008,dx=Math.sin(t*.7)*14;
   x.save();x.translate(W/2+dx,H);x.rotate(sway);x.scale(br,br);x.translate(-W/2,-H-bob);
   x.drawImage(im,W/2-dw*fx,H*fy-dh*(M[1]/im.height)+0,dw,dh);x.restore();}
-function dollMini(t,X,Y,w,k){if(k<=0)return;const im=drawDoll(t),h=w*im.height/im.width;x.save();x.translate(X+w/2,Y+h);x.scale(k,k);x.rotate(Math.sin(t*1.2)*.015);x.translate(0,-Math.abs(Math.sin(t*2.2))*4-openAt(t)*3);
-  x.shadowColor='rgba(40,10,50,.45)';x.shadowBlur=40;x.shadowOffsetY=14;rr(-w/2-8,-h-8,w+16,h+16,34);x.fillStyle=WHT;x.fill();x.shadowColor='transparent';
-  x.save();rr(-w/2,-h,w,h,28);x.clip();x.drawImage(im,-w/2,-h,w,h);x.restore();x.strokeStyle=PUR;x.lineWidth=5;rr(-w/2-8,-h-8,w+16,h+16,34);x.stroke();x.restore();}
+// boneca recortada (sem fundo), de corpo inteiro, narrando no canto inferior direito
+const RC=document.createElement('canvas');RC.width=DOLL.width;RC.height=DOLL.height;const rcx=RC.getContext('2d');
+function dollMini(t,X,Y,h,k){if(k<=0)return;const im=drawDoll(t);rcx.globalCompositeOperation='source-over';rcx.clearRect(0,0,RC.width,RC.height);rcx.drawImage(im,0,0);
+  rcx.globalCompositeOperation='destination-in';rcx.drawImage(REC,0,0);const s=h/RC.height,w=RC.width*s;
+  const nod=[7.28,8.38,10.84,14.74,16.1].reduce((a,q)=>a+Math.exp(-(((t-q-.12)/.16)**2)),0);
+  x.save();x.translate(X,Y);x.scale(k,k);x.rotate(Math.sin(t*1.2)*.02+nod*.015);x.translate(0,-Math.abs(Math.sin(t*2.2))*5-openAt(t)*4-nod*6);
+  x.shadowColor='rgba(40,10,40,.35)';x.shadowBlur=30;x.shadowOffsetY=10;x.drawImage(RC,-w/2,-h,w,h);x.restore();}
 function dollPip(t,X,Y,r,k){if(k<=0)return;const im=drawDoll(t);x.save();x.translate(X,Y);x.scale(k,k);x.shadowColor='rgba(40,10,50,.45)';x.shadowBlur=40;x.fillStyle=WHT;x.beginPath();x.arc(0,0,r+10,0,7);x.fill();x.shadowColor='transparent';
   x.beginPath();x.arc(0,0,r,0,7);x.clip();const s=r*2.3/(im.width*.42),cx=600,cy=380;x.rotate(Math.sin(t*1.6)*.03);x.drawImage(im,-cx*s,-cy*s-openAt(t)*3,im.width*s,im.height*s);x.restore();
   x.save();x.strokeStyle=PUR;x.lineWidth=8;x.beginPath();x.arc(X,Y,(r+10)*k,0,7);x.stroke();x.restore();}
@@ -89,11 +93,11 @@ function captions(t,Y){const g=GR.find(g=>t>=g[0][0]-.08&&t<=(GR[GR.indexOf(g)+1
 
 /* ---------------- roteiro (sincronizado com as palavras) ---------------- */
 // 0–5,0 boneca | 5,0–8,2 mergulho + "ativo Haskell" | 8,2–12,6 MINOXI CARE G2 + ancoragem | 12,6–14,6 sobe pelo fio | 14,6–15,7 PEPTÍDEOS PRO | 15,7–17,2 NIACINAMIDA | 17,2–18,5 boneca + produto
-window.DUR=18.5;
+window.DUR=17.2;
 window.draw=function(t){x.setTransform(1,0,0,1,0,0);x.globalAlpha=1;x.filter='none';x.globalCompositeOperation='source-over';
   if(t<5.0){const z=1+.04*t+ei(p(t,4.55,5.0))*1.6;dollFull(t,z,.5,.29+ei(p(t,4.55,5.0))*.05);
     if(t>=3.75){const k=spr(t-3.8);x.save();x.translate(W/2,1250);x.rotate(-.03);x.scale(cl(k,0,1.15),cl(k,0,1.15));x.shadowColor='rgba(40,10,50,.4)';x.shadowBlur=40;rr(-330,-100,660,200,40);x.fillStyle='rgba(255,255,255,.95)';x.fill();x.shadowColor='transparent';
-      T('DENSI',0,-34,84,'#9C9C9C',{f:'Archivo',w:900,ls:2});T('RESIST',0,46,84,'#9C9C9C',{f:'Archivo',w:900,ls:2});x.restore();}
+      T('DENSI',0,-34,84,'#9C9C9C',{f:'Pop',w:700,ls:2});T('RESIST',0,46,84,'#9C9C9C',{f:'Pop',w:700,ls:2});x.restore();}
     captions(t,1500);if(t>4.75){x.fillStyle=`rgba(255,245,240,${p(t,4.75,5.0)})`;x.fillRect(0,0,W,H);}}
   else if(t<17.2){let m;
     if(t<12.6){const z=lerp(1.25,1.0,eo5(p(t,5.0,6.2)))+.08*p(t,6.2,12.6);m=micro(t,z,.5,lerp(.6,.62,p(t,5,12.6)),t<5.4?(1-p(t,5,5.4))*14:0);}
@@ -108,12 +112,12 @@ window.draw=function(t){x.setTransform(1,0,0,1,0,0);x.globalAlpha=1;x.filter='no
     if(t>=10.8&&t<12.7){bullet('Ancoragem dos fios',90,620,p(t,10.84,11.1)*(1-p(t,12.5,12.7)));bullet('Menos queda e afinamento',90,740,p(t,11.2,11.45)*(1-p(t,12.5,12.7)));bullet('Mais densidade',90,860,p(t,11.6,11.85)*(1-p(t,12.5,12.7)));}
     if(t>=12.7&&t<14.6)card('+ NA FÓRMULA','ativos que fortalecem',W/2,360,p(t,12.7,13.0)*(1-p(t,14.4,14.6)));
     if(t>=14.6&&t<15.75){card('PEPTÍDEOS PRO','mais resistência · menos quebra',W/2,360,p(t,14.74,15.0)*(1-p(t,15.6,15.75)));}
-    if(t>=15.7)card('NIACINAMIDA','filme protetor · fios fortes desde a raiz',W/2,360,p(t,16.1,16.4)*(1-p(t,17.0,17.2)),{w:900});
-    dollMini(t,W-350,1250,300,spr(t-5.3)*(1-eio(p(t,16.95,17.2))));captions(t,1130);
+    if(t>=15.7)card('NIACINAMIDA','filme protetor · fios fortes desde a raiz',W/2,360,p(t,16.1,16.4),{w:900});
+    dollMini(t,W-230,1640,620,spr(t-5.3));captions(t,920);
     if(t>16.95){x.fillStyle=`rgba(255,245,240,${p(t,16.95,17.2)})`;x.fillRect(0,0,W,H);}}
   else{dollFull(t,1.05,.5,.29);if(t<17.4){x.fillStyle=`rgba(255,245,240,${1-p(t,17.2,17.4)})`;x.fillRect(0,0,W,H);}
     const k=spr(t-17.3);x.save();x.translate(W/2,1380);x.scale(cl(k,0,1.15),cl(k,0,1.15));x.shadowColor='rgba(40,10,50,.4)';x.shadowBlur=40;rr(-380,-150,760,300,44);x.fillStyle='rgba(255,255,255,.96)';x.fill();x.shadowColor='transparent';
-    T('DENSI RESIST',0,-50,92,'#8E8E8E',{f:'Archivo',w:900,ls:2});x.fillStyle=PUR;rr(-300,20,600,80,40);x.fill();T('FIOS FORTES DESDE A RAIZ',0,61,36,WHT);x.restore();}
+    T('DENSI RESIST',0,-50,92,'#8E8E8E',{f:'Pop',w:700,ls:2});x.fillStyle=PUR;rr(-300,20,600,80,40);x.fill();T('FIOS FORTES DESDE A RAIZ',0,61,36,WHT);x.restore();}
   // vinheta leve
   const g=x.createRadialGradient(W/2,H/2,H*.38,W/2,H/2,H*.8);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(30,10,30,.22)');x.fillStyle=g;x.fillRect(0,0,W,H);
   const fo=p(t,18.1,18.5);if(fo>0){x.fillStyle=`rgba(255,245,240,${fo})`;x.fillRect(0,0,W,H);}};
