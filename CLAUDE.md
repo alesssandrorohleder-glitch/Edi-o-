@@ -289,3 +289,10 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - Roteiro 18,5s: boneca "Amigas, eu li tudo…" + selo DENSI RESIST → mergulho no fio (imagem de referência do folículo, Ken Burns) → ATIVO EXCLUSIVO Haskell → MINOXI CARE G2 + ancoragem
   (raízes de luz, anéis, bullets) → sobe pelo fio → PEPTÍDEOS PRO (corrente de esferas enrolando o fio) → NIACINAMIDA (filme protetor brilhante) → termina na NIACINAMIDA (17,2s, sem final: o trecho entra no meio de outro vídeo). Tudo em Poppins.
   Nas cenas microscópicas (fio em tela cheia) a boneca aparece recortada sem fundo (`midia/boneca_rec.png`, rembg isnet), corpo inteiro no canto inferior direito narrando (`dollMini`, lip-sync mascarado pelo recorte); boneca com movimento leve (balanço, respiração, acenos nas palavras fortes); legenda palavra a palavra com destaque roxo #6B2C7E. Sem logo oficial (o do briefing veio cortado) — pedir o arquivo.
+
+### 27 — Telão de LED "DJ ViNi" (4×2 m, loop) — `27-telao-dj-vini`
+- 3840×1920 (2:1), 30fps, **loop perfeito de 10s** (tudo periódico em 10s; 120bpm = 20 batidas). Prata/azul/preto, sem áudio.
+- Parede de caixas de som pulsando na batida (gabinete e falantes pré-renderizados em sprites), letreiro cromado letra por letra (Racing Sans One,
+  extrusão azul, varredura de luz, pulinho em onda, estrelas nos pingos dos "i"), faixa cromada + mini equalizador, raios e ondas de som,
+  borda azul-escura com 6 cometas de brilho girando (2 voltas por loop) + pontos piscando.
+- Render: `node render.js out/video` (~5 min) · imagem PNG: `node still.js saida.png 1.3`.
