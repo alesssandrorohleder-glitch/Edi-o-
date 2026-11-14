@@ -292,7 +292,11 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 
 ### 27 — Telão de LED "DJ ViNi" (4×2 m, loop) — `27-telao-dj-vini`
 - 3840×1920 (2:1), 30fps, **loop perfeito de 10s** (tudo periódico em 10s; 120bpm = 20 batidas). Prata/azul/preto, sem áudio.
-- Parede de caixas de som pulsando na batida (gabinete e falantes pré-renderizados em sprites), letreiro cromado letra por letra (Racing Sans One,
-  extrusão azul, varredura de luz, pulinho em onda, estrelas nos pingos dos "i"), faixa cromada + mini equalizador, raios e ondas de som,
-  borda azul-escura com 3 brilhos discretos girando (2 voltas por loop) + poucos pontos piscando (Ale pediu menos brilho em volta).
-- Render: `node render.js out/video` (~5 min) · imagem PNG: `node still.js saida.png 1.3`.
+- v1 2D (`v1_2d.html`) — Ale: "muito simples/básico" e pediu **menos brilho em volta** (borda com só 3 brilhos discretos).
+- v2 **3D real (three.js r160, `lib/`)**: letreiro extrudado com chanfro (contornos da Racing Sans One em `glyphs.json`, extraídos com fontTools),
+  face cromada = textura de gradiente animada (varredura de luz) + reflexo de ambiente próprio (PMREM com painéis prata/azul), lateral azul metálica, neon atrás;
+  parede de caixas de som 3D (cone + calota cromada que se movem na batida, anel de LED), piso espelhado (palco construído 2×, cópia com `scale.y=-1`),
+  feixes de luz aditivos, partículas, câmera em órbita suave. Pós em 2D: bloom em 1/8 da resolução, vinheta, estrelas nos pingos dos "i" (ponto 3D projetado), borda.
+- Cuidados: face plana de metal reflete uma cor só (por isso o gradiente em textura); cone do falante precisa ficar para fora do gabinete; não pôr barras/objetos
+  pequenos atrás dos vãos das letras (parecem pontos). `?s=0.5` (env `Q='?s=0.5'`) renderiza o 3D em meia resolução para teste.
+- Render: `node render.js out/video` · imagem PNG: `node still.js saida.png 1.3`.
