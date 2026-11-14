@@ -294,5 +294,5 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - 3840×1920 (2:1), 30fps, **loop perfeito de 10s** (tudo periódico em 10s; 120bpm = 20 batidas). Prata/azul/preto, sem áudio.
 - Parede de caixas de som pulsando na batida (gabinete e falantes pré-renderizados em sprites), letreiro cromado letra por letra (Racing Sans One,
   extrusão azul, varredura de luz, pulinho em onda, estrelas nos pingos dos "i"), faixa cromada + mini equalizador, raios e ondas de som,
-  borda azul-escura com 6 cometas de brilho girando (2 voltas por loop) + pontos piscando.
+  borda azul-escura com 3 brilhos discretos girando (2 voltas por loop) + poucos pontos piscando (Ale pediu menos brilho em volta).
 - Render: `node render.js out/video` (~5 min) · imagem PNG: `node still.js saida.png 1.3`.
