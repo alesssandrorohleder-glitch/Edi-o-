@@ -66,8 +66,8 @@ function buildStage(){const st=new THREE.Group();
         UPD.push(t=>{const pu=k?kick(t-dl-.25)*.7:kick(t-dl-r*.02)*(fr((t-dl)/1)<.5?1:.7);mv.position.z=pu*d.r*.16;mv.scale.setScalar(1+pu*.03);});});}
     UPD.push(t=>{const pu=kick(t-dl);led.color.setRGB(.02+.35*pu,.10+.9*pu,.45+2.2*pu);});}
   // sombra suave atrás do nome (a parede continua viva nas laterais e em cima)
-  {const[sc,sg]=mk(256,128),q=sg.createRadialGradient(128,64,6,128,64,128);q.addColorStop(0,'rgba(0,1,8,.80)');q.addColorStop(.55,'rgba(0,1,8,.55)');q.addColorStop(1,'rgba(0,1,8,0)');sg.fillStyle=q;sg.fillRect(0,0,256,128);
-   const sp=new THREE.Mesh(new THREE.PlaneGeometry(40,13),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(sc),transparent:true,depthWrite:false,fog:false}));sp.position.set(0,FY+2.4,-2.2);st.add(sp);}
+  {const[sc,sg]=mk(256,128),q=sg.createRadialGradient(128,64,6,128,64,128);q.addColorStop(0,'rgba(0,1,8,.55)');q.addColorStop(.5,'rgba(0,1,8,.3)');q.addColorStop(1,'rgba(0,1,8,0)');sg.fillStyle=q;sg.fillRect(0,0,256,128);
+   const sp=new THREE.Mesh(new THREE.PlaneGeometry(30,9),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(sc),transparent:true,depthWrite:false,fog:false}));sp.position.set(0,FY+2.4,-2.2);st.add(sp);}
   // letreiro
   const s=3.7/700,tg=new THREE.Group();st.add(tg);let cx=0;const items=[];
   for(const ch of 'DJ ViNi'){if(ch==' '){cx+=250*s;continue;}const gl=GLY.g[ch],sp=new THREE.ShapePath();
