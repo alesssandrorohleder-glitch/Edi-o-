@@ -319,3 +319,10 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
   Extras: `hand()` (mão abrindo, 2 falanges), `arrow()`, `techCard()`. Pronúncia: "rúqui (Hook)", "Você puxa a mão…", "Coloque o ombro…".
 - **Textos sempre acima de y≈1450** (legenda e nome do perfil do Instagram cobrem a parte de baixo; botões ficam na direita) — Ale pediu; aplicado também no 28 (contador REP foi pro alto).
 - Render: `node render.js out/video` (~5 min) + mux com `audio/trilha_final.mp3`.
+
+### 30 — Reels narrado "O erro que quebra braços" (postura errada × certa, 32,8s) — `30-erro-queda-de-braco`
+- Vídeo 1 da série (2 ✅, 1 ✅, faltam 3, 4, 5). Mesma estrutura do 29 (`head.part` + `scenes.part` + `tail.part`).
+- Gancho em câmera lenta (selo 0,25×, faixas de cinema) → osso quebrando → **vista de cima** (`topView(g,cx,cy,s,w)`: mesa, adversário, herói; `w`=1 errado: ombro longe,
+  tronco e rosto virados, cone de visão vermelho; `w`=0 certo: cone verde no braço) → torção + "força direto pro osso" → jeito certo com 3 checagens (o corpo vai se ajeitando)
+  → "pro músculo, não pro osso" → errado × certo → "manda pra quem vive te desafiando" (avião de papel) → segue o perfil.
+- Pronúncia: "êrro", "olha o jeito certo", "O peito virado pra mão".
