@@ -300,3 +300,14 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - Cuidados: face plana de metal reflete uma cor só (por isso o gradiente em textura); cone do falante precisa ficar para fora do gabinete; não pôr barras/objetos
   pequenos atrás dos vãos das letras (parecem pontos). `?s=0.5` (env `Q='?s=0.5'`) renderiza o 3D em meia resolução para teste.
 - Render: `node render.js out/video` · imagem PNG: `node still.js saida.png 1.3`.
+
+### 28 — Reels narrado "Queda de braço" (perigos + fortalecimento, 65s) — `28-queda-de-braco`
+- Narração por TTS offline **Piper** (`pt_BR-faber-medium`, baixado de huggingface.co/rhasspy/piper-voices; `--length-scale 0.9`) — o Edge TTS (Bing) é bloqueado na rede.
+  Conferir pronúncia transcrevendo com faster-whisper; ajustes que funcionaram: "martélo", "rósca", "Segue lá o perfil", "Protege o ombro".
+  `audio/roteiro.txt` (1 fala por linha) → `audio/falas/NN.wav` → `audio/montar_voz.py` (corta silêncio, pausas `GAP`) → `audio/voz.wav` + `falas.json` (falas + palavras com tempo).
+- Trilha de fundo leve (`audio/trilha.py`: lo-fi house 120bpm Am–F–C–G, sidechain pela voz, ~15 dB abaixo da fala) + SFX nos cortes/impactos (prioridade, ≥0,45s) →
+  `trilha_final.mp3`, `so_musica.mp3`, `so_efeitos.mp3`, `narracao.mp3`.
+- Canvas 2D: 18 cenas (corte a cada 2–5s, transições whip/zoom/up/círculo de 0,24s), vermelho = perigo, verde-limão = fortalecimento; Anton + Poppins.
+  Ilustração: `limb()` com anatomia (deltoide, bíceps/tríceps, braquiorradial, brilho, vincos, contorno), `fist()` peça única com nós/polegar/unha, `clasp()` (mãos travadas), ossos em raio-x, atleta com rig (`arm()`, `athlete()`).
+  Ale pediu melhorar braços/ilustrações e as mãos ("estranhas") — corrigido assim. `g.reset()` em cada cena (clip vazava entre quadros).
+- Render: `node render.js out/video` (~9 min) e mux com `audio/trilha_final.mp3`.
