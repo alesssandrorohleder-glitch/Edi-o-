@@ -326,3 +326,12 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
   tronco e rosto virados, cone de visão vermelho; `w`=0 certo: cone verde no braço) → torção + "força direto pro osso" → jeito certo com 3 checagens (o corpo vai se ajeitando)
   → "pro músculo, não pro osso" → errado × certo → "manda pra quem vive te desafiando" (avião de papel) → segue o perfil.
 - Pronúncia: "êrro", "olha o jeito certo", "O peito virado pra mão".
+
+### 31 — Reels narrado "Treino de 10 min pra antebraço em casa" (toalha, garrafa, elástico, 44s) — `31-treino-antebraco-casa`
+- Vídeo 3 da série (feitos: 2, 1, 3; faltam 4 mito ou verdade e 5 desafio 30 dias). Mesma estrutura do 29/30.
+- Props desenhados: `towel()` (toalha torcendo com listras), `bottle()` (PET com água balançando — recriar o path antes do stroke, senão sai um retângulo),
+  `palmHand()` (mão de frente com dedos abrindo em leque; elástico = elipse envolvendo as pontas), `bookmark()` (salvar), `badge()` (tempo/reps no alto à direita), `drops()`.
+- Exercícios: torção de toalha → rósca de punho com garrafa → alavanca com garrafa → elástico nos dedos → aperto máximo na toalha; 3 voltas / 30s; 3x por semana → barra "força da pegada".
+- Usar "x" e não "×" nos contadores (o "×" fica minúsculo na Anton). "Segue lá o perfil" funciona como frase separada.
+- **Queda de braço: os dois competidores lutam com a MESMA mão (direita) e seguram o pino com a outra, em cantos opostos** — na vista de cima, a mão direita do adversário
+  fica à esquerda da tela (Ale apontou o erro; corrigido no `topView` do 30).

@@ -159,15 +159,16 @@ const rot=(p,a)=>[p[0]*Math.cos(a)-p[1]*Math.sin(a),p[0]*Math.sin(a)+p[1]*Math.c
 // vista de cima: mesa, adversário em cima, herói embaixo. w=1 postura ERRADA (ombro longe, corpo e rosto virados), w=0 CERTA
 function topView(g,cx,cy,s,w,t,o={}){g.save();g.translate(cx,cy);g.scale(s,s);
   rr(g,-320,-200,640,400,40);let gr=g.createLinearGradient(0,-200,0,200);gr.addColorStop(0,'#6B4A33');gr.addColorStop(1,'#3E2A1C');g.fillStyle=gr;g.fill();g.strokeStyle='#2A1A10';g.lineWidth=10;g.stroke();
-  for(const yy of[-120,120]){g.fillStyle='rgba(20,12,8,.6)';g.beginPath();g.ellipse(40,yy,80,34,0,0,TAU);g.fill();}
+  for(const[xx,yy]of[[-40,-120],[40,120]]){g.fillStyle='rgba(20,12,8,.6)';g.beginPath();g.ellipse(xx,yy,80,34,0,0,TAU);g.fill();}
   g.fillStyle='#9AA3B5';rr(g,-280,-28,28,56,10);g.fill();rr(g,252,-28,28,56,10);g.fill();
   const torso=(c,a,col)=>{g.save();g.translate(...c);g.rotate(a);const gg=g.createLinearGradient(0,-90,0,90);gg.addColorStop(0,'#3A4150');gg.addColorStop(1,col);g.beginPath();g.ellipse(0,0,230,88,0,0,TAU);g.fillStyle=gg;g.fill();g.strokeStyle='rgba(255,255,255,.18)';g.lineWidth=6;g.stroke();
     for(const sx of[-1,1]){g.beginPath();g.arc(sx*192,0,52,0,TAU);g.fillStyle=SKD;g.fill();}g.restore();};
   const head=(c,look,hair,skin)=>{g.save();g.translate(...c);g.rotate(look);g.fillStyle=skin;g.beginPath();g.ellipse(-6,-72,14,20,0,0,TAU);g.ellipse(-6,72,14,20,0,0,TAU);g.fill();
     g.fillStyle=hair;g.beginPath();g.arc(0,0,72,0,TAU);g.fill();g.fillStyle=skin;g.beginPath();g.ellipse(44,0,28,42,0,-Math.PI/2,Math.PI/2);g.fill();g.beginPath();g.moveTo(70,-13);g.lineTo(94,0);g.lineTo(70,13);g.fill();g.restore();};
   // adversário (em cima)
-  const OT=[-20,-330];limb(g,[-210,OT[1]],[-250,-40],46,38,8,SK2,SK2D,SK2L,1,'fo');torso(OT,0,'#1A1D24');
-  limb(g,[170,OT[1]],[-20,-120],48,40,12,SK2,SK2D,SK2L,-1,'up');limb(g,[-20,-120],[0,-14],40,32,10,SK2,SK2D,SK2L,-1,'fo');head([OT[0],OT[1]-4],Math.PI/2,'#1A1310',SK2D);
+  // adversário de frente pra câmera: a mão DIREITA dele fica à esquerda da tela (luta) e a esquerda segura o pino do lado oposto ao do herói
+  const OT=[20,-330];limb(g,[210,OT[1]],[250,-40],46,38,8,SK2,SK2D,SK2L,-1,'fo');torso(OT,0,'#1A1D24');
+  limb(g,[-170,OT[1]],[20,-120],48,40,12,SK2,SK2D,SK2L,1,'up');limb(g,[20,-120],[0,-14],40,32,10,SK2,SK2D,SK2L,1,'fo');head([OT[0],OT[1]-4],Math.PI/2,'#1A1310',SK2D);
   // herói (embaixo)
   const Tc=[lerp(60,-70,w),lerp(300,450,w)],ra=lerp(-.3,.42,w),Rs=v=>{const q=rot(v,ra);return[Tc[0]+q[0],Tc[1]+q[1]];};
   const SHR=Rs([192,0]),SHL=Rs([-192,0]),EL=[lerp(70,150,w),lerp(120,150,w)],HD=[0,10];
