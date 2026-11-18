@@ -311,3 +311,11 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
   Ilustração: `limb()` com anatomia (deltoide, bíceps/tríceps, braquiorradial, brilho, vincos, contorno), `fist()` peça única com nós/polegar/unha, `clasp()` (mãos travadas), ossos em raio-x, atleta com rig (`arm()`, `athlete()`).
   Ale pediu melhorar braços/ilustrações e as mãos ("estranhas") — corrigido assim. `g.reset()` em cada cena (clip vazava entre quadros).
 - Render: `node render.js out/video` (~9 min) e mux com `audio/trilha_final.mp3`.
+
+### 29 — Reels narrado "3 técnicas de queda de braço" (Top Roll, Hook, Press, 44,5s) — `29-tecnicas-queda-de-braco`
+- 1º da série de 5 ideias pro canal de queda de braço (ordem pedida: 2 → 1 → 3 → 4 → 5): (1) "O erro que quebra braços" (câmera lenta errado × certo),
+  (2) **3 técnicas** ✅, (3) treino de 10 min em casa (toalha/garrafa/elástico), (4) mito ou verdade, (5) desafio 30 dias de pegada (série).
+- Mesmo pipeline/visual do 28: `head.part` (helpers + `wrestle()` com parâmetros dc/sh/eh/eo_/ct p/ animar as técnicas) + `scenes.part` (16 cenas) + `tail.part` → `cat > index.html`.
+  Extras: `hand()` (mão abrindo, 2 falanges), `arrow()`, `techCard()`. Pronúncia: "rúqui (Hook)", "Você puxa a mão…", "Coloque o ombro…".
+- **Textos sempre acima de y≈1450** (legenda e nome do perfil do Instagram cobrem a parte de baixo; botões ficam na direita) — Ale pediu; aplicado também no 28 (contador REP foi pro alto).
+- Render: `node render.js out/video` (~5 min) + mux com `audio/trilha_final.mp3`.
