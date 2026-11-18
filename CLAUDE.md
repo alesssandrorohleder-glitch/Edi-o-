@@ -335,3 +335,10 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - Usar "x" e não "×" nos contadores (o "×" fica minúsculo na Anton). "Segue lá o perfil" funciona como frase separada.
 - **Queda de braço: os dois competidores lutam com a MESMA mão (direita) e seguram o pino com a outra, em cantos opostos** — na vista de cima, a mão direita do adversário
   fica à esquerda da tela (Ale apontou o erro; corrigido no `topView` do 30).
+
+### 32 — Reels narrado "Mito ou verdade" (4 afirmações, formato quiz, 43s) — `32-mito-ou-verdade`
+- Vídeo 4 da série (feitos 2, 1, 3, 4; falta o 5 — desafio 30 dias de pegada). Mesma estrutura do 29–31.
+- Quiz: `claim()` (#n + afirmação com aspas), `buttons()` (MITO vermelho / VERDADE verde + barra de tempo com tique a cada 0,5s), `stamp()` (carimbo diagonal + onda), `explain()`.
+  #1 mais forte sempre ganha → MITO (técnica/alavanca vira a disputa) · #2 braço grande vence → MITO (antebraço/punho/tendões) ·
+  #3 dá pra quebrar o braço → VERDADE (osso torce e parte) · #4 canhoto tem vantagem → VERDADE (luta de esquerda = `wrestle` espelhado; barras de treino D×E).
+- SFX de quiz: `buzz()` (mito), `correct()` (verdade), `ticks()`; final "Qual delas te surpreendeu? Comenta aí!" com balões de comentário.
