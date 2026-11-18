@@ -1,0 +1,38 @@
+/* ---------- extras: seta, mão abrindo, toalha, garrafa, elástico, cabeçalho de exercício ---------- */
+function arrow(g,pts,k,col=WHT,w=26){if(k<=0)return;const n=Math.max(2,Math.ceil(pts.length*cl(k)));const P=pts.slice(0,n);g.save();g.strokeStyle=col;g.fillStyle=col;g.lineWidth=w;g.lineCap='round';g.lineJoin='round';g.shadowColor='rgba(0,0,0,.5)';g.shadowBlur=20;
+  g.beginPath();P.forEach((q,i)=>i?g.lineTo(...q):g.moveTo(...q));g.stroke();const a=P[P.length-1],b=P[P.length-2],an=Math.atan2(a[1]-b[1],a[0]-b[0]);g.translate(...a);g.rotate(an);g.beginPath();g.moveTo(w*1.6,0);g.lineTo(-w*.6,-w*1.5);g.lineTo(-w*.6,w*1.5);g.fill();g.restore();}
+const curve=(a,c,b,n=14)=>Array.from({length:n+1},(_,i)=>{const s=i/n;return[(1-s)**2*a[0]+2*(1-s)*s*c[0]+s*s*b[0],(1-s)**2*a[1]+2*(1-s)*s*c[1]+s*s*b[1]];});
+// mão de perfil abrindo: curl 1 = fechada, 0 = aberta (dedos pro +x, pulso pro −y) + polegar; devolve pontas (dedo de cima e polegar)
+function hand(g,x,y,r,ang,curl,col,dark,lite){g.save();g.translate(x,y);g.rotate(ang);g.lineCap='round';let tip=null;
+  for(let i=3;i>=0;i--){const by=-r*.55+i*r*.42,L1=r*.62,L2=r*.5,a1=curl*1.35,a2=a1+curl*1.25,p1=[r*.55+Math.cos(a1)*L1,by+Math.sin(a1)*L1],p2=[p1[0]+Math.cos(a2)*L2,p1[1]+Math.sin(a2)*L2];if(i==0)tip=p2;
+    const sh=1-i*.06;g.strokeStyle='rgba(70,28,12,.65)';g.lineWidth=r*.42*sh+6;g.beginPath();g.moveTo(r*.5,by);g.lineTo(...p1);g.lineTo(...p2);g.stroke();
+    const gr=g.createLinearGradient(0,by-r*.2,0,by+r*.2);gr.addColorStop(0,lite);gr.addColorStop(1,col);g.strokeStyle=gr;g.lineWidth=r*.42*sh;g.stroke();
+    g.fillStyle='rgba(255,226,214,.8)';g.beginPath();g.arc(p2[0],p2[1],r*.09,0,TAU);g.fill();}
+  rr(g,-r*.9,-r*.95,r*1.55,r*1.85,r*.55);const gr=g.createLinearGradient(-r,-r,r,r);gr.addColorStop(0,dark);gr.addColorStop(.4,col);gr.addColorStop(1,lite);g.fillStyle=gr;g.fill();g.lineWidth=r*.065;g.strokeStyle='rgba(70,28,12,.65)';g.stroke();
+  // polegar (sai de baixo da palma)
+  const ta=lerp(-.3,.55,1-curl),t1=[r*.1,r*.85],t2=[t1[0]+Math.cos(ta)*r*.8,t1[1]+Math.sin(ta)*r*.55];g.strokeStyle='rgba(70,28,12,.65)';g.lineWidth=r*.46+6;g.beginPath();g.moveTo(-r*.4,r*.6);g.lineTo(...t1);g.lineTo(...t2);g.stroke();
+  g.strokeStyle=lite;g.lineWidth=r*.46;g.stroke();
+  const m=g.getTransform();const toW=q=>[m.a*q[0]+m.c*q[1]+m.e,m.b*q[0]+m.d*q[1]+m.f];const out={tip:toW(tip),thumb:toW(t2)};g.restore();return out;}
+// toalha esticada entre A e B, torcida (tw = quanto girou)
+function towel(g,A,B,w,tw,col='#2E86C1'){const dx=B[0]-A[0],dy=B[1]-A[1],L=Math.hypot(dx,dy);g.save();g.translate(...A);g.rotate(Math.atan2(dy,dx));
+  const gr=g.createLinearGradient(0,-w/2,0,w/2);gr.addColorStop(0,'#7FC4F0');gr.addColorStop(.5,col);gr.addColorStop(1,'#1A5A86');g.beginPath();g.moveTo(0,-w/2);
+  for(let i=0;i<=20;i++){const s=i/20;g.lineTo(L*s,-w/2*(1-.35*Math.abs(Math.sin(Math.PI*s))*cl(Math.abs(tw))));}for(let i=20;i>=0;i--){const s=i/20;g.lineTo(L*s,w/2*(1-.35*Math.abs(Math.sin(Math.PI*s))*cl(Math.abs(tw))));}g.closePath();g.fillStyle=gr;g.fill();
+  g.save();g.clip();g.strokeStyle='rgba(255,255,255,.45)';g.lineWidth=10;const n=14,ph=tw*3;for(let i=-2;i<n+2;i++){const x=(i+fr(ph))*L/n;g.beginPath();g.moveTo(x-w*.45*tw,-w);g.lineTo(x+w*.45*tw,w);g.stroke();}
+  g.strokeStyle='rgba(10,40,70,.35)';g.lineWidth=14;g.beginPath();g.moveTo(0,0);g.lineTo(L,0);g.stroke();g.restore();g.restore();}
+// garrafa PET (de pé = ang 0), com água balançando
+function bottle(g,x,y,h,ang,t=0){g.save();g.translate(x,y);g.rotate(ang);const w=h*.36;
+  const path=()=>{g.beginPath();g.moveTo(-w*.22,-h*.5);g.lineTo(-w*.22,-h*.4);g.quadraticCurveTo(-w*.5,-h*.3,-w*.5,-h*.18);g.lineTo(-w*.5,h*.46);g.quadraticCurveTo(-w*.5,h*.5,-w*.44,h*.5);g.lineTo(w*.44,h*.5);g.quadraticCurveTo(w*.5,h*.5,w*.5,h*.46);g.lineTo(w*.5,-h*.18);g.quadraticCurveTo(w*.5,-h*.3,w*.22,-h*.4);g.lineTo(w*.22,-h*.5);g.closePath();};
+  path();g.fillStyle='rgba(170,215,255,.28)';g.fill();g.save();path();g.clip();const lv=-h*.05,sl=Math.sin(-ang)*.6;g.beginPath();g.moveTo(-w,lv-sl*w*.5+Math.sin(t*6)*6);g.lineTo(w,lv+sl*w*.5-Math.sin(t*6)*6);g.lineTo(w,h);g.lineTo(-w,h);g.closePath();
+  const gr=g.createLinearGradient(-w/2,0,w/2,0);gr.addColorStop(0,'rgba(40,140,255,.75)');gr.addColorStop(.5,'rgba(110,190,255,.75)');gr.addColorStop(1,'rgba(30,110,230,.8)');g.fillStyle=gr;g.fill();
+  g.fillStyle='rgba(255,255,255,.45)';g.fillRect(-w*.36,-h*.3,w*.12,h*.7);for(const yy of[-.08,.12,.32]){g.fillStyle='rgba(255,255,255,.18)';g.fillRect(-w*.5,h*yy,w,6);}
+  g.fillStyle='rgba(198,255,46,.85)';g.fillRect(-w*.5,-h*.02,w,h*.16);g.restore();
+  path();g.strokeStyle='rgba(200,230,255,.8)';g.lineWidth=5;g.stroke();rr(g,-w*.26,-h*.58,w*.52,h*.1,6);g.fillStyle='#E9ECF4';g.fill();g.fillStyle='rgba(0,0,0,.2)';g.fillRect(-w*.26,-h*.5,w*.52,5);g.restore();}
+function exHead(g,t,t0,n,name,sub){const k=p(t,t0,t0+.3);g.save();g.translate(110,330);g.scale(eob(k),eob(k));g.globalAlpha=cl(k*3);rr(g,-70,-70,140,140,30);g.fillStyle=LIME;g.fill();T(g,n,0,44,110,INK);g.restore();
+  rise(g,name,200,316,92,WHT,p(t,t0+.25,t0+.6),{al:'left',maxw:840});T(g,sub,202,384,44,LIME,{f:'Pop',al:'left',a:p(t,t0+.5,t0+.8),maxw:820});}
+// selo de tempo/repetições (alto, à direita, fora da área da legenda e dos botões)
+function badge(g,t,t0,txt,prog){const k=p(t,t0+.6,t0+.9);if(k<=0)return;g.save();g.translate(W-170,560);g.scale(eob(k),eob(k));g.beginPath();g.arc(0,0,100,0,TAU);g.fillStyle='rgba(0,0,0,.55)';g.fill();
+  g.strokeStyle='rgba(255,255,255,.14)';g.lineWidth=14;g.beginPath();g.arc(0,0,84,0,TAU);g.stroke();g.strokeStyle=LIME;g.lineCap='round';g.beginPath();g.arc(0,0,84,-Math.PI/2,-Math.PI/2+TAU*cl(prog));g.stroke();T(g,txt,0,22,62,WHT);g.restore();}
+function drops(g,t,x,y,n=8,col='rgba(120,200,255,.9)'){for(let i=0;i<n;i++){const u=fr(t*1.1+rnd(i,4)),xx=x+(rnd(i,5)-.5)*120,yy=y+u*u*520;g.globalAlpha=1-u;g.fillStyle=col;g.beginPath();g.moveTo(xx,yy-16);g.quadraticCurveTo(xx+10,yy,xx,yy+8);g.quadraticCurveTo(xx-10,yy,xx,yy-16);g.fill();}g.globalAlpha=1;}
+function bookmark(g,x,y,s,fill){g.save();g.translate(x,y);g.scale(s,s);g.beginPath();g.moveTo(-60,-90);g.lineTo(60,-90);g.lineTo(60,90);g.lineTo(0,45);g.lineTo(-60,90);g.closePath();g.lineJoin='round';g.lineWidth=14;g.strokeStyle=WHT;g.stroke();
+  if(fill>0){g.save();g.clip();g.fillStyle=LIME;g.fillRect(-70,90-200*fill,140,200);g.restore();}g.restore();}
+

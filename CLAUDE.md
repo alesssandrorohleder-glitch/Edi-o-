@@ -342,3 +342,9 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
   #1 mais forte sempre ganha → MITO (técnica/alavanca vira a disputa) · #2 braço grande vence → MITO (antebraço/punho/tendões) ·
   #3 dá pra quebrar o braço → VERDADE (osso torce e parte) · #4 canhoto tem vantagem → VERDADE (luta de esquerda = `wrestle` espelhado; barras de treino D×E).
 - SFX de quiz: `buzz()` (mito), `correct()` (verdade), `ticks()`; final "Qual delas te surpreendeu? Comenta aí!" com balões de comentário.
+
+### 33 — Reels narrado "Desafio 30 dias de pegada" (ep. 1 — dia 1, 37s) — `33-desafio-30-dias`
+- Vídeo 5 da série (✅ série completa: 2, 1, 3, 4, 5). `head.part` + `helpers.part` (props do 31: toalha, garrafa, badge…) + `scenes.part` + `tail.part`.
+- Calendário de 30 dias (`calGrid`), "DIA 01", teste 1 pendurado na barra (de costas, `stopwatch`), teste 2 pinça com livro (`pinch`), caderno com caneta anotando
+  BARRA/PINÇA (ponto de partida), rotina diária (toalha · rósca · aperto, dia rolando ao fundo), dia 30 com barras DIA 1 × DIA 30 + "?", "Comenta EU TOPO" (balões), segue até o dia 30.
+- Pronúncia: "eu tôpo", "rósca". Próximos episódios possíveis: dia 7/15 (progresso) e dia 30 (resultado) reaproveitando este arquivo.
