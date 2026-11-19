@@ -405,3 +405,10 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - Gancho: zoom rápido na pegada → close do dedão solto brilhando vermelho → dedo dele prende → mão abre → dessatura + carimbo "MÃO ABERTA". Frase: "Seu dedão está te fazendo perder. E você nem percebe."
 - Kit novo: `grip()` (vista de perto da pegada: `th` 1 solto / 0 travado no indicador / -1 escondido, `open`/`openF` dedos abrindo, `grab`, `knuck` nó do dedão, `mir` + troca de cores p/ mostrar o dedão DELE), `cap()` (dedo em cápsula), `lockIcon`.
 - Pronúncia: usar "dedão" (o Piper fala "poligar"); "trava da sua mão" (não "pegada" — saiu "peidada"); "pinça de aço".
+
+### 41 — "Ele pesa 60 kg e acabou de te vencer" (60s) — `41-magro-vence` — estilo HUD do 34 + gancho forte
+- 2º da lista nova. Gancho: balanças digitais 95 KG (você) x 60 KG (ele) → corte pra mesa, perde → flash + dessatura + carimbo "60 KG VENCEU".
+- Kit novo: `scaleRead` (balança digital), `tag`, `foreLever` (antebraço longo x curto com partículas de força), `steelTendon` (tendões virando cabo de aço), `seesaw` (gangorra 95 kg perto do apoio x 60 kg longe — o leve ganha).
+- Roteiro: braço curto = alavanca menor → braço comprido trabalha contra você → tendões (músculo semanas x tendão anos) → magrinho aguenta, grandão sente o cotovelo
+  → técnica (sobe a pegada, abre a mão, puxa com as costas) → gangorra "quem usa a alavanca" → treino de punho e dedos → técnicas no perfil (grade de vídeos) → compartilha → segue.
+- Pronúncia: "Antebraço curto. Alavanca menor." (frase corrida embola), "o magrinho".
