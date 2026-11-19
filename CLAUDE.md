@@ -366,3 +366,9 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
   `handIcon()` (mão em contorno com mapa de calor), `arcDeg()` (ângulo do punho), `chip()` (rótulos). `stage()` = `wrestle()` com zoom + pontos-chave mapeados.
 - Roteiro: ponto de contato → hook: alavanca curta/força máxima → top roll sobe a mão rumo aos dedos → +20% de alavanca → ≈ −18% de força (modelo simples, citado na tela)
   → dedos abrem, punho cede, pressão de lado → defesa: pegada baixa perto do punho → segue o perfil (com foto e @).
+
+### 35 — "A posição que anula o hook" (anti-hook, 27,5s) — `35-anti-hook` — estilo HUD do 34
+- Mesmo kit do 34 (`gym`, `stage`, `gauge`, `handIcon`, `lever`, `chip`) + `HOOK`/`ANTI` (poses do `wrestle`), `mix()` (interpola poses), `arw()` (seta), `glow()` (calor).
+- Roteiro: perdendo pro hook → carga nas pontas dos dedos (calor vermelho) → alavanca curta = força máxima (78% x 100%) → não lute contra o punho (X na seta)
+  → anti-hook: sobe a pegada + puxa pra trás, alavanca dele estica → **linha de carga** animada dos seus dedos pro punho dele → medidor vira (100% x 82%) → comenta → segue o perfil.
+- Render: `node render.js out/video` + mux com `audio/trilha_final.mp3`.
