@@ -36,6 +36,56 @@ function stage(g,t,o={}){const z=o.z||1,cx=o.cx??540,cy=o.cy??1000;g.save();g.tr
   return{C:mapP(P.C),Wo:mapP(Wo),Wh:mapP(Wh),EO:mapP(P.EO),SO:mapP(P.SO),EH:mapP(P.EH),SH:mapP(P.SH),z};}
 
 const AV=await new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.src='avatar.png';});
+/* ---------- cenas ---------- */
+const S=[];const sc=(t0,mode,tr,fn)=>S.push({t0,mode,tr,fn});
+const HOOK={dc:[70,45],eo_:[20,0],ct:.3},ANTI={dc:[-120,-150],eh:[-30,0],sh:[-50,-30],ct:-.35};
+const mix=(a,b,k)=>{const o={};for(const n of['dc','eh','sh','eo_']){const A=a[n]||[0,0],B=b[n]||[0,0];o[n]=[lerp(A[0],B[0],k),lerp(A[1],B[1],k)];}o.ct=lerp(a.ct||0,b.ct||0,k);return o;};
+function arw(g,A,B,col,k,w=12){if(k<=0)return;const P=[lerp(A[0],B[0],eo(k)),lerp(A[1],B[1],eo(k))],an=Math.atan2(P[1]-A[1],P[0]-A[0]);g.save();g.strokeStyle=g.fillStyle=col;g.lineWidth=w;g.lineCap='round';g.shadowColor=col;g.shadowBlur=16;
+  g.beginPath();g.moveTo(...A);g.lineTo(...P);g.stroke();g.translate(...P);g.rotate(an);g.beginPath();g.moveTo(18,0);g.lineTo(-26,-26);g.lineTo(-26,26);g.closePath();g.fill();g.restore();}
+function glow(g,x,y,r,col,a){if(a<=0)return;const gr=g.createRadialGradient(x,y,0,x,y,r);gr.addColorStop(0,col.replace('A',a));gr.addColorStop(1,col.replace('A',0));g.fillStyle=gr;g.fillRect(x-r,y-r,2*r,2*r);}
+// 1 · perdendo pro hook?
+sc(0,'dark','cut',(g,u,t)=>{gym(g);const P=stage(g,t,{shake:.9,...HOOK});title(g,'PERDENDO PRO HOOK?','',p(t,.05,.4));
+  arw(g,[P.C[0]+150,P.C[1]-40],[P.C[0]-60,P.C[1]+60],HR,p(t,.6,1.0));chip(g,'ELE ENROLA O PUNHO',W/2,1300,p(t,1.0,1.25),HR,WHT);
+  slam(g,'MUDA ISSO',W/2,1440,130,HG,p(t,2.1,2.3),{stroke:INK,sw:12});});
+// 2 · carga nas pontas dos dedos
+sc(3.1,'dark','zoom',(g,u,t)=>{gym(g);const P=stage(g,t,{z:1.7,cx:540,cy:930,shake:.15,...HOOK});const F=[P.C[0]-20,P.C[1]-60],pu=.5+.5*Math.sin(t*12),h=p(t,4.4,5.1);
+  glow(g,F[0],F[1],150+30*pu,'rgba(255,59,59,A)',.75*h);title(g,'QUANDO ELE ENROLA','O PUNHO',p(t,3.2,3.5));
+  handIcon(g,220,1140,1.0,h,true,p(t,3.9,4.2));T(g,'SUA MÃO',220,1290,44,HUD,{f:'Pop',a:p(t,4.0,4.3)});
+  chip(g,'CARGA NAS PONTAS DOS DEDOS',W/2,1430,p(t,5.0,5.25),HR,WHT);});
+// 3 · é dali que ele tira a força
+sc(6.5,'dark','whipL',(g,u,t)=>{gym(g);const P=stage(g,t,{z:1.35,cx:560,cy:960,shake:.25,...HOOK});title(g,'É DALI QUE O HOOK','TIRA A FORÇA',p(t,6.6,6.9));
+  const k=p(t,7.0,7.8);gauge(g,lerp(90,78,k),lerp(90,100,k),p(t,6.9,7.2));lever(g,P.Wo,P.C,HR,'',p(t,7.3,7.8));
+  chip(g,'ALAVANCA CURTA = FORÇA MÁXIMA',W/2,1430,p(t,7.7,7.95),HR,WHT);});
+// 4 · não lute contra o punho
+sc(8.6,'dark','cut',(g,u,t)=>{gym(g);const P=stage(g,t,{z:1.35,cx:560,cy:960,shake:.6,...HOOK});
+  arw(g,[P.C[0]-400,P.C[1]-190],[P.C[0]-90,P.C[1]-190],HUD,p(t,8.75,9.15),14);T(g,'EMPURRAR',P.C[0]-245,P.C[1]-275,48,HUD,{f:'Pop',a:p(t,8.8,9.1)});
+  const x=p(t,9.4,9.7);if(x>0){const c=[P.C[0]-245,P.C[1]-190],r=100*eob(x);g.save();g.strokeStyle=HR;g.lineWidth=22;g.lineCap='round';g.shadowColor=HR;g.shadowBlur=20;g.beginPath();g.moveTo(c[0]-r,c[1]-r);g.lineTo(c[0]+r,c[1]+r);g.moveTo(c[0]+r,c[1]-r);g.lineTo(c[0]-r,c[1]+r);g.stroke();g.restore();}
+  title(g,'NÃO LUTE','CONTRA O PUNHO DELE',p(t,8.7,9.0));slam(g,'FORÇA BRUTA PERDE',W/2,1430,96,HR,p(t,9.5,9.7),{stroke:INK,sw:10});});
+// 5 · sobe a pegada e puxa pra trás → alavanca dele estica
+sc(10.5,'dark','whipL',(g,u,t)=>{gym(g);const k=eio(p(t,10.65,12.2));const P=stage(g,t,{z:1.35,cx:560,cy:960,shake:.2,...mix(HOOK,ANTI,k)});
+  title(g,'O ANTI-HOOK','',p(t,10.55,10.85));
+  arw(g,[P.C[0]-120,P.C[1]+40],[P.C[0]-120,P.C[1]-150],HG,p(t,10.6,11.0));arw(g,[P.SH[0]+200,P.SH[1]+60],[P.SH[0]+20,P.SH[1]+60],HG,p(t,11.46,11.85));
+  const Cp=[P.C[0]+40,P.C[1]-70];lever(g,P.Wo,Cp,HY,'',p(t,12.9,13.5));
+  chip(g,'1 · SUBA A PEGADA',W/2,1180,p(t,10.7,10.95),HG);chip(g,'2 · PUXE PRA TRÁS',W/2,1300,p(t,11.46,11.7),HG);chip(g,'ALAVANCA DELE ESTICA',W/2,1420,p(t,13.0,13.25),HY);});
+// 6 · linha de carga: dos seus dedos pro punho dele
+sc(14.5,'dark','zoom',(g,u,t)=>{gym(g);const P=stage(g,t,{z:1.6,cx:470,cy:820,shake:.15,...ANTI});const F=[P.C[0]+40,P.C[1]-70],B=P.Wo;
+  title(g,'LINHA DE CARGA','',p(t,14.6,14.9));const k=p(t,15.3,16.9);
+  if(k>0){const E=[lerp(F[0],B[0],eo(k)),lerp(F[1],B[1],eo(k))];g.save();g.strokeStyle=HY;g.lineWidth=14;g.lineCap='round';g.shadowColor=HY;g.shadowBlur=26;g.setLineDash([26,18]);g.lineDashOffset=-t*160;g.beginPath();g.moveTo(...F);g.lineTo(...E);g.stroke();g.restore();
+    for(let i=0;i<4;i++){const q=((t*.9+i/4)%1)*eo(k);glow(g,lerp(F[0],B[0],q),lerp(F[1],B[1],q),46,'rgba(255,212,59,A)',.9);}}
+  const m=p(t,16.9,17.8);glow(g,B[0],B[1],160+20*Math.sin(t*12),'rgba(255,59,59,A)',.7*m);glow(g,F[0],F[1],130,'rgba(255,59,59,A)',.6*(1-p(t,16.5,17.2))*p(t,14.5,14.8));
+  T(g,'SEUS DEDOS',F[0]-40,F[1]-120,46,HUD,{f:'Pop',a:p(t,16.4,16.7),stroke:'rgba(0,0,0,.6)',sw:8});T(g,'PUNHO DELE',B[0]+170,B[1]+60,46,HR,{f:'Pop',a:p(t,17.6,17.9),stroke:'rgba(0,0,0,.6)',sw:8});
+  chip(g,'A CARGA MUDA DE LADO',W/2,1430,p(t,17.8,18.05),HY);});
+// 7 · agora quem perde força é ele
+sc(18.7,'dark','whipL',(g,u,t)=>{gym(g);const P=stage(g,t,{z:1.25,cx:540,cy:960,shake:.4,...ANTI});const k=eio(p(t,18.9,19.8));
+  gauge(g,lerp(78,100,k),lerp(100,82,k),p(t,18.75,19.0));handIcon(g,W-190,880,1.0,p(t,19.3,19.9),false,p(t,19.0,19.3));T(g,'MÃO DELE',W-190,1030,44,HUD,{f:'Pop',a:p(t,19.1,19.4)});
+  rise(g,'AGORA QUEM',W/2,1310,96,WHT,p(t,18.85,19.1));slam(g,'PERDE FORÇA É ELE',W/2,1430,100,HG,p(t,19.44,19.62),{stroke:INK,sw:10});});
+// 8 · comenta
+sc(20.9,'dark','up',(g,u,t)=>{gym(g);title(g,'JÁ PERDEU','PRA UM HOOK?',p(t,20.95,21.25));
+  const B=[['já perdi umas 5 vezes',380,800],['meu primo só faz hook',660,1010],['vou testar amanhã',400,1220]];
+  B.forEach(([s,x,y],i)=>{const k=p(t,21.2+i*.35,21.5+i*.35);if(k<=0)return;g.save();g.translate(x,y+(1-eo(k))*60);g.globalAlpha=cl(k*3);g.font='600 44px Pop';const w=g.measureText(s).width+150;
+    rr(g,-w/2,-55,w,110,55);g.fillStyle='rgba(20,24,28,.92)';g.fill();g.strokeStyle='rgba(54,242,122,.45)';g.lineWidth=3;g.stroke();g.beginPath();g.arc(-w/2+55,0,32,0,TAU);g.fillStyle=['#5A6B7D','#7D5A6B','#6B7D5A'][i];g.fill();
+    T(g,s,-w/2+105,15,44,WHT,{f:'Pop',al:'left'});g.restore();});
+  slam(g,'COMENTA',W/2,1430,150,HG,p(t,21.1,21.3),{stroke:INK,sw:12});});
 // 9 · segue o perfil
 sc(23.40,'dark','circle',(g,u,t)=>{gym(g);const k=eob(p(t,23.45,23.90));g.save();g.translate(W/2,860);g.scale(k,k);
   rr(g,-400,-330,800,660,60);g.fillStyle='rgba(10,12,14,.9)';g.fill();g.strokeStyle='rgba(54,242,122,.5)';g.lineWidth=4;g.stroke();
