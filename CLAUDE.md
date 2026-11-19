@@ -372,3 +372,9 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - Roteiro: perdendo pro hook → carga nas pontas dos dedos (calor vermelho) → alavanca curta = força máxima (78% x 100%) → não lute contra o punho (X na seta)
   → anti-hook: sobe a pegada + puxa pra trás, alavanca dele estica → **linha de carga** animada dos seus dedos pro punho dele → medidor vira (100% x 82%) → comenta → segue o perfil.
 - Render: `node render.js out/video` + mux com `audio/trilha_final.mp3`.
+
+### 36 — "Puxe com as costas" (45s) — `36-puxe-com-as-costas` — estilo HUD do 34
+- Kit do 34/35 + `backView()` (atleta de COSTAS na mesa: dorsais brilham `lat`, bíceps vermelho `bic`, força subindo das costas até a mão `flow`), `along()`, `fbar()` (barras de força), `step()` (número do passo).
+- Roteiro: só puxa com o braço → cansa em 10s (barra de energia) → bíceps é pequeno → campeões puxam com as costas (grande dorsal) → ombro atrás da mão + braço travado
+  → braço vira corda → força nasce nas costas e chega na mão → passos 1 ombro na linha / 2 braço fechado / 3 gira o tronco (remada) → força quase dobra (*modelo simples) → remada + barra fixa → comenta → segue.
+- Pronúncia: "Os campeões" (no lugar de "quem ganha"), "Passo um/dois/três".
