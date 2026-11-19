@@ -399,3 +399,9 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
   `towelRig` (atleta puxando toalha presa no poste, cotovelo 90°), `timerRing`.
 - Roteiro: 90° → na mesa o braço luta em 90° → na academia passa voando (rosca com transferidor) → força específica do ângulo ±15°, fora cai → forte na academia trava na mesa
   → bíceps tem mais força perto de 90° → isometria com toalha (passos: 90°, 10s sem mexer, 5x) → 3x/semana no fim do treino → força sobe → compartilha → segue.
+
+### 40 — "Seu dedão te faz perder" (60s) — `40-polegar` — estilo HUD do 34 + gancho forte
+- 1º da nova lista de 5 ideias: (1) dedão ✅ · (2) "Ele pesa 60 kg e te venceu" · (3) "A luta acaba nos 3 primeiros segundos" · (4) pronação, o músculo que ninguém treina · (5) mão pequena não é desculpa.
+- Gancho: zoom rápido na pegada → close do dedão solto brilhando vermelho → dedo dele prende → mão abre → dessatura + carimbo "MÃO ABERTA". Frase: "Seu dedão está te fazendo perder. E você nem percebe."
+- Kit novo: `grip()` (vista de perto da pegada: `th` 1 solto / 0 travado no indicador / -1 escondido, `open`/`openF` dedos abrindo, `grab`, `knuck` nó do dedão, `mir` + troca de cores p/ mostrar o dedão DELE), `cap()` (dedo em cápsula), `lockIcon`.
+- Pronúncia: usar "dedão" (o Piper fala "poligar"); "trava da sua mão" (não "pegada" — saiu "peidada"); "pinça de aço".
