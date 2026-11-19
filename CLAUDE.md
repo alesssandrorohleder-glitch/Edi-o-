@@ -378,3 +378,10 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - Roteiro: só puxa com o braço → cansa em 10s (barra de energia) → bíceps é pequeno → campeões puxam com as costas (grande dorsal) → ombro atrás da mão + braço travado
   → braço vira corda → força nasce nas costas e chega na mão → passos 1 ombro na linha / 2 braço fechado / 3 gira o tronco (remada) → força quase dobra (*modelo simples) → remada + barra fixa → comenta → segue.
 - Pronúncia: "Os campeões" (no lugar de "quem ganha"), "Passo um/dois/três".
+
+### 37 — "Altura da pegada" (60s) — `37-altura-da-pegada` — estilo HUD do 34
+- Kit do 34–36 + poses `HIGH`/`LOW`/`NEU`/`PULL`, `ruler()` (régua de altura VOCÊ x ELE), `door()` (porta vista de cima, empurrão perto da dobradiça), `gloves()` (mãos do juiz).
+- Roteiro: altura da mão decide → mão alta = alavanca (dedos por cima) → alavanca longa pra ele → mão baixa = punho preso → porta perto da dobradiça → menos força chega
+  → pequena na mão / enorme no braço → 2 dedos mais alto, vantagem muda → passos (suba os dedos, punho levemente enrolado, traga pro corpo) → juiz arruma, GO!, quem sobe primeiro manda
+  → puxe com as costas (link com o 36) → rosca de punho + pinça → comenta → segue.
+- Pronúncia: "Com a mão alta/baixa" (só "Mão alta" sai "Não alta"), "alavanca comprida", "sóbe".
