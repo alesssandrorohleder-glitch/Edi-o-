@@ -385,3 +385,10 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
   → pequena na mão / enorme no braço → 2 dedos mais alto, vantagem muda → passos (suba os dedos, punho levemente enrolado, traga pro corpo) → juiz arruma, GO!, quem sobe primeiro manda
   → puxe com as costas (link com o 36) → rosca de punho + pinça → comenta → segue.
 - Pronúncia: "Com a mão alta/baixa" (só "Mão alta" sai "Não alta"), "alavanca comprida", "sóbe".
+
+### 38 — "3 faltas que tiram sua vitória" (60s) — `38-faltas-waf` — estilo HUD do 34, **gancho forte**
+- Ale: "os vídeos não estão subindo" → gancho visual + frase de efeito: "Você venceu. E mesmo assim, perdeu a luta." — vitória com flash + confete,
+  congela (`desat` = dessatura + tinta vermelha), apito, carimbo gigante "FALTA!" (`stamp` com onda de choque), círculo no cotovelo, e REBOBINA (◀◀ + linhas) com "?" → loop aberto "Fica até a última" (3ª carta trancada).
+- Kit novo: `stage2` (stage + mapa `M` p/ marcar a almofada), `padMark`, `tv()` (vista de cima: `rel` solta o pino, `lean` ombro passa do centro, `line`/`lineRed`), `whistle`, `badge3` (FALTA n/3), `confetti`.
+- Faltas: 1 soltar o pino · 2 ombro passa da linha do centro (juiz para a luta) · 3 cotovelo sai da almofada (a mais comum; vitória com cotovelo fora não vale) → dica → compartilha → segue.
+- SFX novos em `trilha.py`: `whistle_s` (apito), `rewind`. Pronúncia: "Primeira/Segunda/Terceira falta", "Largou o pino".
