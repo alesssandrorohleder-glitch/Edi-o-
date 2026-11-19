@@ -1,0 +1,92 @@
+/* ---------- estilo "laboratório de biomecânica" (ref. @theory_armwrestling) ---------- */
+const HUD='#E9EEF5',HG='#36F27A',HR='#FF3B3B',HY='#FFD43B';
+// ginásio escuro: parede de concreto + grama verde no chão
+const[GYM,gy]=mk();{let gr=gy.createLinearGradient(0,0,0,H);gr.addColorStop(0,'#1C1E22');gr.addColorStop(.55,'#2A2D32');gr.addColorStop(.72,'#202326');gr.addColorStop(1,'#101112');gy.fillStyle=gr;gy.fillRect(0,0,W,H);
+  for(let i=0;i<9000;i++){const x=Math.random()*W,y=Math.random()*H*.8,v=Math.random();gy.fillStyle=`rgba(${v>.5?255:0},${v>.5?255:0},${v>.5?255:0},${.02+Math.random()*.03})`;gy.fillRect(x,y,2+Math.random()*3,2+Math.random()*3);}
+  gy.strokeStyle='rgba(0,0,0,.35)';gy.lineWidth=4;for(const y of[420,820,1220]){gy.beginPath();gy.moveTo(0,y);gy.lineTo(W,y);gy.stroke();}for(const x of[260,800]){gy.beginPath();gy.moveTo(x,0);gy.lineTo(x,1500);gy.stroke();}
+  gr=gy.createLinearGradient(0,1500,0,H);gr.addColorStop(0,'#1E5A2A');gr.addColorStop(1,'#0C2612');gy.fillStyle=gr;gy.fillRect(0,1500,W,H-1500);
+  gr=gy.createRadialGradient(W/2,700,100,W/2,700,900);gr.addColorStop(0,'rgba(255,255,255,.10)');gr.addColorStop(1,'rgba(0,0,0,.35)');gy.fillStyle=gr;gy.fillRect(0,0,W,H);}
+function gym(g){g.drawImage(GYM,0,0);}
+function title(g,a,b,k=1){if(k<=0)return;T(g,a,W/2,330,84,'rgba(233,238,245,.55)',{a:k,ls:2});if(b)T(g,b,W/2,410,60,'rgba(233,238,245,.32)',{f:'Pop',a:k,ls:6});}
+// esqueleto sobre o braço (ombro–cotovelo–punho)
+function skel(g,pts,col,k=1){if(k<=0)return;g.save();g.globalAlpha=k;g.strokeStyle=col;g.lineWidth=7;g.lineCap='round';g.lineJoin='round';g.shadowColor=col;g.shadowBlur=14;g.beginPath();pts.forEach((q,i)=>i?g.lineTo(...q):g.moveTo(...q));g.stroke();
+  for(const q of pts){g.beginPath();g.arc(q[0],q[1],13,0,TAU);g.fillStyle=col;g.fill();}g.restore();}
+function arcDeg(g,c,a0,a1,r,txt,col,k=1){if(k<=0)return;g.save();g.globalAlpha=k;g.strokeStyle=col;g.lineWidth=7;g.shadowColor=col;g.shadowBlur=14;g.beginPath();g.arc(c[0],c[1],r,a0,a0+(a1-a0)*cl(k));g.stroke();g.restore();
+  const am=(a0+a1)/2;T(g,txt,c[0]+Math.cos(am)*(r+60),c[1]+Math.sin(am)*(r+60)+18,58,col,{a:k,stroke:'rgba(0,0,0,.6)',sw:8});}
+// medidor de vantagem mecânica
+function gauge(g,vL,vR,k=1){if(k<=0)return;g.save();g.globalAlpha=k;T(g,'VANTAGEM MECÂNICA',W/2,520,40,'rgba(233,238,245,.45)',{f:'Pop',ls:3});
+  T(g,Math.round(vL)+'%',150,610,84,vL>=vR?HG:HUD,{al:'left'});T(g,Math.round(vR)+'%',W-150,610,84,vR>=vL?HG:HUD,{al:'right'});
+  for(let i=0;i<=20;i++){const x=W/2-250+i*25,h=i%5?26:44;g.fillStyle='rgba(233,238,245,.35)';g.fillRect(x-2,590-h/2,4,h);}
+  const m=W/2+cl((vL-vR)/40,-1,1)*-220;g.fillStyle=HG;g.shadowColor=HG;g.shadowBlur=20;rr(g,m-9,550,18,80,9);g.fill();g.restore();}
+// mão em contorno com mapa de calor nos dedos (heat 0 = verde, 1 = vermelho)
+function handIcon(g,x,y,s,heat,mirror=false,k=1){if(k<=0)return;g.save();g.translate(x,y);g.scale(mirror?-s:s,s);g.globalAlpha=k;
+  const F=[[-.62,-1.0,.78],[-.2,-1.2,.95],[.22,-1.18,.98],[.62,-1.0,.82]],c=`rgb(${lerp(54,255,heat)|0},${lerp(242,59,heat)|0},${lerp(122,59,heat)|0})`;
+  g.lineCap='round';F.forEach(([bx,by,L])=>{g.strokeStyle=c;g.lineWidth=30;g.globalAlpha=k*.75;g.beginPath();g.moveTo(bx*60,by*60*.2);g.lineTo(bx*60,by*60-L*30);g.stroke();
+    g.globalAlpha=k;g.strokeStyle=HUD;g.lineWidth=5;g.beginPath();g.moveTo(bx*60-14,by*60*.2);g.lineTo(bx*60-14,by*60-L*30);g.arc(bx*60,by*60-L*30,14,Math.PI,0);g.lineTo(bx*60+14,by*60*.2);g.stroke();});
+  g.strokeStyle=HUD;g.lineWidth=5;g.beginPath();g.moveTo(-52,-8);g.quadraticCurveTo(-60,70,-20,100);g.lineTo(30,100);g.quadraticCurveTo(60,60,56,-8);g.stroke();
+  g.beginPath();g.moveTo(-52,30);g.quadraticCurveTo(-100,10,-96,-30);g.stroke();g.restore();}
+function lever(g,A,B,col,txt,k=1){if(k<=0)return;const P=[lerp(A[0],B[0],cl(k)),lerp(A[1],B[1],cl(k))];g.save();g.strokeStyle=col;g.lineWidth=8;g.setLineDash([18,12]);g.shadowColor=col;g.shadowBlur=14;g.beginPath();g.moveTo(...A);g.lineTo(...P);g.stroke();g.setLineDash([]);
+  g.fillStyle=col;g.beginPath();g.arc(A[0],A[1],14,0,TAU);g.fill();g.beginPath();g.arc(P[0],P[1],20,0,TAU);g.lineWidth=6;g.stroke();g.restore();if(txt)T(g,txt,(A[0]+P[0])/2+70,(A[1]+P[1])/2+16,52,col,{a:k,stroke:'rgba(0,0,0,.6)',sw:8});}
+function chip(g,s,x,y,k,col,fg=INK){pill(g,s,x,y,k,col,fg,50);}
+// cena base: disputa vista de lado + pontos-chave (mão do adversário = hook, mão do herói = top roll)
+function stage(g,t,o={}){const z=o.z||1,cx=o.cx??540,cy=o.cy??1000;g.save();g.translate(W/2,H*.56);g.scale(z,z);g.translate(-cx,-cy);g.translate(0,160);
+  const P=wrestle(g,t,{shake:o.shake??.25,dc:o.dc||[0,0],eh:o.eh||[0,0],sh:o.sh||[0,0],eo_:o.eo_||[0,0],ct:o.ct||0});
+  const mapP=q=>{const x=(q[0])*z,y=(q[1]+160)*z;return[W/2+x-cx*z,H*.56+y-cy*z];};
+  const Wo=[P.C[0]+38,P.C[1]+40],Wh=[P.C[0]-38,P.C[1]+40];g.restore();
+  return{C:mapP(P.C),Wo:mapP(Wo),Wh:mapP(Wh),EO:mapP(P.EO),SO:mapP(P.SO),EH:mapP(P.EH),SH:mapP(P.SH),z};}
+
+const AV=await new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.src='avatar.png';});
+/* ---------- cenas ---------- */
+const S=[];const sc=(t0,mode,tr,fn)=>S.push({t0,mode,tr,fn});
+// 1 · por que o hook perde pro top roll?
+sc(0,'dark','cut',(g,u,t)=>{gym(g);const P=stage(g,t,{shake:.8});title(g,'HOOK × TOP ROLL','BIOMECÂNICA',p(t,0,.4));
+  handIcon(g,300,760,1.15,.1,true,p(t,.3,.6));handIcon(g,780,760,1.15,.1,false,p(t,.45,.75));T(g,'TOP ROLL',300,900,52,HUD,{a:p(t,.4,.7)});T(g,'HOOK',780,900,52,HUD,{a:p(t,.55,.85)});
+  slam(g,'?',W/2,800,200,HY,p(t,.96,1.12));});
+// 2 · repara no ponto de contato
+sc(2.1,'dark','zoom',(g,u,t)=>{gym(g);const P=stage(g,t,{z:1.7,cx:540,cy:930,shake:.15});const k=p(t,2.6,2.9),pu=.5+.5*Math.sin(t*10);
+  if(k>0){g.save();g.strokeStyle=HY;g.lineWidth=8;g.shadowColor=HY;g.shadowBlur=20;g.beginPath();g.arc(P.C[0]+10,P.C[1]+20,90+16*pu,0,TAU*eo(k));g.stroke();g.restore();}
+  title(g,'PONTO DE CONTATO','',p(t,2.2,2.5));chip(g,'ONDE A FORÇA PASSA',W/2,1440,p(t,2.96,3.2),HY);});
+// 3 · hook: pressão perto do punho → alavanca curta, força máxima
+sc(4.0,'dark','whipL',(g,u,t)=>{gym(g);const P=stage(g,t,{z:1.35,cx:560,cy:960,shake:.2});
+  skel(g,[P.SO,P.EO,P.Wo],HG,p(t,4.2,4.6));lever(g,P.Wo,[P.C[0]+14,P.C[1]+16],HG,'L',p(t,5.34,5.9));
+  gauge(g,100,100,p(t,4.1,4.4));title(g,'HOOK','',p(t,4.02,4.3));
+  chip(g,'ALAVANCA CURTA',W/2,1330,p(t,6.64,6.9),HG);chip(g,'FORÇA MÁXIMA',W/2,1440,p(t,7.58,7.85),HG);});
+// 4 · top roll sobe a mão em direção aos dedos
+sc(8.9,'dark','whipL',(g,u,t)=>{gym(g);const k=eio(p(t,9.52,11.0));const P=stage(g,t,{z:1.35,cx:560,cy:960,shake:.2,dc:[-k*120,-k*150],eh:[-k*30,0],sh:[-k*50,-k*30],ct:-.35*k});
+  const Cp=[lerp(P.C[0]+14,P.C[0]+40,k),lerp(P.C[1]+16,P.C[1]-70,k)];skel(g,[P.SO,P.EO,P.Wo],HUD,.7);skel(g,[P.SH,P.EH,P.Wh],HG,p(t,9.1,9.4));
+  lever(g,P.Wo,Cp,HY,'',1);arrow2(g,[P.C[0]-150,P.C[1]+80],[P.C[0]-150,P.C[1]-150],p(t,9.52,9.9));gauge(g,100,100,1);title(g,'TOP ROLL','',p(t,8.95,9.2));
+  chip(g,'RUMO AOS DEDOS',W/2,1440,p(t,10.88,11.15),HY);});
+function arrow2(g,A,B,k){if(k<=0)return;const P=[lerp(A[0],B[0],eo(k)),lerp(A[1],B[1],eo(k))],an=Math.atan2(B[1]-A[1],B[0]-A[0]);g.save();g.strokeStyle=HG;g.fillStyle=HG;g.lineWidth=16;g.lineCap='round';g.shadowColor=HG;g.shadowBlur=20;
+  g.beginPath();g.moveTo(...A);g.lineTo(...P);g.stroke();g.translate(...P);g.rotate(an);g.beginPath();g.moveTo(34,0);g.lineTo(-14,-30);g.lineTo(-14,30);g.fill();g.restore();}
+// 5 · alavanca até 20% maior
+sc(12.3,'dark','zoom',(g,u,t)=>{gym(g);const P=stage(g,t,{z:1.6,cx:470,cy:820,shake:.15,dc:[-120,-150],eh:[-30,0],sh:[-50,-30],ct:-.35});const Cp=[P.C[0]+40,P.C[1]-70];
+  lever(g,P.Wo,[P.C[0]+14,P.C[1]+16],'rgba(233,238,245,.45)','',1);lever(g,P.Wo,Cp,HR,'',1);
+  const kk=p(t,13.3,13.7);slam(g,'+20%',W/2,760,220,HR,kk,{stroke:'rgba(0,0,0,.6)',sw:12});T(g,'ALAVANCA DO ADVERSÁRIO',W/2,860,48,HUD,{f:'Pop',a:kk});title(g,'BRAÇO DE ALAVANCA','',p(t,12.35,12.6));});
+// 6 · pode custar quase 20% da força
+sc(14.9,'dark','whipL',(g,u,t)=>{gym(g);const P=stage(g,t,{z:1.25,cx:540,cy:960,shake:.4,dc:[-120,-150],eh:[-30,0],sh:[-50,-30],ct:-.35});
+  const v=lerp(100,82,eio(p(t,16.1,17.0)));gauge(g,100,v,1);title(g,'FORÇA','',p(t,14.95,15.2));
+  skel(g,[P.SO,P.EO,P.Wo],HR,.8);const kf=p(t,16.1,16.4);if(kf>0){g.save();g.translate(W/2,1440);g.scale(eob(kf),eob(kf));rr(g,-300,-70,600,140,70);g.fillStyle=HR;g.fill();T(g,'≈ −18% DE FORÇA',0,22,62,WHT,{f:'Pop'});g.restore();}
+  T(g,'modelo simples de alavanca',W/2,1330,40,'rgba(233,238,245,.55)',{f:'Pop',a:p(t,16.4,16.7)});});
+// 7 · dedos abrem, punho cede, pressão de lado
+sc(18.0,'dark','zoom',(g,u,t)=>{gym(g);const kp=eio(p(t,20.26,21.1));const P=stage(g,t,{z:1.25,cx:540,cy:960,shake:.3*(1-kp),dc:[-120+kp*330,-150+kp*260],eh:[-30+kp*40,0],sh:[-50+kp*60,-30],eo_:[kp*60,0],ct:-.35+kp*.9});
+  handIcon(g,W-200,720,1.0,eo(p(t,18.3,18.8)),false,p(t,18.1,18.4));T(g,'DEDOS ABREM',W-200,860,46,HR,{a:p(t,18.48,18.7)});
+  const ka=p(t,19.1,19.6);arcDeg(g,P.Wo,-Math.PI/2,-Math.PI/2+.9,80,'−27°',HR,ka);
+  arrow2(g,[P.C[0]-60,P.C[1]-200],[P.C[0]+220,P.C[1]-40],p(t,20.26,20.7));if(t>21.1)sparks(g,870,1350,21.1,t,HG,22);
+  title(g,'PRESSÃO DE LADO','',p(t,20.26,20.5));});
+// 8 · defesa: pegada baixa, perto do punho
+sc(21.8,'dark','whipL',(g,u,t)=>{gym(g);const k=eio(p(t,23.38,24.2));const P=stage(g,t,{z:1.35,cx:560,cy:960,shake:.2,dc:[lerp(-120,0,k),lerp(-150,0,k)],eh:[lerp(-30,0,k),0],sh:[lerp(-50,0,k),lerp(-30,0,k)],ct:lerp(-.35,.2,k)});
+  const Cp=[lerp(P.C[0]+40,P.C[0]+14,k),lerp(P.C[1]-70,P.C[1]+16,k)];lever(g,P.Wo,Cp,k>.6?HG:HY,'',1);skel(g,[P.SO,P.EO,P.Wo],HG,p(t,23.0,23.3));
+  gauge(g,lerp(100,100,k),lerp(82,100,k),1);title(g,'CONTRA O TOP ROLL','',p(t,21.85,22.1));
+  chip(g,'✓  PEGADA BAIXA',W/2,1330,p(t,23.38,23.65),HG);chip(g,'✓  PERTO DO PUNHO',W/2,1440,p(t,24.3,24.55),HG);});
+// 9 · segue o perfil
+sc(25.5,'dark','circle',(g,u,t)=>{gym(g);const k=eob(p(t,25.55,26.0));g.save();g.translate(W/2,860);g.scale(k,k);
+  rr(g,-400,-330,800,660,60);g.fillStyle='rgba(10,12,14,.9)';g.fill();g.strokeStyle='rgba(54,242,122,.5)';g.lineWidth=4;g.stroke();
+  g.save();g.beginPath();g.arc(0,-150,130,0,TAU);g.clip();g.drawImage(AV,-130,-280,260,260);g.restore();g.strokeStyle=HG;g.lineWidth=6;g.beginPath();g.arc(0,-150,132,0,TAU);g.stroke();
+  T(g,'ARMWERSTLING Every Day',0,40,56,WHT,{f:'Pop',maxw:720});T(g,'@armwerstlingdicas',0,100,44,HG,{f:'Pop'});
+  const fol=t>26.16,bw=fol?440:380;g.save();g.translate(0,220);const pr=fol?1-.08*Math.exp(-(t-26.16)*12):1;g.scale(pr,pr);rr(g,-bw/2,-62,bw,124,62);g.fillStyle=fol?'rgba(255,255,255,.12)':HG;g.fill();
+  T(g,fol?'✓ SEGUINDO':'SEGUIR',0,26,72,fol?WHT:INK);g.restore();
+  const ck=p(t,25.85,26.16),hx=lerp(260,60,eo(ck)),hy=lerp(560,250,eo(ck));if(t<27.2){g.save();g.translate(hx,hy);g.rotate(-.4);g.fillStyle=WHT;g.beginPath();g.arc(0,0,34,0,TAU);g.fill();g.fillRect(-12,-110,26,110);g.beginPath();g.arc(1,-110,13,0,TAU);g.fill();g.restore();
+    if(fol){const r=p(t,26.16,26.6);g.strokeStyle=`rgba(255,255,255,${1-r})`;g.lineWidth=8;g.beginPath();g.arc(60,220,40+r*120,0,TAU);g.stroke();}}
+  g.restore();
+  slam(g,'SEGUE O PERFIL',W/2,1340,150,HG,p(t,25.62,25.8),{stroke:INK,sw:12});rise(g,'@armwerstlingdicas',W/2,1430,60,WHT,p(t,26.6,26.9),{f:'Pop'});});
+

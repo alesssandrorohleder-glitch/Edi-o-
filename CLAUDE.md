@@ -353,3 +353,16 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - Estilo que viraliza (até 7,4 mi views): filmagem real na mesa + **HUD de biomecânica** (linhas de esqueleto, ângulos em graus, % de vantagem, medidor "Mechanical Advantage",
   mãos em contorno com mapa de calor, diagrama do pad visto de cima), pouco texto, 15–30s, uma ideia por vídeo, regras da WAF citadas.
 - Acesso: ambiente "Edi-o-" com tiktok.com + CDNs de mídia liberados; `yt-dlp` precisa de permissão `Bash(yt-dlp *)` (o Ale adicionou).
+
+### Perfil do Ale no TikTok: **@armwerstlingdicas — "ARMWERSTLING Every Day"** (71,7 mil seguidores) — onde os vídeos 28–34 são postados
+- Foto de perfil: `src/templates/_perfil_armwerstling/` (`head.part` + `avatar.part` → `node render.js <saida> 0` e recortar 1080×1080 a partir de y=420):
+  mãos travadas em close + HUD verde (#36F27A) + anel brilhante; o PNG vai como `avatar.png` em cada vídeo novo.
+- **Chamada final dos próximos vídeos**: cartão com a foto de perfil (`AV` = avatar.png, círculo com borda verde), nome "ARMWERSTLING Every Day",
+  "@armwerstlingdicas", botão SEGUIR → ✓ SEGUINDO, e "SEGUE O PERFIL" + "@armwerstlingdicas" embaixo (ver cena 9 do vídeo 34).
+
+### 34 — "Por que o hook perde pro top roll" (29,5s) — `34-hook-vs-toproll` — 1º no estilo @theory_armwrestling
+- Ginásio escuro (parede de concreto + grama), mesa oficial vermelha/branca com almofadas azuis, título cinza translúcido no topo e HUD:
+  `skel()` (esqueleto ombro–cotovelo–punho), `lever()` (linha de alavanca do punho ao ponto de contato), `gauge()` (medidor "VANTAGEM MECÂNICA" com %),
+  `handIcon()` (mão em contorno com mapa de calor), `arcDeg()` (ângulo do punho), `chip()` (rótulos). `stage()` = `wrestle()` com zoom + pontos-chave mapeados.
+- Roteiro: ponto de contato → hook: alavanca curta/força máxima → top roll sobe a mão rumo aos dedos → +20% de alavanca → ≈ −18% de força (modelo simples, citado na tela)
+  → dedos abrem, punho cede, pressão de lado → defesa: pegada baixa perto do punho → segue o perfil (com foto e @).
