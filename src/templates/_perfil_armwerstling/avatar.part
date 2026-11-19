@@ -1,0 +1,22 @@
+
+/* Foto de perfil @armwerstlingdicas (ARMWERSTLING Every Day) — desenhada no quadrado 1080×1080 (y 420…1500 deste canvas) e recortada depois.
+   Mesmo visual dos vídeos: mãos travadas em close + HUD verde (esqueleto + anel no ponto de contato) + anel brilhante (o TikTok corta em círculo). */
+const HG='#36F27A';
+window.DUR=1;
+window.draw=function(t){const g=X0;g.reset();g.fillStyle='#000';g.fillRect(0,0,W,H);g.save();g.translate(0,420);
+  let gr=g.createRadialGradient(540,520,60,540,540,760);gr.addColorStop(0,'#173A22');gr.addColorStop(.55,'#0B1A10');gr.addColorStop(1,'#050806');g.fillStyle=gr;g.fillRect(0,0,1080,1080);
+  g.strokeStyle='rgba(54,242,122,.07)';g.lineWidth=2;for(let i=0;i<=1080;i+=72){g.beginPath();g.moveTo(i,0);g.lineTo(i,1080);g.stroke();g.beginPath();g.moveTo(0,i);g.lineTo(1080,i);g.stroke();}
+  // luz verde atrás das mãos
+  gr=g.createRadialGradient(540,500,20,540,500,420);gr.addColorStop(0,'rgba(54,242,122,.45)');gr.addColorStop(1,'rgba(54,242,122,0)');g.fillStyle=gr;g.fillRect(0,0,1080,1080);
+  g.save();const z=1.85;g.translate(540,560);g.scale(z,z);g.translate(-540,-870);
+  const P=wrestle(g,0,{shake:0,tilt:0});
+  const sk=(pts)=>{g.save();g.strokeStyle=HG;g.lineWidth=6;g.lineCap='round';g.lineJoin='round';g.shadowColor=HG;g.shadowBlur=16;g.beginPath();pts.forEach((q,i)=>i?g.lineTo(...q):g.moveTo(...q));g.stroke();for(const q of pts){g.beginPath();g.arc(q[0],q[1],10,0,TAU);g.fillStyle=HG;g.fill();}g.restore();};
+  sk([P.EH,[P.C[0]-38,P.C[1]+40]]);sk([P.EO,[P.C[0]+38,P.C[1]+40]]);
+  g.save();g.strokeStyle=HG;g.lineWidth=6;g.shadowColor=HG;g.shadowBlur=24;g.beginPath();g.arc(P.C[0]+4,P.C[1]+4,118,0,TAU);g.stroke();g.lineWidth=3;g.setLineDash([10,10]);g.beginPath();g.arc(P.C[0]+4,P.C[1]+4,140,0,TAU);g.stroke();g.restore();
+  g.restore();
+  gr=g.createRadialGradient(540,540,380,540,540,560);gr.addColorStop(0,'rgba(0,0,0,0)');gr.addColorStop(1,'rgba(0,0,0,.65)');g.fillStyle=gr;g.fillRect(0,0,1080,1080);
+  g.save();g.strokeStyle=HG;g.lineWidth=26;g.shadowColor=HG;g.shadowBlur=40;g.beginPath();g.arc(540,540,510,0,TAU);g.stroke();g.restore();
+  g.strokeStyle='rgba(255,255,255,.25)';g.lineWidth=4;g.beginPath();g.arc(540,540,490,0,TAU);g.stroke();
+  g.restore();};
+window.ready=true;
+</script>

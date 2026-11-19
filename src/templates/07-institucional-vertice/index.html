@@ -1,0 +1,127 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>html,body{margin:0;background:#000}canvas{display:block}</style></head>
+<body><canvas id="c" width="1080" height="1920"></canvas>
+<script>
+const W=1080,H=1920,c=document.getElementById('c');let x=c.getContext('2d');
+const BG='#F7F5F0',NV='#0F2A44',AC='#1F8A70',SD='#D9CBB5',GR='#8C97A3',LN='#C9CFD6',WH='#FFFFFF';
+const F='Poppins,sans-serif';
+const cl=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)),p=(t,a,b)=>cl((t-a)/(b-a));
+const eo=t=>1-Math.pow(1-t,3),eo5=t=>1-Math.pow(1-t,5),eio=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2,sine=t=>-(Math.cos(Math.PI*t)-1)/2;
+const back=t=>{if(t<=0)return 0;const c1=1.5,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2)};
+const lerp=(a,b,k)=>a+(b-a)*k;
+function T(s,X,Y,size,col,{w=600,align='center',a=1,ls=0}={}){x.save();x.globalAlpha*=a;x.fillStyle=col;x.font=`${w} ${size}px ${F}`;x.textAlign=align;x.textBaseline='middle';x.letterSpacing=ls+'px';x.fillText(s,X,Y);x.restore();}
+function fadeUp(s,X,Y,size,col,t,t0,o={}){const k=eo(p(t,t0,t0+.6));if(k<=0)return;T(s,X,Y+(1-k)*24,size,col,{...o,a:k*(o.a??1)});}
+// draws polylines progressively (paths = array of point arrays)
+function drawPaths(paths,k,col=NV,lw=4){let total=0;const segs=[];paths.forEach(pts=>{for(let i=1;i<pts.length;i++){const l=Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]);segs.push([pts[i-1],pts[i],l]);total+=l;}});
+  let left=total*cl(k);x.save();x.strokeStyle=col;x.lineWidth=lw;x.lineCap='round';x.lineJoin='round';x.beginPath();
+  for(const [a,b,l] of segs){if(left<=0)break;const f=Math.min(1,left/l);x.moveTo(a[0],a[1]);x.lineTo(lerp(a[0],b[0],f),lerp(a[1],b[1],f));left-=l;}x.stroke();x.restore();}
+const rect=(X,Y,w,h)=>[[X,Y],[X+w,Y],[X+w,Y+h],[X,Y+h],[X,Y]];
+function pill(s,X,Y,size,bg,fg,k){if(k<=0)return;x.save();x.translate(X,Y);x.scale(k,k);x.font=`600 ${size}px ${F}`;const w=x.measureText(s).width+size*1.4,h=size*1.9;x.fillStyle=bg;x.beginPath();x.roundRect(-w/2,-h/2,w,h,h/2);x.fill();T(s,0,2,size,fg);x.restore();}
+function bgClean(t,col=BG){x.fillStyle=col;x.fillRect(0,0,W,H);x.save();x.globalAlpha=.5;x.strokeStyle='#ECE8E0';x.lineWidth=1;for(let i=0;i<=W;i+=60){x.beginPath();x.moveTo(i,0);x.lineTo(i,H);x.stroke();}for(let j=0;j<=H;j+=60){x.beginPath();x.moveTo(0,j);x.lineTo(W,j);x.stroke();}x.restore();}
+
+/* ---------------- building line art ---------------- */
+function buildingPaths(){const P=[];const bx=330,by=700,bw=420,bh=820;
+  P.push(rect(bx,by,bw,bh));
+  // side volume (perspective)
+  P.push([[bx+bw,by],[bx+bw+110,by+60],[bx+bw+110,by+bh-30],[bx+bw,by+bh]]);
+  // floors
+  for(let f=1;f<11;f++){const y=by+f*bh/11;P.push([[bx,y],[bx+bw,y]]);P.push([[bx+bw,y],[bx+bw+110,y+60-60*f/11*0.5]]);}
+  // windows
+  for(let f=0;f<11;f++)for(let c2=0;c2<4;c2++){const wx=bx+24+c2*100,wy=by+14+f*bh/11;P.push(rect(wx,wy,72,bh/11-28));}
+  // ground line + small trees
+  P.push([[120,by+bh],[960,by+bh]]);
+  return P;}
+const BP=buildingPaths();
+function s1(t){ // 0-4
+  bgClean(t);
+  drawPaths([BP[BP.length-1]],p(t,0,.6),NV,4);
+  drawPaths(BP.slice(0,-1),eio(p(t,.3,3.2)),NV,3);
+  // accent windows lighting up
+  for(let i=0;i<8;i++){const k=p(t,2.0+i*.12,2.4+i*.12);if(k<=0)continue;const f=(i*3)%11,c2=(i*7)%4;x.fillStyle=`rgba(31,138,112,${.85*eo(k)})`;x.fillRect(330+24+c2*100,700+14+f*820/11,72,820/11-28);}
+  fadeUp('Seu próximo endereço',W/2,380,64,NV,t,1.5,{w:600});
+  fadeUp('começa aqui.',W/2,470,64,AC,t,2.0,{w:700});
+}
+function logoMark(k,X,Y,s,col=NV){x.save();x.translate(X,Y);x.scale(s,s);drawPaths([[[-120,-90],[0,110],[120,-90]],[[-60,-90],[0,10],[60,-90]]],k,col,14);x.restore();}
+function s2(t){ // 4-8 logo
+  bgClean(t,WH);
+  logoMark(eio(p(t,.1,1.3)),W/2,820,1.2);
+  const dk=eo(p(t,1.2,1.7));if(dk>0){x.save();x.globalAlpha=dk;x.fillStyle=AC;x.beginPath();x.arc(W/2,820+12-120*1.2*0+0,0,0,7);x.fill();x.restore();}
+  // wordmark with letter tracking in
+  const k=eo(p(t,1.2,2.2));if(k>0)T('VÉRTICE',W/2,1110,110,NV,{w:600,ls:30+(1-k)*40,a:k});
+  const ln=eo(p(t,1.8,2.6));x.fillStyle=AC;x.fillRect(W/2-150*ln,1195,300*ln,4);
+  fadeUp('RESIDENCIAL  ·  JARDINS',W/2,1270,40,GR,t,2.2,{w:500,ls:6});
+}
+function s3(t){ // 8-14 floor plan
+  bgClean(t);
+  fadeUp('Planta inteligente',W/2,330,64,NV,t,.1,{w:600});
+  const ox=170,oy=500,S=1;
+  const walls=[rect(ox,oy,740,820),[[ox+420,oy],[ox+420,oy+380]],[[ox,oy+380],[ox+740,oy+380]],[[ox+260,oy+380],[ox+260,oy+820]],[[ox+520,oy+380],[ox+520,oy+620]],[[ox+520,oy+620],[ox+740,oy+620]]];
+  drawPaths(walls,eio(p(t,.3,2.2)),NV,8);
+  // balcony dashed
+  const bk=eo(p(t,1.8,2.4));if(bk>0){x.save();x.globalAlpha=bk;x.setLineDash([16,12]);x.strokeStyle=AC;x.lineWidth=5;x.strokeRect(ox,oy+820,740,110);x.restore();}
+  // furniture hints
+  const fk=eo(p(t,2.2,2.8));if(fk>0){x.save();x.globalAlpha=fk;x.strokeStyle=LN;x.lineWidth=4;x.strokeRect(ox+60,oy+60,240,180);x.strokeRect(ox+470,oy+80,220,140);x.beginPath();x.arc(ox+130,oy+560,70,0,7);x.stroke();x.strokeRect(ox+300,oy+430,180,90);x.restore();}
+  const labels=[['Suíte',ox+210,oy+300],['Sala',ox+580,oy+300],['Cozinha',ox+130,oy+700],['Quarto',ox+390,oy+700],['Banho',ox+630,oy+500],['Varanda gourmet',ox+370,oy+875]];
+  labels.forEach(([s,X,Y],i)=>pill(s,X,Y,40,i===5?AC:NV,WH,back(p(t,2.6+i*.15,3.0+i*.15))));
+  const ak=p(t,3.6,4.6);if(ak>0){const v=Math.round(eo(ak)*82);T(v+' m²',W/2,1530,90,NV,{w:700,a:cl(ak*3)});}
+}
+function icon(name,X,Y,k){x.save();x.translate(X,Y);const P={bed:[rect(-40,-6,80,30),[[-40,-6],[-40,-30],[-14,-30],[-14,-6]],[[-40,24],[-40,34]],[[40,24],[40,34]]],car:[[[-44,14],[-34,-12],[34,-12],[44,14],[44,26],[-44,26],[-44,14]],[[-30,26],[-30,34]],[[30,26],[30,34]]],pool:[[[-40,10],[-20,0],[0,10],[20,0],[40,10]],[[-40,28],[-20,18],[0,28],[20,18],[40,28]],[[-20,-6],[-20,-34],[-8,-34]],[[14,-6],[14,-34],[26,-34]]],grill:[[[-36,-10],[36,-10],[24,22],[-24,22],[-36,-10]],[[-16,22],[-22,36]],[[16,22],[22,36]],[[-14,-22],[-10,-32]],[[2,-22],[6,-32]],[[18,-22],[22,-32]]]}[name];
+  drawPaths(P,k,AC,6);x.restore();}
+function s4(t){ // 14-20 features
+  bgClean(t);
+  fadeUp('Tudo o que você procura',W/2,330,60,NV,t,.1,{w:600});
+  const items=[['bed','3 quartos','1 suíte'],['car','2 vagas','cobertas'],['pool','Lazer','completo'],['grill','Varanda','gourmet']];
+  items.forEach(([ic,a,b],i)=>{const t0=.5+i*.5;const k=eo5(p(t,t0,t0+.5));if(k<=0)return;const col=i%2,row=Math.floor(i/2);const X=300+col*480,Y=760+row*480;
+    x.save();x.translate(0,(1-k)*60);x.globalAlpha=k;x.fillStyle=WH;x.shadowColor='rgba(15,42,68,.10)';x.shadowBlur=40;x.beginPath();x.roundRect(X-200,Y-190,400,380,36);x.fill();x.shadowBlur=0;
+    x.fillStyle='rgba(31,138,112,.10)';x.beginPath();x.arc(X,Y-70,74,0,7);x.fill();x.restore();
+    icon(ic,X,Y-70+(1-k)*60,eio(p(t,t0+.2,t0+1.0)));
+    T(a,X,Y+60+(1-k)*60,52,NV,{w:700,a:k});T(b,X,Y+120+(1-k)*60,40,GR,{w:500,a:k});});
+}
+function s5(t){ // 20-24 map
+  bgClean(t,'#EEF3F0');
+  fadeUp('Localização privilegiada',W/2,330,60,NV,t,.1,{w:600});
+  // streets
+  const streets=[];for(let i=0;i<7;i++){streets.push([[60,560+i*150],[1020,520+i*150]]);}for(let j=0;j<6;j++){streets.push([[120+j*170,500],[160+j*170,1520]]);}
+  drawPaths(streets,eio(p(t,.2,1.4)),'#FFFFFF',22);
+  // park + metro
+  const pk=eo(p(t,1.0,1.5));x.save();x.globalAlpha=pk;x.fillStyle='#BFE0CC';x.beginPath();x.roundRect(660,1110,300,200,30);x.fill();T('Parque',810,1210,40,'#2E6B4E',{w:600});x.restore();
+  pill('Metrô',800,700,40,NV,WH,back(p(t,1.3,1.7)));
+  pill('Escola',250,820,40,GR,WH,back(p(t,1.5,1.9)));
+  // pin + pulses
+  const pin=p(t,1.0,1.5);const py=lerp(300,1000,eo5(pin));if(pin>0){for(let r=0;r<2;r++){const rk=((t-1.5-r*.5)%1+1)%1;if(t>1.5){x.strokeStyle=`rgba(31,138,112,${.6*(1-rk)})`;x.lineWidth=5;x.beginPath();x.ellipse(560,1010,40+rk*160,16+rk*64,0,0,7);x.stroke();}}
+    x.save();x.translate(560,py);x.fillStyle=AC;x.beginPath();x.arc(0,-70,52,Math.PI,0);x.lineTo(0,10);x.closePath();x.fill();x.fillStyle=WH;x.beginPath();x.arc(0,-72,20,0,7);x.fill();x.restore();}
+  const lk=eo(p(t,2.2,2.6));if(lk>0){x.save();x.globalAlpha=lk;x.fillStyle=WH;x.shadowColor='rgba(15,42,68,.12)';x.shadowBlur=30;x.beginPath();x.roundRect(150,1340,780,140,40);x.fill();x.shadowBlur=0;x.restore();
+    T('5 min do metrô  ·  perto de tudo',W/2,1412,42,NV,{w:600,a:lk});}
+}
+function s6(t){ // 24-28 offer
+  x.fillStyle=NV;x.fillRect(0,0,W,H);
+  fadeUp('LANÇAMENTO',W/2,520,44,SD,t,.1,{w:500,ls:10});
+  fadeUp('Condições especiais',W/2,640,76,WH,t,.4,{w:600});
+  fadeUp('para os primeiros',W/2,740,76,WH,t,.6,{w:600});
+  fadeUp('compradores.',W/2,840,76,'#63D1B1',t,.8,{w:700});
+  const bk=back(p(t,1.6,2.1));const pul=1+.03*Math.exp(-((t%.5))*8)*(t>2.1?1:0);if(bk>0){x.save();x.translate(W/2,1100);x.scale(bk*pul,bk*pul);x.fillStyle=AC;x.beginPath();x.roundRect(-330,-75,660,150,75);x.fill();T('Agende sua visita',0,4,50,WH,{w:600});x.restore();}
+  logoMark(eio(p(t,1.9,2.6)),W/2,1350,.45,WH);T('VÉRTICE',W/2,1480,44,WH,{w:600,ls:14,a:eo(p(t,2.2,2.7))});
+}
+function s7(t){ // 28-34 CTA
+  bgClean(t,WH);
+  drawPaths([[[140,300],[940,300]]],eio(p(t,0,.8)),AC,4);
+  fadeUp('Esse empreendimento',W/2,420,56,GR,t,.2,{w:500});
+  fadeUp('não existe.',W/2,500,56,GR,t,.4,{w:500});
+  fadeUp('Mas o vídeo do seu',W/2,660,76,NV,t,.9,{w:700});
+  fadeUp('pode ser assim.',W/2,760,76,AC,t,1.1,{w:700});
+  ['Imobiliárias e construtoras','Clínicas e consultórios','Empresas e serviços'].forEach((s,i)=>{const k=eo(p(t,1.8+i*.25,2.4+i*.25));if(k<=0)return;
+    x.save();x.globalAlpha=k;x.translate((1-k)*-40,0);x.fillStyle=AC;x.beginPath();x.arc(230,930+i*90,10,0,7);x.fill();T(s,265,930+i*90,44,NV,{w:500,align:'left'});x.restore();});
+  const bk=back(p(t,3.0,3.5));const pul=1+.03*Math.exp(-((t%.5))*8)*(t>3.5?1:0);if(bk>0){x.save();x.translate(W/2,1290);x.scale(bk*pul,bk*pul);x.fillStyle=NV;x.beginPath();x.roundRect(-330,-75,660,150,75);x.fill();T('Me chama no direct',0,4,50,WH,{w:600});x.restore();}
+  fadeUp('@alecreator_motion',W/2,1450,56,AC,t,3.4,{w:700});
+}
+const SC=[[s1,0,4],[s2,4,8],[s3,8,14],[s4,14,20],[s5,20,24],[s6,24,28],[s7,28,34]];
+window.DUR=34;const XF=.4;
+const buf=document.createElement('canvas');buf.width=W;buf.height=H;const bx=buf.getContext('2d');const X0=x;
+window.draw=function(t){const i=SC.findIndex(([,a,b])=>t>=a&&t<b);const k=i<0?SC.length-1:i;const [f,a]=SC[k];
+  x=X0;x.save();f(t-a);x.restore();
+  if(k>0&&t-a<XF){const [pf,pa]=SC[k-1];x=bx;x.save();x.setTransform(1,0,0,1,0,0);pf(t-pa);x.restore();x=X0;
+    // slide-up wipe: previous scene moves up and fades
+    const e=eio((t-a)/XF);x.save();x.globalAlpha=1-e;x.drawImage(buf,0,-e*120);x.restore();}
+  const fo=p(t,33.4,34);if(fo>0){x.fillStyle=`rgba(0,0,0,${fo})`;x.fillRect(0,0,W,H);}};
+draw(3);
+</script></body></html>

@@ -1,0 +1,46 @@
+<!doctype html><html><head><style>@font-face{font-family:Corm;font-weight:300;src:url(fonts/corm300.woff2)}@font-face{font-family:Jost;font-weight:400;src:url(fonts/jost400.woff2)}@font-face{font-family:Jost;font-weight:300;src:url(fonts/jost300.woff2)}</style></head>
+<body style="margin:0;background:#000"><canvas id="g"></canvas>
+<script type="module">
+// Fotos "reais" dos produtos RITTÚ por PATH TRACING (luz física: refração real do vidro, sombras suaves, luz rebatida).
+// URL: photo.html?v=<vista>&w=1080&h=1920   → window.step(n) acumula n amostras; window.png() devolve a imagem.
+import * as THREE from './lib/three.module.min.js';import {build} from './scene3d.js';import {WebGLPathTracer} from './lib/pathtracer.js';
+for(const f of ['300 50px Corm','400 50px Jost','300 50px Jost'])await document.fonts.load(f);
+const Q=new URLSearchParams(location.search);const CW=+(Q.get('w')||1080),CH=+(Q.get('h')||1920),VIEW=Q.get('v')||'serum';
+const R=new THREE.WebGLRenderer({canvas:document.getElementById('g'),antialias:false,preserveDrawingBuffer:true});R.setSize(CW,CH,false);
+R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.0;R.outputColorSpace=THREE.SRGBColorSpace;
+const S=build(R);const sc=S.scene;
+const V={
+ serum:{hero:{ry:.13},cam:[1.6,2.4,12.5],look:[0,2.2,0],fov:26},
+ serum_aberto:{hero:{ry:.3,dropper:2.4},cam:[1.4,3.4,15],look:[0,3.3,0],fov:28},
+ pote:{jar:{ry:.3,lid:1.1,lidr:-.2},cam:[0,4.2,15],look:[0,1.5,0],fov:30},
+ colecao:{line:{ry:.2},cam:[0,3.4,22],look:[0,2.0,0],fov:30},
+};
+S.set({...V[VIEW],clean:true,t:0});
+// vidro/líquido mais claros só na foto (no path tracing a absorção real escurece demais)
+sc.traverse(o=>{const m=o.material;if(!m||!m.isMeshPhysicalMaterial||!m.transmission)return;
+  if(m.ior>1.45&&m.attenuationDistance>1){m.attenuationDistance=7;m.attenuationColor=new THREE.Color('#2f9a6b');m.color=new THREE.Color('#6fd3a4');}
+  else if(m.ior<1.4){m.attenuationDistance=6;m.attenuationColor=new THREE.Color('#58c493');}});
+sc.environment=null;sc.background=new THREE.Color('#000000');sc.environmentRotation=new THREE.Euler();sc.backgroundRotation=new THREE.Euler();sc.environmentIntensity=1;sc.backgroundIntensity=1;sc.backgroundBlurriness=0;
+// remove luzes "de tempo real" e põe estúdio físico
+sc.traverse(o=>{if(o.isLight)o.visible=false;});
+// remove pódios do conjunto quando não for a coleção; texto atrás e anel de onda
+sc.traverse(o=>{if(o.isMesh&&o.material&&o.material.type==='MeshBasicMaterial'&&o.material.map&&o.geometry.type==='PlaneGeometry'&&o.geometry.parameters.width===16)o.visible=false;});
+// fundo infinito (cyclorama) verde muito escuro + piso brilhante
+const cyc=new THREE.Mesh(new THREE.SphereGeometry(40,64,32),new THREE.MeshPhysicalMaterial({color:'#03110b',roughness:.7,side:THREE.BackSide}));sc.add(cyc);
+const flo=new THREE.Mesh(new THREE.PlaneGeometry(60,60),new THREE.MeshPhysicalMaterial({color:'#020806',roughness:.12,clearcoat:1,clearcoatRoughness:.05,metalness:0}));flo.rotation.x=-Math.PI/2;sc.add(flo);
+// softboxes (painéis emissivos)
+function box(w,h,col,intensity,pos,look){const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshStandardMaterial({color:'#000',emissive:new THREE.Color(col),emissiveIntensity:intensity,side:THREE.DoubleSide}));m.position.set(...pos);m.lookAt(new THREE.Vector3(...look));sc.add(m);return m;}
+const L=V[VIEW].look;
+box(2.2,9,'#fff4e2',7,[-6.5,4,4],L);            // strip key esquerda (gera o reflexo vertical no vidro)
+box(1.4,9,'#e8fff3',5,[6.5,4,1.5],L);           // strip de recorte direita
+{const cv=document.createElement('canvas');cv.width=cv.height=512;const g=cv.getContext('2d');const r=g.createRadialGradient(256,256,0,256,256,256);r.addColorStop(0,'#3fe0a0');r.addColorStop(.35,'#14804f');r.addColorStop(.75,'#04261a');r.addColorStop(1,'#000');g.fillStyle=r;g.fillRect(0,0,512,512);
+ const tx=new THREE.CanvasTexture(cv);tx.colorSpace=THREE.SRGBColorSpace;const m=new THREE.Mesh(new THREE.PlaneGeometry(22,22),new THREE.MeshStandardMaterial({color:'#000',emissive:'#ffffff',emissiveMap:tx,emissiveIntensity:2.2}));
+ m.position.set(L[0],L[1]+.6,-11);m.lookAt(S.cam.position);sc.add(m);}   // fundo: brilho esmeralda em degradê atrás do produto (vidro acende por transmissão)
+box(5,3,'#fff8ee',1.4,[3,6,Math.max(11,S.cam.position.z+1)],L);               // rebatedor frontal (ilumina o rótulo)
+box(8,3,'#ffffff',1.2,[0,11,3],L);              // topo suave
+const pt=new WebGLPathTracer(R);pt.tiles.set(2,2);pt.filterGlossyFactor=.5;pt.minSamples=1;pt.renderDelay=0;pt.fadeDuration=0;pt.bounces=8;pt.transmissiveBounces=10;
+S.cam.aspect=CW/CH;S.cam.updateProjectionMatrix();pt.setScene(sc,S.cam);
+window.step=n=>{for(let i=0;i<n;i++)pt.renderSample();return pt.samples;};
+window.png=()=>document.getElementById('g').toDataURL('image/png');
+window.ready=true;
+</script></body></html>
