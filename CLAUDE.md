@@ -348,3 +348,8 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - Calendário de 30 dias (`calGrid`), "DIA 01", teste 1 pendurado na barra (de costas, `stopwatch`), teste 2 pinça com livro (`pinch`), caderno com caneta anotando
   BARRA/PINÇA (ponto de partida), rotina diária (toalha · rósca · aperto, dia rolando ao fundo), dia 30 com barras DIA 1 × DIA 30 + "?", "Comenta EU TOPO" (balões), segue até o dia 30.
 - Pronúncia: "eu tôpo", "rósca". Próximos episódios possíveis: dia 7/15 (progresso) e dia 30 (resultado) reaproveitando este arquivo.
+
+### Referência de canal: @theory_armwrestling (TikTok) — `src/templates/_referencias/theory_armwrestling.md`
+- Estilo que viraliza (até 7,4 mi views): filmagem real na mesa + **HUD de biomecânica** (linhas de esqueleto, ângulos em graus, % de vantagem, medidor "Mechanical Advantage",
+  mãos em contorno com mapa de calor, diagrama do pad visto de cima), pouco texto, 15–30s, uma ideia por vídeo, regras da WAF citadas.
+- Acesso: ambiente "Edi-o-" com tiktok.com + CDNs de mídia liberados; `yt-dlp` precisa de permissão `Bash(yt-dlp *)` (o Ale adicionou).
