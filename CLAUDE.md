@@ -392,3 +392,10 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - Kit novo: `stage2` (stage + mapa `M` p/ marcar a almofada), `padMark`, `tv()` (vista de cima: `rel` solta o pino, `lean` ombro passa do centro, `line`/`lineRed`), `whistle`, `badge3` (FALTA n/3), `confetti`.
 - Faltas: 1 soltar o pino · 2 ombro passa da linha do centro (juiz para a luta) · 3 cotovelo sai da almofada (a mais comum; vitória com cotovelo fora não vale) → dica → compartilha → segue.
 - SFX novos em `trilha.py`: `whistle_s` (apito), `rewind`. Pronúncia: "Primeira/Segunda/Terceira falta", "Largou o pino".
+
+### 39 — "Por que treinar a 90°" (60s) — `39-treino-90-graus` — estilo HUD do 34 + gancho forte
+- Gancho: braço gigante flexionando "REP 246" + "BÍCEPS TODO DIA" → corte pra mesa, perde em 3s (cronômetro) → congela + carimbo "PERDEU EM 3s". Frase: "Ele treina bíceps todo dia. E perdeu em três segundos."
+- Kit novo: `bigArm` (braço flexionando com tronco), `protractor` (transferidor no cotovelo), `chart` (força x ângulo: curva `band` ±15° com queda vermelha fora / curva `torque` com PICO em 90°),
+  `towelRig` (atleta puxando toalha presa no poste, cotovelo 90°), `timerRing`.
+- Roteiro: 90° → na mesa o braço luta em 90° → na academia passa voando (rosca com transferidor) → força específica do ângulo ±15°, fora cai → forte na academia trava na mesa
+  → bíceps tem mais força perto de 90° → isometria com toalha (passos: 90°, 10s sem mexer, 5x) → 3x/semana no fim do treino → força sobe → compartilha → segue.
