@@ -1,0 +1,30 @@
+<!doctype html><meta charset="utf-8"><title>Victoria Flores Carrossel</title>
+<style>@font-face{font-family:GV;src:url(fonts/GreatVibes-Regular.ttf)}@font-face{font-family:Corm;font-weight:500;src:url(fonts/corm500.woff2)}@font-face{font-family:Corm;font-style:italic;font-weight:300;src:url(fonts/corm300i.woff2)}
+@font-face{font-family:Jost;src:url(fonts/jost400.woff2)}@font-face{font-family:Pop;font-weight:400;src:url(fonts/Poppins-Regular.ttf)}@font-face{font-family:Pop;font-weight:500;src:url(fonts/Poppins-Medium.ttf)}
+html,body{margin:0;background:#000}</style><canvas id="c" width="1080" height="1350"></canvas>
+<script type="module">
+/* 42 — carrossel 1080x1350 (7 artes) da Victoria Flores: mesma identidade do Reels. draw(i) desenha a arte i (0..6). */
+import*as K from './common.js';const{TAU,T,script,caps,wineBg,petals,photo,shade,frame,logo,pillBtn,pin,CREAM,GOLD}=K;
+const W=1080,H=1350,c=document.getElementById('c'),g=c.getContext('2d');const I=await K.loadAll();
+const num=(i)=>{T(g,`${i}/7`,W-80,110,34,CREAM,{f:'Pop',al:'right',a:.8});};
+const swipe=()=>{T(g,'arraste',W-150,H-90,34,CREAM,{f:'Corm',it:1,al:'right'});g.save();g.strokeStyle=GOLD;g.lineWidth=4;g.beginPath();g.moveTo(W-135,H-102);g.lineTo(W-85,H-102);g.lineTo(W-100,H-117);g.moveTo(W-85,H-102);g.lineTo(W-100,H-87);g.stroke();g.restore();};
+const card=(img,a,b,c2,i)=>{photo(g,img,W,H,1,1.05,1.05,0,-60);shade(g,W,H,560,.95);script(g,a,W/2,1040,140,1);caps(g,b,W/2,1135,54,1);if(c2)T(g,c2,W/2,1200,40,CREAM,{f:'Pop',sh:10});frame(g,W,H,36);num(i);swipe();};
+const P=[
+ ()=>{photo(g,I.rosas,W,H,1,1.12,1.12,0,-120);g.fillStyle='rgba(26,3,6,.35)';g.fillRect(0,0,W,H);shade(g,W,H,500,.95);logo(g,I,W/2,250,120,1);
+   script(g,'Surpreenda',W/2,930,180,1);caps(g,'QUEM VOCÊ AMA',W/2,1040,70,1);T(g,'com flores que falam por você',W/2,1120,46,CREAM,{f:'Corm',it:1,sh:10});frame(g,W,H,36);swipe();},
+ ()=>card(I.rosas,'Clássico','ROSAS VERMELHAS & BRANCAS','o presente que nunca falha',2),
+ ()=>card(I.lirios,'Delicadeza','LÍRIOS & MINI ROSAS','perfume e elegância',3),
+ ()=>card(I.girassois,'Alegria','GIRASSÓIS','pra iluminar o dia de alguém',4),
+ ()=>card(I.kit,'Com carinho','ROSAS, CHOCOLATE & BALÃO','o kit que faz qualquer um sorrir',5),
+ ()=>{wineBg(g,W,H,0);petals(g,W,H,3.3,26,1);caps(g,'SOMOS',W/2,330,58,1,GOLD);script(g,'Especialistas',W/2,480,150,1);script(g,'em rosas',W/2,620,150,1);
+   g.save();g.translate(W/2,800);g.strokeStyle='#CFEFFF';g.lineWidth=8;g.lineCap='round';for(let k=0;k<6;k++){g.rotate(Math.PI/3);g.beginPath();g.moveTo(0,0);g.lineTo(0,-70);g.moveTo(0,-44);g.lineTo(-16,-58);g.moveTo(0,-44);g.lineTo(16,-58);g.stroke();}g.restore();
+   caps(g,'A ÚNICA DA REGIÃO',W/2,960,58,1);caps(g,'COM CÂMARA FRIA',W/2,1035,58,1);T(g,'rosas sempre frescas, em perfeito estado',W/2,1110,44,CREAM,{f:'Corm',it:1,sh:8});frame(g,W,H,36);num(6);swipe();},
+ ()=>{wineBg(g,W,H,0);petals(g,W,H,7.7,18,1);logo(g,I,W/2,200,110,1);caps(g,'PEÇA PELO WHATSAPP',W/2,390,54,1,GOLD);
+   const U=(y,n,a1,a2,tel,h1,h2)=>{g.save();g.fillStyle='rgba(26,3,6,.55)';g.beginPath();g.roundRect(90,y,900,290,30);g.fill();g.strokeStyle='rgba(226,194,122,.55)';g.lineWidth=2;g.stroke();g.restore();
+     T(g,n,140,y+62,40,GOLD,{f:'Corm',w:500,al:'left',ls:6});T(g,a1,140,y+112,34,CREAM,{f:'Pop',al:'left'});if(a2)T(g,a2,140,y+152,30,CREAM,{f:'Pop',al:'left',a:.8});
+     T(g,tel,140,y+218,52,'#fff',{f:'Pop',w:500,al:'left'});T(g,h1,950,y+200,28,CREAM,{f:'Pop',al:'right',a:.85});T(g,h2,950,y+238,28,CREAM,{f:'Pop',al:'right',a:.85});};
+   U(440,'UNIDADE 1','Estr. do Campo Limpo, 4421','','(11) 94614-3887','Seg a Sex 8h–20h','Dom e feriados 8h–14h');
+   U(760,'UNIDADE 2','Rua Serra da Esperança, 02','Arrastão / Praça do Campo Limpo','(11) 92091-1669','Seg a Sex 8h–19h','Dom e feriados fechado');
+   pin(g,170,1150,.55);T(g,'Entregamos em toda a região de São Paulo',200,1140,36,CREAM,{f:'Pop',al:'left'});T(g,'@victoriafloresfloricultura',W/2,1230,46,GOLD,{f:'Pop'});frame(g,W,H,36);}];
+window.N=P.length;window.draw=i=>{g.reset();P[i]();};window.ready=true;
+</script>

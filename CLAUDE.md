@@ -412,3 +412,11 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - Roteiro: braço curto = alavanca menor → braço comprido trabalha contra você → tendões (músculo semanas x tendão anos) → magrinho aguenta, grandão sente o cotovelo
   → técnica (sobe a pegada, abre a mão, puxa com as costas) → gangorra "quem usa a alavanca" → treino de punho e dedos → técnicas no perfil (grade de vídeos) → compartilha → segue.
 - Pronúncia: "Antebraço curto. Alavanca menor." (frase corrida embola), "o magrinho".
+
+### 42 — CLIENTE: Victoria Flores Floricultura (Campo Limpo/SP) — `42-cliente-victoria-flores`
+- Post estratégico de vitrine (sem data/sem preço — preço é decisão da loja), pacote Reels 24s + carrossel 7 artes 1080x1350 + `legenda.txt`. Ale quer vender por R$ 250+.
+- Identidade da loja: vermelho rosa/vinho + dourado (logo com rosas e script dourado), site em vermelho #9B0000/creme. Great Vibes (script, Google Fonts) + Cormorant + Poppins; kit em `common.js`.
+- Fotos = recortes dos stories (`midia/*.jpg`, trocar pelos originais quando o Ale mandar); logo recortado do print de perfil, sem alteração (só máscara circular).
+- Diferencial (site deles): "Somos especialistas em rosas" + "única floricultura da região com câmara fria". Unidade 1 Estr. do Campo Limpo 4421 (11) 94614-3887, seg–sex 8–20h, dom/fer 8–14h;
+  Unidade 2 Rua Serra da Esperança 02 (Arrastão/Praça do Campo Limpo) (11) 92091-1669, seg–sex 8–19h, dom/fer fechado. @victoriafloresfloricultura. Cliente real: SEM frase de portfólio.
+- Render: `node render.js out/video` (Reels) · `node render_carrossel.js out/carrossel`. Trilha C–G–Am–F sem voz (`audio/trilha.py`) + `so_efeitos.mp3`.
