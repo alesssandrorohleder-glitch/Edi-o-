@@ -450,3 +450,9 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - Editorial de interiores: branco-galeria com grade arquitetônica + grafite + laranja #F26522 do logo; **cotas de medida desenhadas** sobre os móveis (`dim`), fotos em quadros com cortina + push, transição "porta de correr" laranja.
 - Promo: sofá molas ensacadas 2,30/2,50 m em 15x R$ 299 · mesa 1,60x0,90 + 6 cadeiras em 15x R$ 249 (conferir). Coleções SN/MN, 6 diferenciais (garantia de fábrica…), 5 lojas
   (Guarulhos, Tatuapé, Santana, Osasco, Interlar Interlagos), WhatsApp (11) 95757-3098, cartões e BNDES. Gancho "Conforto tem medida." (cota "na medida certa" — sem inventar metragem).
+
+### 49 — Burguer Plus (hamburgueria, Taboão da Serra/SP) — Story 15s de uso diário — `49-cliente-burguer-plus`
+- Sem preços (pra postar todo dia). Fotos dos prints do site (servidor de imagens na porta 8443 não passa no proxy): `python preparar.py <pasta dos prints>` recorta os lanches (fundo branco → alfa, preenche buracos, tira sombra da base) e as fotos.
+- Fundo escuro quente + vermelho #D3202A + cheddar #FFC533; Anton + Poppins; transição faixa diagonal vermelha/amarela. Sem marca de refrigerante (lata genérica).
+- Roteiro 120bpm: "BATEU A FOME?" (Plus Ultra cai e quica) → 6 lanches na batida com nome gigante atrás → combo (lanche + batata fina + refri lata) → "TEM PRA TODA HORA" (café, almoço, porções, açaí & shakes) → wordmark provisório + "PEÇA AGORA" + espaço vazio p/ figurinha de link.
+- Logo oficial ainda não recebido: wordmark "BURGUER [PLUS]" é provisório — trocar pelo arquivo deles.

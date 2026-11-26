@@ -1,0 +1,75 @@
+<!doctype html><meta charset="utf-8"><title>Burguer Plus Story</title>
+<style>@font-face{font-family:Pop;font-weight:400;src:url(fonts/Poppins-Regular.ttf)}@font-face{font-family:Pop;font-weight:500;src:url(fonts/Poppins-Medium.ttf)}@font-face{font-family:Pop;font-weight:700;src:url(fonts/Poppins-Bold.ttf)}@font-face{font-family:Anton;src:url(fonts/Anton-400.woff2)}
+html,body{margin:0;background:#000}canvas{height:100vh;display:block;margin:auto}</style><canvas id="c" width="1080" height="1920"></canvas>
+<script type="module">
+/* 49 — Burguer Plus (Taboão da Serra) — Story 15s de uso diário (sem preços), fotos recortadas do cardápio do site.
+   Fundo escuro quente + vermelho do site + amarelo-cheddar; Anton + Poppins; 120bpm (cortes na batida). Espaço livre no fim p/ figurinha de link. */
+const W=1080,H=1920,c=document.getElementById('c'),X=c.getContext('2d');
+for(const f of['400 60px Pop','500 60px Pop','700 60px Pop','60px Anton'])await document.fonts.load(f);
+const TAU=Math.PI*2,cl=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)),p=(t,a,b)=>cl((t-a)/(b-a)),lerp=(a,b,k)=>a+(b-a)*k;
+const eo=k=>1-(1-cl(k))**3,eio=k=>{k=cl(k);return k<.5?4*k*k*k:1-(-2*k+2)**3/2;},eob=k=>{k=cl(k);const s=1.7;return 1+(s+1)*(k-1)**3+s*(k-1)**2;};
+const BG='#16110F',RED='#D3202A',YEL='#FFC533',WH='#FFFFFF',CR='#FFF4E2';
+const L=s=>new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(i);i.src=s;});const I={};
+for(const n of['ultra','bacon','australiano','doritos','big','cheddar','salada','plusburguer','batata','batatacb','acai2','acai3','suco'])I[n]=await L(`midia/${n}.png`);
+for(const n of['picanha','parmegiana','cafe','supreme','shake','churrasco'])I[n]=await L(`midia/${n}.jpg`);
+function T(g,s,x,y,size,col,o={}){const{f='Anton',w='',al='center',ls=0,a=1}=o;if(a<=0)return;g.save();g.globalAlpha*=a;g.font=`${w} ${size}px ${f}`;g.textAlign=al;g.textBaseline='alphabetic';if(ls)g.letterSpacing=ls+'px';
+  const mw=o.mw||1000,w0=g.measureText(s).width;if(w0>mw){g.translate(x,y);g.scale(mw/w0,1);g.translate(-x,-y);}if(o.sh){g.shadowColor='rgba(0,0,0,.55)';g.shadowBlur=o.sh;g.shadowOffsetY=o.sh/3;}g.fillStyle=col;g.fillText(s,x,y);g.restore();}
+const rise=(g,s,x,y,size,col,k,o={})=>{if(k<=0)return;g.save();g.beginPath();g.rect(0,y-size*1.05,W,size*1.3);g.clip();T(g,s,x,y+(1-eo(k))*size*1.2,size,col,o);g.restore();};
+// fundo: escuro quente com brilho vermelho pulsando na batida + raios girando
+function bg(g,t,glow=RED){g.fillStyle=BG;g.fillRect(0,0,W,H);const b=Math.exp(-((t%.5))*6),r=g.createRadialGradient(W/2,900,50,W/2,900,900);r.addColorStop(0,glow+(b>.5?'66':'48'));r.addColorStop(1,glow+'00');g.fillStyle=r;g.fillRect(0,0,W,H);
+  g.save();g.translate(W/2,900);g.rotate(t*.25);g.fillStyle='rgba(255,197,51,.05)';for(let i=0;i<14;i++){g.rotate(TAU/14);g.beginPath();g.moveTo(0,0);g.lineTo(-90,-1400);g.lineTo(90,-1400);g.fill();}g.restore();
+  g.save();g.globalAlpha=.06;g.fillStyle=WH;for(let i=0;i<70;i++){const x=(i*397)%W,y=((i*911)%H+t*(40+i%5*20))%H;g.beginPath();g.arc(x,H-y,2+i%3,0,TAU);g.fill();}g.restore();}
+// produto recortado com sombra elíptica, mola e leve flutuação
+function prod(g,img,x,y,w,k,t,o={}){if(k<=0||!img.width)return;const h=w*img.height/img.width,s=o.pop===false?1:lerp(.3,1,eob(k)),fl=Math.sin(t*3)*8;g.save();g.globalAlpha=cl(k*3);
+  g.fillStyle='rgba(0,0,0,.45)';g.beginPath();g.ellipse(x,y+h/2+18,w*.42*s,26*s,0,0,TAU);g.fill();g.translate(x,y+fl);g.rotate((o.rot||0)*(1-eo(k)));g.scale(s,s);g.imageSmoothingQuality='high';g.drawImage(img,-w/2,-h/2,w,h);g.restore();}
+function pill(g,s,x,y,size,bgc,fg,k,o={}){if(k<=0)return;g.save();g.font=`700 ${size}px Pop`;const tw=g.measureText(s).width+size*1.2,hh=size*1.6;g.translate(x,y);const e=eob(k);g.scale(e,e);g.rotate(o.rot||0);g.fillStyle=bgc;g.beginPath();g.roundRect(-tw/2,-hh/2,tw,hh,hh/2);g.fill();g.fillStyle=fg;g.textAlign='center';g.textBaseline='middle';g.fillText(s,0,size*.06);g.restore();}
+function photo(g,img,x,y,w,h,k,t,lab){if(k<=0)return;const e=eob(k);g.save();g.translate(x+w/2,y+h/2);g.scale(e,e);g.rotate((1-eo(k))*.12);g.shadowColor='rgba(0,0,0,.6)';g.shadowBlur=30;g.fillStyle=CR;g.beginPath();g.roundRect(-w/2-10,-h/2-10,w+20,h+20,34);g.fill();g.shadowBlur=0;
+  g.beginPath();g.roundRect(-w/2,-h/2,w,h,26);g.clip();const z=1.05+.05*cl(t),s=Math.max(w/img.width,h/img.height)*z;g.imageSmoothingQuality='high';g.drawImage(img,-img.width*s/2,-img.height*s/2,img.width*s,img.height*s);
+  const gr=g.createLinearGradient(0,h/2-140,0,h/2);gr.addColorStop(0,'rgba(0,0,0,0)');gr.addColorStop(1,'rgba(0,0,0,.75)');g.fillStyle=gr;g.fillRect(-w/2,h/2-140,w,140);T(g,lab,0,h/2-26,54,WH,{mw:w-40});g.restore();}
+function wordmark(g,x,y,sz,k){if(k<=0)return;g.save();g.globalAlpha=cl(k*2);g.translate(x,y);const e=lerp(.6,1,eob(k));g.scale(e,e);g.font=`${sz}px Anton`;const a=g.measureText('BURGUER').width,gap=sz*.18;g.font=`${sz}px Anton`;const b=g.measureText('PLUS').width+sz*.5,tot=a+gap+b;
+  g.fillStyle=WH;g.textBaseline='middle';g.textAlign='left';g.fillText('BURGUER',-tot/2,0);g.fillStyle=RED;g.beginPath();g.roundRect(-tot/2+a+gap,-sz*.62,b,sz*1.18,sz*.2);g.fill();g.fillStyle=WH;g.fillText('PLUS',-tot/2+a+gap+sz*.25,0);g.restore();}
+const S=[];const sc=(t0,fn)=>S.push({t0,fn});
+// 1 · gancho: BATEU A FOME? + Plus Ultra cai e quica
+sc(0,(g,t)=>{bg(g,t);rise(g,'BATEU',W/2,560,250,WH,p(t,.05,.35),{sh:20});rise(g,'A FOME?',W/2,800,250,YEL,p(t,.3,.6),{sh:20});
+  const k=p(t,.55,1.05),y=lerp(-500,1250,eo(k)),sq=t>1.05?1+.12*Math.exp(-(t-1.05)*9)*Math.cos((t-1.05)*30):1;if(k>0){const im=I.ultra,w=760,h=w*im.height/im.width;g.save();g.fillStyle='rgba(0,0,0,.45)';g.beginPath();g.ellipse(W/2,1250+h/2+20,w*.42*eo(k),30,0,0,TAU);g.fill();g.translate(W/2,y+h/2);g.scale(sq,2-sq);g.drawImage(im,-w/2,-h,w,h);g.restore();}
+  if(t>1.05){const e=t-1.05;g.save();g.globalAlpha=cl(1-e*1.5);g.fillStyle=YEL;for(let i=0;i<16;i++){const a=-Math.PI*(i+.5)/16,r=e*900;g.beginPath();g.arc(W/2+Math.cos(a)*r*1.2,1580+Math.sin(a)*r*.7+e*e*900,10,0,TAU);g.fill();}g.restore();}});
+// 2 · lanches trocando na batida (nome gigante ATRÁS do lanche)
+const BURG=[['bacon','PLUS BACON','cheddar · bacon · cebola caramelizada'],['australiano','AUSTRALIANO','catupiry · bacon · anéis de cebola'],['doritos','DORITOS','pão vermelho · cheddar · doritos'],['big','BIG BURGUER','2 carnes · queijo · bacon'],['plusburguer','PLUS BURGUER','onion de bacon · cheddar · salada'],['cheddar','PLUS CHEDDAR','cheddar derretido · pão brioche']];
+const B0=2.5,BD=.75;
+sc(B0,(g,t)=>{const i=Math.min(BURG.length-1,Math.floor((t-B0)/BD)),t0=B0+i*BD,[im,nm,ds]=BURG[i];bg(g,t,i%2?'#E0561B':RED);
+  T(g,'HAMBÚRGUER ARTESANAL 150g',W/2,330,44,YEL,{f:'Pop',w:700,ls:3,a:p(t,B0,B0+.3)});
+  const kn=p(t,t0,t0+.25);g.save();g.globalAlpha=.95;T(g,nm,W/2+(1-eo(kn))*-300,740,280,i%2?YEL:WH,{mw:1040});g.restore();
+  const k=p(t,t0,t0+.3),x=lerp(W+500,W/2,eo(k)),im2=I[im],w=840,h=w*im2.height/im2.width;
+  if(k<1){g.save();g.globalAlpha=.25;g.drawImage(im2,x+120-w/2,1080-h/2,w,h);g.drawImage(im2,x+60-w/2,1080-h/2,w,h);g.restore();}
+  g.fillStyle='rgba(0,0,0,.45)';g.beginPath();g.ellipse(x,1080+h/2+18,w*.42,28,0,0,TAU);g.fill();g.save();g.translate(x,1080+Math.sin(t*4)*6);g.rotate((1-eo(k))*.25);g.imageSmoothingQuality='high';g.drawImage(im2,-w/2,-h/2,w,h);g.restore();
+  T(g,ds,W/2,1490,44,CR,{f:'Pop',w:500,a:p(t,t0+.15,t0+.35)});
+  g.fillStyle='rgba(255,255,255,.25)';for(let j=0;j<BURG.length;j++){g.fillStyle=j==i?YEL:'rgba(255,255,255,.25)';g.beginPath();g.roundRect(W/2-(BURG.length*50)/2+j*50,1560,j==i?40:20,12,6);g.fill();}});
+// 3 · combo
+sc(7.0,(g,t)=>{bg(g,t);T(g,'TODO COMBO PLUS VEM COM',W/2,330,46,YEL,{f:'Pop',w:700,ls:2,a:p(t,7.05,7.35)});rise(g,'LANCHE',W/2,520,170,WH,p(t,7.1,7.4),{sh:16});
+  prod(g,I.salada,W/2,820,620,p(t,7.3,7.7),t,{rot:-.3});
+  T(g,'+',W/2,1110,120,YEL,{a:p(t,7.8,8.0)});prod(g,I.batata,W/2-210,1270,440,p(t,7.9,8.3),t,{rot:.3});T(g,'BATATA FINA',W/2-210,1480,62,WH,{a:p(t,8.1,8.4)});
+  // lata genérica (sem marca)
+  const kc=p(t,8.4,8.8);if(kc>0){g.save();g.translate(W/2+230,1260+Math.sin(t*3)*8);const e=eob(kc);g.scale(e,e);const cw=150,ch=250,gr=g.createLinearGradient(-cw/2,0,cw/2,0);gr.addColorStop(0,'#8E0F16');gr.addColorStop(.35,'#E8323B');gr.addColorStop(.6,'#B5141D');gr.addColorStop(1,'#6E0A10');
+    g.fillStyle='rgba(0,0,0,.45)';g.beginPath();g.ellipse(0,ch/2+14,cw*.6,18,0,0,TAU);g.fill();g.fillStyle=gr;g.beginPath();g.roundRect(-cw/2,-ch/2,cw,ch,22);g.fill();g.fillStyle='#C9C9C9';g.beginPath();g.roundRect(-cw/2+8,-ch/2-10,cw-16,22,10);g.fill();g.fillRect(-cw/2+8,ch/2-14,cw-16,14);
+    g.fillStyle='rgba(255,255,255,.18)';g.fillRect(-cw/2+20,-ch/2+20,18,ch-40);T(g,'350ml',0,20,36,WH,{f:'Pop',w:700});g.restore();}
+  T(g,'REFRI LATA',W/2+230,1480,62,WH,{a:p(t,8.6,8.9)});pill(g,'COMBO PLUS',W/2,1600,56,RED,WH,p(t,9.0,9.3),{rot:-.04});});
+// 4 · pra toda hora: café, almoço, porções, açaí & shake
+sc(10.0,(g,t)=>{bg(g,t,'#E0561B');rise(g,'TEM PRA',W/2,330,120,WH,p(t,10.05,10.3));rise(g,'TODA HORA',W/2,470,140,YEL,p(t,10.2,10.45));
+  const G=[[I.cafe,'CAFÉ DA MANHÃ',90,560],[I.picanha,'ALMOÇO',560,560],[I.supreme,'PORÇÕES',90,1060],[I.shake,'AÇAÍ & SHAKES',560,1060]];
+  G.forEach(([im,lb,x,y],i)=>photo(g,im,x,y,430,440,p(t,10.4+i*.5,10.75+i*.5),(t-10.4-i*.5)/2.5,lb));
+  T(g,'Refeição: proteína + 3 acompanhamentos',W/2,1620,40,CR,{f:'Pop',w:500,a:p(t,12.1,12.4)});});
+// 5 · CTA (espaço livre embaixo p/ a figurinha de link)
+sc(12.75,(g,t)=>{bg(g,t);wordmark(g,W/2,420,150,p(t,12.8,13.2));T(g,'TABOÃO DA SERRA · SP',W/2,560,44,CR,{f:'Pop',w:500,ls:4,a:p(t,13.0,13.3)});
+  prod(g,I.big,W/2-60,830,560,p(t,12.9,13.3),t,{rot:-.2});prod(g,I.acai3,W/2+330,880,220,p(t,13.1,13.5),t,{rot:.3});prod(g,I.batatacb,W/2-340,960,300,p(t,13.2,13.6),t,{rot:-.3});
+  rise(g,'PEÇA AGORA',W/2,1250,170,YEL,p(t,13.3,13.6),{sh:16});T(g,'burguerplus.com.br',W/2,1340,50,WH,{f:'Pop',w:700,a:p(t,13.5,13.8)});
+  const ka=p(t,13.7,13.9);if(ka>0){const b=Math.abs(Math.sin((t-13.7)*Math.PI*2))*24;g.save();g.globalAlpha=ka;g.translate(W/2,1430+b);g.fillStyle=WH;g.beginPath();g.moveTo(-34,0);g.lineTo(34,0);g.lineTo(0,40);g.fill();g.restore();}});
+window.DUR=15;const TR=.32;
+const B=document.createElement('canvas');B.width=W;B.height=H;const XB=B.getContext('2d');const N=document.createElement('canvas');N.width=W;N.height=H;const XN=N.getContext('2d');
+// transição: faixa diagonal vermelha com borda cheddar varre a tela
+window.draw=function(t){let i=0;while(i<S.length-1&&t>=S[i+1].t0)i++;const s=S[i];X.reset();s.fn(X,t);const k=t-s.t0;
+  if(i>0&&k<TR){XN.reset();XN.drawImage(c,0,0);XB.reset();S[i-1].fn(XB,t);const e=eio(k/TR),D=W+H*.5,xa=lerp(-H*.5,W+60,e);X.reset();X.drawImage(B,0,0);
+    const band=(x0,col)=>{X.beginPath();X.moveTo(x0,0);X.lineTo(x0-H*.5,H);X.lineTo(-H,H);X.lineTo(-H,0);X.closePath();X.fillStyle=col;X.fill();};
+    X.save();band(xa+120,YEL);X.restore();X.save();band(xa+70,RED);X.restore();X.save();X.beginPath();X.moveTo(xa,0);X.lineTo(xa-H*.5,H);X.lineTo(-H,H);X.lineTo(-H,0);X.closePath();X.clip();X.drawImage(N,0,0);X.restore();}
+  const fo=p(t,window.DUR-.3,window.DUR);if(fo>0){X.fillStyle=`rgba(0,0,0,${fo*.0})`;}};
+window.ready=true;
+</script>
