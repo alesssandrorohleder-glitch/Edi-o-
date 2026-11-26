@@ -12,8 +12,8 @@ const S=[];const sc=(t0,fn)=>S.push({t0,fn});
 const card=(g,img,t,t0,kick,a,b,z=[1.0,1.1],pan=[0,0])=>{photo(g,img,W,H,(t-t0)/2.8,z[0],z[1],pan[0],pan[1]);shadeB(g,W,H,980,.9);
   tag(g,kick,W/2,1200,44,LIMAO,VERDE2,p(t,t0+.2,t0+.6));rise(g,a,W/2,1330,96,BRANCO,p(t,t0+.35,t0+.8),{sh:14});if(b)T(g,b,W/2,1410,44,BRANCO,{w:500,a:p(t,t0+.7,t0+1.1),sh:10});};
 // 1 · gancho
-sc(0,(g,t)=>{photo(g,I.morangos,W,H,t/3,1.25,1.05,-60,0);shadeT(g,W,700,.6);tag(g,'Você sabe quando',W/2,520,64,VERDE,BRANCO,p(t,.15,.55));tag(g,'a sua fruta',W/2,620,64,VERDE,BRANCO,p(t,.45,.85));
-  tag(g,'foi colhida?',W/2,720,74,VERM,BRANCO,p(t,.8,1.2),{rot:-.03});});
+sc(0,(g,t)=>{photo(g,I.morangos,W,H,t/3,1.25,1.05,-60,0);shadeB(g,W,H,1000,.75);tag(g,'Você sabe quando',W/2,1200,64,VERDE,BRANCO,p(t,.15,.55));tag(g,'a sua fruta',W/2,1300,64,VERDE,BRANCO,p(t,.45,.85));
+  tag(g,'foi colhida?',W/2,1410,74,VERM,BRANCO,p(t,.8,1.2),{rot:-.03});});
 sc(3.0,(g,t)=>{photo(g,I.loja,W,H,(t-3)/3,1.0,1.12,0,-40);shadeT(g,W,800,.7);shadeB(g,W,H,1100,.85);T(g,'No Sítio Verde,',W/2,520,60,BRANCO,{w:500,a:p(t,3.15,3.5),sh:12});
   rise(g,'há pouquíssimo',W/2,640,96,BRANCO,p(t,3.35,3.8),{sh:14});rise(g,'tempo.',W/2,750,96,LIMAO,p(t,3.55,4.0),{sh:14});tag(g,'HORTIFRUTI PREMIUM',W/2,1380,48,LIMAO,VERDE2,p(t,4.3,4.7));});
 sc(6.0,(g,t)=>card(g,I.copo,t,6.0,'PRATICIDADE','Fruta no copo','pronta pra comer, onde você estiver'));
