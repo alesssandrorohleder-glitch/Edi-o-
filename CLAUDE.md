@@ -444,3 +444,9 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - Reels 28s motion graphics com fotos/legendas do Instagram + preços do catálogo do WhatsApp (lírios R$250, café da manhã a partir de R$145, gérbera R$50, begônia R$60, antúrio R$70, orquídeas a partir de R$150).
 - Identidade do logo: creme, moldura geométrica dourada (hexágonos desenhados), anel roxo, Great Vibes + Poppins; fotos dentro de hexágono; transição hexágono crescendo; vinheta + grão.
 - Ale pediu "bem profissional": girassóis vetoriais (clip-art) trocados por brilhos dourados finos. Slogan "Transformamos flores em sentimentos!", entrega SP e região, Estr. de Itapecerica 1746, (11) 91500-6171.
+
+### 48 — Novittá Design (móveis, @novittadesign_, 5 lojas SP) — `48-cliente-novitta-design` — "super profissional"
+- Reels 32,5s motion graphics com fotos/textos/preços de novittadesign.com.br (produtos `produtosfotos/1200/<id>_<hash>.jpg`, bordas brancas cortadas; banners cortados sem o texto).
+- Editorial de interiores: branco-galeria com grade arquitetônica + grafite + laranja #F26522 do logo; **cotas de medida desenhadas** sobre os móveis (`dim`), fotos em quadros com cortina + push, transição "porta de correr" laranja.
+- Promo: sofá molas ensacadas 2,30/2,50 m em 15x R$ 299 · mesa 1,60x0,90 + 6 cadeiras em 15x R$ 249 (conferir). Coleções SN/MN, 6 diferenciais (garantia de fábrica…), 5 lojas
+  (Guarulhos, Tatuapé, Santana, Osasco, Interlar Interlagos), WhatsApp (11) 95757-3098, cartões e BNDES. Gancho "Conforto tem medida." (cota "na medida certa" — sem inventar metragem).
