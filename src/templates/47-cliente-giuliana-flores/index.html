@@ -34,7 +34,7 @@ const S=[];const sc=(t0,fn)=>S.push({t0,fn});
 // 1 · GANCHO: esqueceu a data? → entrega em até 3 horas (o ponto vermelho vira ponteiro)
 sc(0,(g,t)=>{paper(g,t);if(t<1.6){rise(g,'Esqueceu',W/2,850,170,INK,p(t,.0,.35),{f:'PF'});rise(g,'a data',W/2,1030,170,INK,p(t,.25,.6),{f:'PFI'});
     const b=p(t,.6,1.2),bx=W/2+285,by=1030-Math.abs(Math.sin(b*Math.PI*3))*220*(1-b);if(t<1.15)dot(g,bx,by,26*eob(p(t,.55,.75)));else{const q=p(t,1.15,1.35),e=eob(q);g.save();g.translate(W/2+300,1030);g.scale(e,e);T(g,'?',0,0,170,RED,{f:'PF'});g.restore();}}
-  else{const k=p(t,1.6,2.0),R=300;g.save();g.strokeStyle=INK;g.lineWidth=6;g.beginPath();g.arc(W/2,800,R*eob(k),0,TAU);g.stroke();for(let i=0;i<12;i++){const a=i/12*TAU;g.beginPath();g.moveTo(W/2+Math.cos(a)*R*.86,800+Math.sin(a)*R*.86);g.lineTo(W/2+Math.cos(a)*R*.95,800+Math.sin(a)*R*.95);g.globalAlpha=k;g.stroke();}g.restore();
+  else{const k=p(t,1.6,2.0),R=300;g.save();g.strokeStyle=INK;g.lineWidth=6;g.beginPath();g.arc(W/2,800,Math.max(.01,R*eob(k)),0,TAU);g.stroke();for(let i=0;i<12;i++){const a=i/12*TAU;g.beginPath();g.moveTo(W/2+Math.cos(a)*R*.86,800+Math.sin(a)*R*.86);g.lineTo(W/2+Math.cos(a)*R*.95,800+Math.sin(a)*R*.95);g.globalAlpha=k;g.stroke();}g.restore();
     const a=-Math.PI/2+eio(p(t,1.8,3.0))*TAU*.25;g.strokeStyle=RED;g.lineWidth=12;g.lineCap='round';g.beginPath();g.moveTo(W/2,800);g.lineTo(W/2+Math.cos(a)*R*.7,800+Math.sin(a)*R*.7);g.stroke();dot(g,W/2,800,22);
     T(g,'Entrega em até',W/2,1260,64,INK,{f:'P3',a:p(t,2.0,2.3)});rise(g,'3 horas',W/2,1420,170,RED,p(t,2.2,2.6),{f:'PF'});}});
 // 2 · marca
