@@ -1,0 +1,81 @@
+<!doctype html><meta charset="utf-8"><title>Thais Flores Reels</title>
+<style>@font-face{font-family:GV;src:url(fonts/GreatVibes-Regular.ttf)}@font-face{font-family:Pop;font-weight:300;src:url(fonts/Poppins-Light.ttf)}@font-face{font-family:Pop;font-weight:400;src:url(fonts/Poppins-Regular.ttf)}
+@font-face{font-family:Pop;font-weight:500;src:url(fonts/Poppins-Medium.ttf)}@font-face{font-family:Pop;font-weight:700;src:url(fonts/Poppins-Bold.ttf)}
+html,body{margin:0;background:#000}canvas{height:100vh;display:block;margin:auto}</style><canvas id="c" width="1080" height="1920"></canvas>
+<script type="module">
+/* 46 — Thais² Flores e Decorações (Campo Limpo/SP) — Reels motion graphics 28s com fotos/legendas do Instagram (@thaisflores02 / @thaisflores1_) e preços do catálogo do WhatsApp.
+   Identidade do logo: branco/creme, girassol, moldura geométrica dourada (hexágonos), letra cursiva preta. Logo usado sem alteração. */
+const W=1080,H=1920,c=document.getElementById('c'),X=c.getContext('2d');
+for(const f of['80px GV','300 60px Pop','400 60px Pop','500 60px Pop','700 60px Pop'])await document.fonts.load(f);
+const TAU=Math.PI*2,cl=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)),p=(t,a,b)=>cl((t-a)/(b-a)),lerp=(a,b,k)=>a+(b-a)*k;
+const eo=k=>1-(1-cl(k))**3,eio=k=>{k=cl(k);return k<.5?4*k*k*k:1-(-2*k+2)**3/2;},eob=k=>{k=cl(k);const s=1.7;return 1+(s+1)*(k-1)**3+s*(k-1)**2;};
+const CREAM='#FBF7EE',INK='#1E1A16',SUN='#F4A81D',SUN2='#E07B12',GOLD='#C9A063',OLIVE='#5E7A35',WH='#FFFFFF',PURP='#8E4A8F';
+const L=s=>new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.src=s;});const I={};
+for(const n of['logo','jornal','girassois','mulher','lirios','cafe','anturio','begonia','gerbera','orquidea'])I[n]=await L(`midia/${n}.${n=='logo'?'png':'jpg'}`);
+function T(g,s,x,y,size,col,o={}){const{w=700,al='center',ls=0,a=1,f='Pop'}=o;if(a<=0)return;g.save();g.globalAlpha*=a;g.font=f=='GV'?`${size}px GV`:`${w} ${size}px Pop`;g.textAlign=al;g.textBaseline='alphabetic';if(ls)g.letterSpacing=ls+'px';
+  const mw=o.mw||980,w0=g.measureText(s).width;if(w0>mw){g.translate(x,y);g.scale(mw/w0,1);g.translate(-x,-y);}if(o.sh){g.shadowColor='rgba(0,0,0,.45)';g.shadowBlur=o.sh;g.shadowOffsetY=o.sh/3;}g.fillStyle=col;g.fillText(s,x,y);g.restore();}
+const rise=(g,s,x,y,size,col,k,o={})=>{if(k<=0)return;g.save();g.beginPath();g.rect(0,y-size*1.1,W,size*1.45);g.clip();T(g,s,x,y+(1-eo(k))*size*1.2,size,col,o);g.restore();};
+const script=(g,s,x,y,size,col,k,o={})=>{if(k<=0)return;g.save();g.font=`${size}px GV`;const w=g.measureText(s).width;g.beginPath();g.rect(x-w/2-40,y-size*1.2,(w+80)*eio(k),size*1.9);g.clip();T(g,s,x,y,size,col,{f:'GV',sh:o.sh});g.restore();};
+// hexágono dourado desenhado (como a moldura do logo)
+function hexPath(g,x,y,r,rot){g.beginPath();for(let i=0;i<=6;i++){const a=rot+i*TAU/6;i?g.lineTo(x+Math.cos(a)*r,y+Math.sin(a)*r):g.moveTo(x+Math.cos(a)*r,y+Math.sin(a)*r);}}
+function hex(g,x,y,r,rot,k,col=GOLD,lw=6){if(k<=0)return;g.save();g.strokeStyle=col;g.lineWidth=lw;g.lineJoin='round';const per=6*r;g.setLineDash([per*eio(k),per]);hexPath(g,x,y,r,rot);g.stroke();g.restore();}
+// girassol vetorial (pétalas + miolo) — gira e cresce
+// brilho dourado (estrela de 4 pontas) — detalhe fino no lugar de ilustração
+function sunflower(g,x,y,r,k,rot=0){if(k<=0)return;const e=eob(k),R=r*.55*e;g.save();g.translate(x,y);g.rotate(rot+(1-eo(k))*-1);g.globalAlpha=cl(k*2);g.fillStyle=GOLD;
+  g.beginPath();for(let i=0;i<8;i++){const a=i*Math.PI/4,rr=i%2?R*.18:R;g.lineTo(Math.cos(a)*rr,Math.sin(a)*rr);}g.closePath();g.fill();g.strokeStyle='rgba(201,160,99,.5)';g.lineWidth=2;g.beginPath();g.arc(0,0,R*.55,0,TAU);g.stroke();g.restore();}
+function leafSpray(){}
+function creamBg(g,t){g.fillStyle=CREAM;g.fillRect(0,0,W,H);g.save();g.globalAlpha=.5;hex(g,W/2,H*.47,620+Math.sin(t)*10,t*.05,1,'rgba(201,160,99,.25)',3);hex(g,W/2,H*.47,700,-t*.04+.3,1,'rgba(201,160,99,.18)',3);g.restore();}
+function photo(g,img,k,z0,z1,px=0,py=0){const z=lerp(z0,z1,cl(k)),s=Math.max(W/img.width,H/img.height)*z,w=img.width*s,h=img.height*s;g.drawImage(img,(W-w)/2+px*k,(H-h)/2+py*k,w,h);}
+function shadeB(g,y0,a=.85){const gr=g.createLinearGradient(0,y0,0,H);gr.addColorStop(0,'rgba(20,14,8,0)');gr.addColorStop(1,`rgba(20,14,8,${a})`);g.fillStyle=gr;g.fillRect(0,y0,W,H-y0);}
+// foto dentro de hexágono com moldura dourada dupla
+function hexPhoto(g,img,x,y,r,k,t,z=1.05){if(k<=0)return;const rr=r*eob(k);g.save();hexPath(g,x,y,rr,Math.PI/6);g.clip();const s=Math.max(2*rr/img.width,2*rr/img.height)*lerp(z,1,cl(k)),w=img.width*s,h=img.height*s;g.drawImage(img,x-w/2,y-h/2,w,h);g.restore();
+  hex(g,x,y,rr+16,Math.PI/6,k,GOLD,7);hex(g,x,y,rr+40,Math.PI/6+.18+t*.04,k,'rgba(201,160,99,.7)',4);}
+function priceTag(g,x,y,txt,k,sub=''){if(k<=0)return;const e=eob(k);g.save();g.translate(x,y);g.scale(e,e);g.rotate(-.08);g.beginPath();g.roundRect(-190,-70,380,140,70);g.fillStyle=INK;g.fill();
+  g.strokeStyle=GOLD;g.lineWidth=4;g.stroke();if(sub)T(g,sub,0,-18,30,GOLD,{w:500});T(g,txt,0,sub?44:22,sub?62:70,WH,{w:700});g.restore();}
+const S=[];const sc=(t0,fn)=>S.push({t0,fn});
+// 1 · GANCHO: hexágono dourado se desenha e a foto abre dentro
+sc(0,(g,t)=>{creamBg(g,t);hexPhoto(g,I.jornal,W/2,900,430,p(t,.35,1.0),t);hex(g,W/2,900,480,Math.PI/6,p(t,0,.6),GOLD,7);sunflower(g,W/2+360,560,110,p(t,.8,1.3),.3);sunflower(g,W/2-370,1270,90,p(t,1.0,1.5));
+  leafSpray(g,W/2+250,610,1.2,2.6,p(t,1.0,1.4));leafSpray(g,W/2-260,1230,1.0,-.6,p(t,1.2,1.6));
+  T(g,'Tem presentes que',W/2,1500,60,INK,{w:300,a:p(t,1.3,1.7)});script(g,'encantam',W/2,1640,150,INK,p(t,1.6,2.2));T(g,'NO PRIMEIRO OLHAR',W/2,1720,40,GOLD,{w:500,ls:10,a:p(t,2.1,2.5)});});
+// 2 · logo
+sc(3.0,(g,t)=>{creamBg(g,t);for(let i=0;i<3;i++)hex(g,W/2,860,330+i*40,Math.PI/6+i*.2+t*.05*(i%2?-1:1),p(t,3.05+i*.12,3.6+i*.12),i==1?PURP:GOLD,4);
+  const k=p(t,3.3,3.9);g.save();g.translate(W/2,860);g.scale(lerp(.4,1,eob(k)),lerp(.4,1,eob(k)));g.globalAlpha=cl(k*2);g.drawImage(I.logo,-300,-300,600,600);g.restore();
+  sunflower(g,W/2+300,560,80,p(t,3.7,4.1),.5);sunflower(g,W/2-300,1160,70,p(t,3.85,4.25),.2);script(g,'Transformamos flores',W/2,1320,96,INK,p(t,4.0,4.7));script(g,'em sentimentos',W/2,1430,96,INK,p(t,4.4,5.1));T(g,'FLORES E DECORAÇÕES',W/2,1530,38,GOLD,{w:500,ls:10,a:p(t,4.9,5.3)});});
+// 3 · girassóis
+sc(6.0,(g,t)=>{photo(g,I.girassois,(t-6)/3,1.0,1.1,0,-40);shadeB(g,1000,.9);script(g,'Leve a energia',W/2,1260,104,WH,p(t,6.2,7.0),{sh:14});T(g,'dos girassóis pro dia de quem você ama',W/2,1350,44,WH,{w:500,a:p(t,6.8,7.2),sh:10});
+  sunflower(g,170,1440,70,p(t,7.0,7.4),0);sunflower(g,W-170,1440,70,p(t,7.1,7.5),.4);});
+// 4 · surpresa
+sc(9.0,(g,t)=>{photo(g,I.mulher,(t-9)/3,1.1,1.0,0,0);shadeB(g,980,.9);T(g,'Existe uma felicidade',W/2,1230,56,WH,{w:300,a:p(t,9.2,9.6),sh:10});script(g,'que só uma surpresa',W/2,1340,96,WH,p(t,9.5,10.3),{sh:14});
+  T(g,'é capaz de trazer',W/2,1420,56,WH,{w:300,a:p(t,10.1,10.5),sh:10});});
+// 5 · buquê de lírios
+sc(12.0,(g,t)=>{creamBg(g,t);T(g,'SOB ENCOMENDA',W/2,400,40,GOLD,{w:700,ls:10,a:p(t,12.05,12.4)});script(g,'Buquê de Lírios',W/2,540,120,INK,p(t,12.15,12.9));hexPhoto(g,I.lirios,W/2,1000,360,p(t,12.3,12.9),t);
+  priceTag(g,W/2,1460,'R$ 250',p(t,13.0,13.3));sunflower(g,W/2+330,700,70,p(t,12.8,13.2),.2);});
+// 6 · café da manhã
+sc(15.0,(g,t)=>{creamBg(g,t);T(g,'KITS E CESTAS',W/2,400,40,GOLD,{w:700,ls:10,a:p(t,15.05,15.4)});script(g,'Café da Manhã',W/2,540,120,INK,p(t,15.15,15.9));hexPhoto(g,I.cafe,W/2,1000,360,p(t,15.3,15.9),t);
+  priceTag(g,W/2,1460,'R$ 145',p(t,16.0,16.3),'A PARTIR DE');T(g,'pedido com 1 dia de antecedência',W/2,1580,36,INK,{w:400,a:p(t,16.2,16.6)});});
+// 7 · vasos e orquídeas
+sc(18.0,(g,t)=>{creamBg(g,t);T(g,'VASOS',W/2,400,40,GOLD,{w:700,ls:10,a:p(t,18.05,18.4)});script(g,'Plantas que duram',W/2,530,104,INK,p(t,18.15,18.9));
+  [['gerbera','Gérbera','R$ 50'],['begonia','Begônia','R$ 60'],['anturio','Antúrio','R$ 70']].forEach(([im,nm,pr],i)=>{const x=200+i*340,y=820,k=p(t,18.5+i*.25,18.9+i*.25);if(k<=0)return;const r=130*eob(k);
+    g.save();g.beginPath();g.arc(x,y,r,0,TAU);g.clip();g.drawImage(I[im],x-r,y-r,2*r,2*r);g.restore();g.strokeStyle=GOLD;g.lineWidth=6;g.beginPath();g.arc(x,y,r+8,0,TAU);g.stroke();
+    T(g,nm,x,y+200,46,INK,{w:700,a:k});T(g,pr,x,y+260,50,SUN2,{w:700,a:k});});
+  const k=p(t,19.7,20.1);if(k>0){g.save();g.beginPath();g.arc(W/2,1300,110*eob(k),0,TAU);g.clip();g.drawImage(I.orquidea,W/2-110,1190,220,220);g.restore();hex(g,W/2,1300,140,Math.PI/6,k,GOLD,5);}
+  T(g,'Orquídeas a partir de R$ 150',W/2,1500,50,INK,{w:700,a:p(t,20.0,20.4)});});
+// 8 · peça no WhatsApp
+sc(21.5,(g,t)=>{creamBg(g,t);rise(g,'Peça agora',W/2,560,100,INK,p(t,21.6,22.0));script(g,'pelo WhatsApp',W/2,690,110,SUN2,p(t,21.8,22.6));
+  const k=p(t,22.3,22.7);if(k>0){g.save();g.translate(W/2,930);g.scale(eob(k),eob(k));g.beginPath();g.arc(0,0,110,0,TAU);g.fillStyle='#25D366';g.fill();g.strokeStyle=WH;g.lineWidth=12;g.beginPath();g.arc(0,0,58,0,TAU);g.stroke();g.fillStyle=WH;g.beginPath();g.moveTo(-50,40);g.lineTo(-70,80);g.lineTo(-20,62);g.fill();g.restore();}
+  T(g,'(11) 91500-6171',W/2,1160,90,INK,{w:700,a:p(t,22.6,23.0)});T(g,'catálogo completo no WhatsApp',W/2,1240,40,INK,{w:400,a:p(t,22.9,23.3)});T(g,'Entregamos em São Paulo e região',W/2,1330,46,SUN2,{w:700,a:p(t,23.1,23.5)});
+  sunflower(g,190,1460,90,p(t,23.0,23.4),.2);sunflower(g,W-190,1460,90,p(t,23.1,23.5),.6);});
+// 9 · fechamento
+sc(24.5,(g,t)=>{creamBg(g,t);for(let i=0;i<2;i++)hex(g,W/2,820,330+i*44,Math.PI/6+t*.06*(i?-1:1),p(t,24.55+i*.1,25.1+i*.1),i?PURP:GOLD,4);
+  const k=p(t,24.7,25.2);g.save();g.translate(W/2,820);g.scale(lerp(.5,1,eob(k)),lerp(.5,1,eob(k)));g.globalAlpha=cl(k*2);g.drawImage(I.logo,-290,-290,580,580);g.restore();
+  script(g,'Flores e Decorações',W/2,1290,96,INK,p(t,25.3,26.1));T(g,'@thaisflores02',W/2,1400,56,SUN2,{w:700,a:p(t,25.9,26.3)});T(g,'Estr. de Itapecerica, 1746 · São Paulo',W/2,1470,40,INK,{w:400,a:p(t,26.1,26.5)});});
+window.DUR=28.0;const GRAIN=document.createElement('canvas');GRAIN.width=540;GRAIN.height=960;{const gg=GRAIN.getContext('2d'),d=gg.createImageData(540,960);for(let i=0;i<d.data.length;i+=4){const v=Math.random()*255;d.data[i]=d.data[i+1]=d.data[i+2]=v;d.data[i+3]=10;}gg.putImageData(d,0,0);}const TR=.55;
+const B=document.createElement('canvas');B.width=W;B.height=H;const XB=B.getContext('2d');const N=document.createElement('canvas');N.width=W;N.height=H;const XN=N.getContext('2d');
+// transição: hexágono que cresce do centro (com borda dourada) revelando a cena nova
+window.draw=function(t){let i=0;while(i<S.length-1&&t>=S[i+1].t0)i++;const s=S[i];X.reset();s.fn(X,t);const k=t-s.t0;
+  if(i>0&&k<TR){XN.reset();XN.drawImage(c,0,0);XB.reset();S[i-1].fn(XB,t);const e=eio(k/TR),r=e*1400;X.reset();X.drawImage(B,0,0);
+    X.save();hexPath(X,W/2,H*.48,r,Math.PI/6+e*.6);X.clip();X.drawImage(N,0,0);X.restore();hex(X,W/2,H*.48,r,Math.PI/6+e*.6,1,GOLD,10);hex(X,W/2,H*.48,r*.82,Math.PI/6+e*.9,1,SUN,6);}
+  {const gr=X.createRadialGradient(W/2,H/2,H*.35,W/2,H/2,H*.75);gr.addColorStop(0,'rgba(0,0,0,0)');gr.addColorStop(1,'rgba(40,25,10,.22)');X.fillStyle=gr;X.fillRect(0,0,W,H);X.drawImage(GRAIN,0,0,W,H);}
+  const fo=p(t,window.DUR-.5,window.DUR);if(fo>0){X.fillStyle=`rgba(0,0,0,${fo})`;X.fillRect(0,0,W,H);}};
+window.ready=true;
+</script>

@@ -439,3 +439,8 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
   selo de preço vermelho com mola, contador "a partir de R$ 125", transição com 3 faixas diagonais (vermelho/preto/branco).
 - Produtos: 12 rosas R$225 · 12 girassóis R$185 · hortênsia R$125 · 12 rosas + coração Lindt R$330 · 7 colombianas + balão R$241 · orquídea azul R$410 / branca na taça R$550 · cesta café da manhã R$365 (conferir no site).
 - Contato: WhatsApp (11) 98115-1001 · televendas (11) 3739-0404 · Av. Dr. Guilherme Dumont Vilares, 2013 – Morumbi · eliteflores.com.br. Slogan "Flores que encantam...".
+
+### 46 — Thais² Flores e Decorações (@thaisflores02, Campo Limpo/SP) — `46-cliente-thais-flores`
+- Reels 28s motion graphics com fotos/legendas do Instagram + preços do catálogo do WhatsApp (lírios R$250, café da manhã a partir de R$145, gérbera R$50, begônia R$60, antúrio R$70, orquídeas a partir de R$150).
+- Identidade do logo: creme, moldura geométrica dourada (hexágonos desenhados), anel roxo, Great Vibes + Poppins; fotos dentro de hexágono; transição hexágono crescendo; vinheta + grão.
+- Ale pediu "bem profissional": girassóis vetoriais (clip-art) trocados por brilhos dourados finos. Slogan "Transformamos flores em sentimentos!", entrega SP e região, Estr. de Itapecerica 1746, (11) 91500-6171.
