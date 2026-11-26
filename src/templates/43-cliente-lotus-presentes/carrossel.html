@@ -1,0 +1,31 @@
+<!doctype html><meta charset="utf-8"><title>Lotus Carrossel</title>
+<style>@font-face{font-family:PF;font-weight:400 900;src:url(fonts/PlayfairDisplay.ttf)}@font-face{font-family:PFI;font-style:italic;font-weight:400 900;src:url(fonts/PlayfairDisplay-Italic.ttf)}
+@font-face{font-family:Corm;font-weight:500;src:url(fonts/corm500.woff2)}@font-face{font-family:Corm;font-style:italic;font-weight:300;src:url(fonts/corm300i.woff2)}
+@font-face{font-family:Pop;font-weight:400;src:url(fonts/Poppins-Regular.ttf)}@font-face{font-family:Pop;font-weight:500;src:url(fonts/Poppins-Medium.ttf)}
+html,body{margin:0;background:#000}</style>
+<canvas id="c" width="1080" height="1350"></canvas>
+<script type="module">
+/* 43 — carrossel 1080x1350 (7 artes) da Lótus Presentes: mesma identidade do Reels. draw(i) desenha a arte i. */
+import*as K from './common.js';const{T,rise,caps,goldLine,borBg,creamBg,photo,shade,logo,pillBtn,icon,product,price,CREAM,BOR,GOLD,INK}=K;
+const W=1080,H=1350,c=document.getElementById('c'),g=c.getContext('2d');const I=await K.loadAll();
+const num=i=>T(g,`${i}/7`,W-70,90,30,CREAM,{f:'Pop',al:'right',a:.85,sh:8});
+const swipe=(col=CREAM)=>{T(g,'arraste',W-130,H-70,32,col,{f:'CormI',al:'right'});g.save();g.strokeStyle=GOLD;g.lineWidth=4;g.beginPath();g.moveTo(W-118,H-81);g.lineTo(W-70,H-81);g.lineTo(W-84,H-95);g.moveTo(W-70,H-81);g.lineTo(W-84,H-67);g.stroke();g.restore();};
+const card=(img,a,b,i,py=0)=>{photo(g,img,W,H,1,1.06,1.06,0,py);shade(g,W,H,620,.97);goldLine(g,W/2,1040,240,1);T(g,a,W/2,1150,96,CREAM,{f:'PFI',sh:12});caps(g,b,W/2,1235,36,1,'gold');num(i);swipe();};
+const P=[
+ ()=>{photo(g,I.rosas,W,H,1,1.15,1.15,0,60);g.fillStyle='rgba(62,10,28,.25)';g.fillRect(0,0,W,H);shade(g,W,H,500,.98);logo(g,I,W/2,190,95,1);
+   T(g,'Algumas pessoas',W/2,930,80,CREAM,{f:'PFI',sh:10});T(g,'merecem mais',W/2,1050,108,'gold',{f:'PF',sh:10});T(g,'do que flores.',W/2,1160,80,CREAM,{f:'PFI',sh:10});swipe();},
+ ()=>card(I.rosas,'Merecem um momento.','PRESENTES DE LUXO · SÃO PAULO',2,-40),
+ ()=>card(I.colorido,'Exclusivo','BUQUÊS FEITOS SOB MEDIDA',3),
+ ()=>card(I.margaridas,'Amor em detalhes','DELICADEZA EM CADA FLOR',4),
+ ()=>{creamBg(g,W,H,0);caps(g,'MAIS PEDIDOS',W/2,150,40,1,BOR);goldLine(g,W/2,190,220,1);
+   [['p_12rosas','12 Rosas','R$ 249,90','R$ 219,90'],['p_7girassois','7 Girassóis','R$ 219,00','R$ 189,90'],['p_50rosas','50 Rosas','R$ 1.159,80','R$ 679,90']].forEach(([im,nm,de,por],i)=>{const x=190+i*350;
+     product(g,I[im],x,560,520,1);T(g,'Buquê de',x,940,36,INK,{f:'Pop',a:.8});T(g,nm,x,1000,54,INK,{f:'PFI'});g.save();g.translate(x,0);g.scale(.8,.8);price(g,'de '+de,por,0,1310,1);g.restore();});
+   pillBtn(g,'PEÇA PELO WHATSAPP',W/2,1185,1,34);T(g,'Preços do site, sujeitos a alteração',W/2,1270,26,INK,{f:'Pop',a:.6});num(5);swipe(BOR);},
+ ()=>{creamBg(g,W,H,0);caps(g,'O SEU CARINHO EM',W/2,150,32,1,BOR);T(g,'Buquês · Cestas',W/2,270,84,BOR,{f:'PF'});T(g,'Arranjos · Personalizados',W/2,370,70,'#A9792F',{f:'PFI'});goldLine(g,W/2,450,500,1);
+   [['relogio','Entrega no','mesmo dia'],['pin','Toda a','Grande SP'],['loja','Loja física','em São Paulo'],['seguro','Compra','segura']].forEach(([ic,a,b],i)=>{const x=W/2+(i%2?230:-230),y=640+Math.floor(i/2)*360;icon(g,ic,x,y,1.4,1);
+     T(g,a,x,y+140,46,INK,{f:'PopM'});T(g,b,x,y+196,42,INK,{f:'Pop',a:.8});});num(6);swipe(BOR);},
+ ()=>{borBg(g,W,H,0);logo(g,I,W/2,270,170,1);T(g,'Seu carinho,',W/2,560,72,CREAM,{f:'PFI'});T(g,'em forma de presente.',W/2,650,72,'gold',{f:'PFI'});goldLine(g,W/2,720,360,1);
+   pillBtn(g,'PEÇA PELO WHATSAPP',W/2,830,1,40);T(g,'(11) 98830-5325',W/2,970,64,CREAM,{f:'PopM'});T(g,'Rua Paul Valery, 47 · Chácara Santo Antônio · SP',W/2,1060,34,CREAM,{f:'Pop',a:.85});
+   T(g,'Entrega no mesmo dia em toda a Grande SP',W/2,1115,34,CREAM,{f:'Pop',a:.85});T(g,'lotuspresentes.com.br  ·  @lotuspresentes',W/2,1215,38,GOLD,{f:'Pop'});num(7);}];
+window.N=P.length;window.draw=i=>{g.reset();P[i]();};window.ready=true;
+</script>

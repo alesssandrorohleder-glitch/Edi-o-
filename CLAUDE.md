@@ -420,3 +420,9 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - Diferencial (site deles): "Somos especialistas em rosas" + "única floricultura da região com câmara fria". Unidade 1 Estr. do Campo Limpo 4421 (11) 94614-3887, seg–sex 8–20h, dom/fer 8–14h;
   Unidade 2 Rua Serra da Esperança 02 (Arrastão/Praça do Campo Limpo) (11) 92091-1669, seg–sex 8–19h, dom/fer fechado. @victoriafloresfloricultura. Cliente real: SEM frase de portfólio.
 - Render: `node render.js out/video` (Reels) · `node render_carrossel.js out/carrossel`. Trilha C–G–Am–F sem voz (`audio/trilha.py`) + `so_efeitos.mp3`.
+
+### 43 — CLIENTE: Lótus Presentes de Luxo (@lotuspresentes, 77 mil seg., SP) — `43-cliente-lotus-presentes` — "alto padrão"
+- Pacote Reels 27,5s + carrossel 7 artes + `legenda.txt` + prévia com marca d'água (`marca_dagua.py`). Identidade deles: bordô #7E1D3B + dourado + creme; Playfair Display (Google Fonts) + Poppins; kit em `common.js`.
+- Gancho: "Algumas pessoas merecem mais do que flores." → "Merecem um momento." (buquê de rosas gigante). Transição: cortina diagonal com fio dourado; textos sobem de máscara; poeira dourada; varredura de luz nas fotos.
+- "Mais pedidos" com preços do site (12 rosas R$ 219,90 · 7 girassóis R$ 189,90 · 50 rosas R$ 679,90 — conferir antes de postar); produtos recortados do catálogo: selo "% OFF" apagado por cor + fundo branco → transparente.
+- Contato: WhatsApp (11) 98830-5325 · Rua Paul Valery, 47 – Chácara Santo Antônio · lotuspresentes.com.br · entrega no mesmo dia na Grande SP · loja física/compra segura/atendimento humanizado (do post deles). Slogan "Seu carinho, em forma de presente."
