@@ -1,0 +1,43 @@
+<!doctype html><meta charset="utf-8"><title>Sitio Verde Reels</title>
+<style>@font-face{font-family:Pop;font-weight:400;src:url(fonts/Poppins-Regular.ttf)}@font-face{font-family:Pop;font-weight:500;src:url(fonts/Poppins-Medium.ttf)}@font-face{font-family:Pop;font-weight:700;src:url(fonts/Poppins-Bold.ttf)}
+html,body{margin:0;background:#000}canvas{height:100vh;display:block;margin:auto}</style><canvas id="c" width="1080" height="1920"></canvas>
+<script type="module">
+/* 44 — Sítio Verde Hortifruti — Reels feito a partir do site (textos e fotos de sitioverdehortifruti.com.br), 34s, 120bpm.
+   Logo do site usado sem alteração. Transição: empurrão lateral com faixa verde-limão. */
+import*as K from './common.js';const{TAU,p,lerp,eo,eio,T,pop,rise,tag,photo,shadeB,shadeT,leaves,greenBg,logo,VERDE,VERDE2,LIMAO,VERM,BRANCO}=K;
+const W=1080,H=1920,c=document.getElementById('c'),X=c.getContext('2d');const I=await K.loadAll();
+const B=document.createElement('canvas');B.width=W;B.height=H;const XB=B.getContext('2d');const N=document.createElement('canvas');N.width=W;N.height=H;const XN=N.getContext('2d');
+const S=[];const sc=(t0,fn)=>S.push({t0,fn});
+// cena de foto: etiqueta pequena + título grande + linha de apoio
+const card=(g,img,t,t0,kick,a,b,z=[1.0,1.1],pan=[0,0])=>{photo(g,img,W,H,(t-t0)/2.8,z[0],z[1],pan[0],pan[1]);shadeB(g,W,H,980,.9);
+  tag(g,kick,W/2,1200,44,LIMAO,VERDE2,p(t,t0+.2,t0+.6));rise(g,a,W/2,1330,96,BRANCO,p(t,t0+.35,t0+.8),{sh:14});if(b)T(g,b,W/2,1410,44,BRANCO,{w:500,a:p(t,t0+.7,t0+1.1),sh:10});};
+// 1 · gancho
+sc(0,(g,t)=>{photo(g,I.morangos,W,H,t/3,1.25,1.05,-60,0);shadeT(g,W,700,.6);tag(g,'Você sabe quando',W/2,520,64,VERDE,BRANCO,p(t,.15,.55));tag(g,'a sua fruta',W/2,620,64,VERDE,BRANCO,p(t,.45,.85));
+  tag(g,'foi colhida?',W/2,720,74,VERM,BRANCO,p(t,.8,1.2),{rot:-.03});});
+sc(3.0,(g,t)=>{photo(g,I.loja,W,H,(t-3)/3,1.0,1.12,0,-40);shadeT(g,W,800,.7);shadeB(g,W,H,1100,.85);T(g,'No Sítio Verde,',W/2,520,60,BRANCO,{w:500,a:p(t,3.15,3.5),sh:12});
+  rise(g,'há pouquíssimo',W/2,640,96,BRANCO,p(t,3.35,3.8),{sh:14});rise(g,'tempo.',W/2,750,96,LIMAO,p(t,3.55,4.0),{sh:14});tag(g,'HORTIFRUTI PREMIUM',W/2,1380,48,LIMAO,VERDE2,p(t,4.3,4.7));});
+sc(6.0,(g,t)=>card(g,I.copo,t,6.0,'PRATICIDADE','Fruta no copo','pronta pra comer, onde você estiver'));
+sc(8.5,(g,t)=>card(g,I.salada,t,8.5,'100% NATURAIS','Salada de frutas','e sucos feitos na hora',[1.1,1.0]));
+sc(11.0,(g,t)=>card(g,I.cafe,t,11.0,'PRODUTO PREMIUM','Café do Sítio Verde','',[1.0,1.1],[60,0]));
+sc(13.5,(g,t)=>card(g,I.adega,t,13.5,'ADEGA','Importados','e nacionais',[1.1,1.0]));
+sc(16.0,(g,t)=>card(g,I.flores,t,16.0,'FLORICULTURA','Flores pra','todas as ocasiões',[1.0,1.1],[80,0]));
+// 8 · qualidade premium em…
+sc(18.5,(g,t)=>{greenBg(g,W,H,t);leaves(g,W,H,t,12);T(g,'Qualidade premium em',W/2,520,56,BRANCO,{w:500,a:p(t,18.6,18.9)});
+  ['Mercado moderno','Açougue gourmet','Padaria artesanal','Peixaria especial'].forEach((s,i)=>pop(g,s,W/2,700+i*170,90,i%2?LIMAO:BRANCO,p(t,18.9+i*.45,19.3+i*.45)));});
+sc(21.5,(g,t)=>{photo(g,I.delivery,W,H,(t-21.5)/3,1.05,1.0,0,80);rise(g,'Delivery',W/2,470,130,VERDE2,p(t,21.6,22.0));
+  tag(g,'receba sem sair de casa',W/2,580,50,VERDE2,BRANCO,p(t,21.9,22.3));tag(g,'VEÍCULOS PRÓPRIOS EM TODAS AS LOJAS',W/2,1400,40,VERM,BRANCO,p(t,22.6,23.0));});
+// 10 · 10 lojas
+sc(24.5,(g,t)=>{greenBg(g,W,H,t);const n=Math.round(lerp(1,10,eio(p(t,24.6,25.4))));pop(g,String(n),W/2,860,380,BRANCO,p(t,24.6,24.9));rise(g,'lojas',W/2,1000,110,LIMAO,p(t,25.0,25.4));
+  T(g,'uma perto de você',W/2,1090,56,BRANCO,{w:500,a:p(t,25.3,25.7)});  const C=['São Paulo','Guarulhos','S. J. dos Campos','Jacareí'];C.forEach((s,i)=>{const x=i%2?W/2+230:W/2-230,y=1250+Math.floor(i/2)*110;tag(g,s,x,y,44,i%2?LIMAO:BRANCO,VERDE2,p(t,25.7+i*.2,26.1+i*.2));});});
+sc(28.0,(g,t)=>{photo(g,I.brooklin,W,H,(t-28)/2.5,1.0,1.08,-120,0);shadeT(g,W,800,.6);tag(g,'EM BREVE',W/2,520,54,VERM,BRANCO,p(t,28.1,28.5),{rot:-.03});
+  rise(g,'Nova loja',W/2,660,104,BRANCO,p(t,28.3,28.7),{sh:14});tag(g,'Brooklin',W/2,790,104,VERDE,BRANCO,p(t,28.5,28.9));});
+sc(30.5,(g,t)=>{greenBg(g,W,H,t);leaves(g,W,H,t,14);logo(g,I,W/2,700,620,p(t,30.6,31.1));T(g,'É sempre um prazer receber você!',W/2,1000,50,BRANCO,{w:500,a:p(t,31.1,31.5)});
+  tag(g,'#vemprosítioverde',W/2,1150,64,LIMAO,VERDE2,p(t,31.4,31.8));T(g,'sitioverdehortifruti.com.br',W/2,1300,48,BRANCO,{w:500,a:p(t,31.8,32.2)});
+  T(g,'Delivery: ligue ou chame no WhatsApp da loja mais próxima',W/2,1380,34,BRANCO,{w:400,a:p(t,32.0,32.4)});});
+window.DUR=34.0;const TR=.42;
+window.draw=function(t){let i=0;while(i<S.length-1&&t>=S[i+1].t0)i++;const s=S[i];X.reset();s.fn(X,t);const k=t-s.t0;
+  if(i>0&&k<TR){XN.reset();XN.drawImage(c,0,0);XB.reset();S[i-1].fn(XB,t);const e=eio(k/TR),xn=lerp(W,0,e);X.reset();X.fillStyle=VERDE2;X.fillRect(0,0,W,H);
+    X.drawImage(B,-W*.35*e,0);X.drawImage(N,xn,0);X.fillStyle=LIMAO;X.fillRect(xn-26,0,26,H);X.fillStyle=VERDE;X.fillRect(xn-40,0,14,H);}
+  const fo=p(t,window.DUR-.5,window.DUR);if(fo>0){X.fillStyle=`rgba(0,0,0,${fo})`;X.fillRect(0,0,W,H);}};
+window.ready=true;
+</script>

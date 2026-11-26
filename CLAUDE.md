@@ -426,3 +426,9 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - Gancho: "Algumas pessoas merecem mais do que flores." → "Merecem um momento." (buquê de rosas gigante). Transição: cortina diagonal com fio dourado; textos sobem de máscara; poeira dourada; varredura de luz nas fotos.
 - "Mais pedidos" com preços do site (12 rosas R$ 219,90 · 7 girassóis R$ 189,90 · 50 rosas R$ 679,90 — conferir antes de postar); produtos recortados do catálogo: selo "% OFF" apagado por cor + fundo branco → transparente.
 - Contato: WhatsApp (11) 98830-5325 · Rua Paul Valery, 47 – Chácara Santo Antônio · lotuspresentes.com.br · entrega no mesmo dia na Grande SP · loja física/compra segura/atendimento humanizado (do post deles). Slogan "Seu carinho, em forma de presente."
+
+### 44 — Sítio Verde Hortifruti (site → vídeo) — `44-cliente-sitio-verde`
+- Reels 34s feito só com textos e fotos de sitioverdehortifruti.com.br (14 fotos 1280² baixadas em `midia/`; host liberado no ambiente "Edi-o-"). Logo do site sem alteração.
+- Identidade: verde #006636 + verde-limão #8CC63F + vermelho do pingo #E3262C, Poppins; etiquetas coloridas (`tag`), palavras com mola (`pop`), folhinhas caindo, transição empurrão lateral com faixa limão.
+- Roteiro: "Você sabe quando a sua fruta foi colhida?" (morangos) → "No Sítio Verde, há pouquíssimo tempo." (hortifruti premium) → fruta no copo → salada de frutas/sucos 100% naturais → café do Sítio Verde
+  → adega (importados e nacionais) → floricultura → qualidade premium (mercado, açougue gourmet, padaria artesanal, peixaria) → delivery com veículos próprios → 10 lojas (SP, Guarulhos, SJC, Jacareí) → em breve Brooklin → logo + #vemprosítioverde.
