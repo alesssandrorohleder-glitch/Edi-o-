@@ -432,3 +432,10 @@ e escolher a que não deforma o produto; usar só o trecho limpo do clipe.
 - Identidade: verde #006636 + verde-limão #8CC63F + vermelho do pingo #E3262C, Poppins; etiquetas coloridas (`tag`), palavras com mola (`pop`), folhinhas caindo, transição empurrão lateral com faixa limão.
 - Roteiro: "Você sabe quando a sua fruta foi colhida?" (morangos) → "No Sítio Verde, há pouquíssimo tempo." (hortifruti premium) → fruta no copo → salada de frutas/sucos 100% naturais → café do Sítio Verde
   → adega (importados e nacionais) → floricultura → qualidade premium (mercado, açougue gourmet, padaria artesanal, peixaria) → delivery com veículos próprios → 10 lojas (SP, Guarulhos, SJC, Jacareí) → em breve Brooklin → logo + #vemprosítioverde.
+
+### 45 — Elite Flores Morumbi (@eliteflores, 34 mil seg.) — site → Reels "mais motion graphics" — `45-cliente-elite-flores`
+- 31,5s com dados do site eliteflores.com.br (preços/produtos) + imagens do catálogo (`stack.flowermarket.com.br/.../produto/600_<id>.jpg`; o id da imagem ≠ cod do produto) + foto do story (buquê gigante) + logo do perfil.
+- Preto/branco/vermelho (pingo do logo) + blush; Great Vibes + Poppins. MG: contador 0→500 ROSAS, revelação em círculo, anel de texto girando no logo, produtos recortados entrando com giro,
+  selo de preço vermelho com mola, contador "a partir de R$ 125", transição com 3 faixas diagonais (vermelho/preto/branco).
+- Produtos: 12 rosas R$225 · 12 girassóis R$185 · hortênsia R$125 · 12 rosas + coração Lindt R$330 · 7 colombianas + balão R$241 · orquídea azul R$410 / branca na taça R$550 · cesta café da manhã R$365 (conferir no site).
+- Contato: WhatsApp (11) 98115-1001 · televendas (11) 3739-0404 · Av. Dr. Guilherme Dumont Vilares, 2013 – Morumbi · eliteflores.com.br. Slogan "Flores que encantam...".

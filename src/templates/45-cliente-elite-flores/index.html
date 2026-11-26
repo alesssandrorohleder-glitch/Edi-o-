@@ -1,0 +1,87 @@
+<!doctype html><meta charset="utf-8"><title>Elite Flores Reels</title>
+<style>@font-face{font-family:GV;src:url(fonts/GreatVibes-Regular.ttf)}@font-face{font-family:Pop;font-weight:300;src:url(fonts/Poppins-Light.ttf)}@font-face{font-family:Pop;font-weight:400;src:url(fonts/Poppins-Regular.ttf)}
+@font-face{font-family:Pop;font-weight:500;src:url(fonts/Poppins-Medium.ttf)}@font-face{font-family:Pop;font-weight:700;src:url(fonts/Poppins-Bold.ttf)}
+html,body{margin:0;background:#000}canvas{height:100vh;display:block;margin:auto}</style><canvas id="c" width="1080" height="1920"></canvas>
+<script type="module">
+/* 45 — Elite Flores Morumbi — Reels motion graphics 31,5s feito com dados/fotos do site (eliteflores.com.br) + foto do story (500 rosas) + logo do perfil.
+   Preto/branco/vermelho (pingo do logo). Produtos recortados do catálogo (fundo branco → transparente; cenas de produto em fundo claro). */
+const W=1080,H=1920,c=document.getElementById('c'),X=c.getContext('2d');
+for(const f of['80px GV','300 60px Pop','400 60px Pop','500 60px Pop','700 60px Pop'])await document.fonts.load(f);
+const TAU=Math.PI*2,cl=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)),p=(t,a,b)=>cl((t-a)/(b-a)),lerp=(a,b,k)=>a+(b-a)*k;
+const eo=k=>1-(1-cl(k))**3,eio=k=>{k=cl(k);return k<.5?4*k*k*k:1-(-2*k+2)**3/2;},eob=k=>{k=cl(k);const s=1.7;return 1+(s+1)*(k-1)**3+s*(k-1)**2;};
+const BK='#0B0B0C',WH='#FFFFFF',RED='#D7262E',BLUSH='#F7EEEC',GREY='#8A8A8A';
+const L=s=>new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.src=s;});const I={};
+for(const n of['logo','rosas500','rosas12','girassois12','hortensia','rosas_lindt','colombianas_balao','orq_azul','orq_branca','cesta_cafe','girassol_ferrero','campo_ferrero'])I[n]=await L(`midia/${n}.${n=='rosas500'?'jpg':'png'}`);
+function T(g,s,x,y,size,col,o={}){const{w=700,al='center',ls=0,a=1,f='Pop'}=o;if(a<=0)return;g.save();g.globalAlpha*=a;g.font=f=='GV'?`${size}px GV`:`${w} ${size}px Pop`;g.textAlign=al;g.textBaseline='alphabetic';if(ls)g.letterSpacing=ls+'px';
+  const mw=o.mw||980,w0=g.measureText(s).width;if(w0>mw){g.translate(x,y);g.scale(mw/w0,1);g.translate(-x,-y);}g.fillStyle=col;g.fillText(s,x,y);g.restore();}
+const rise=(g,s,x,y,size,col,k,o={})=>{if(k<=0)return;g.save();g.beginPath();g.rect(0,y-size*1.1,W,size*1.4);g.clip();T(g,s,x,y+(1-eo(k))*size*1.2,size,col,o);g.restore();};
+const pop=(g,s,x,y,size,col,k,o={})=>{if(k<=0)return;const e=eob(k);g.save();g.translate(x,y);g.scale(e,e);T(g,s,0,0,size,col,{...o,a:cl(k*3)});g.restore();};
+const script=(g,s,x,y,size,col,k)=>{if(k<=0)return;g.save();g.font=`${size}px GV`;const w=g.measureText(s).width;g.beginPath();g.rect(x-w/2-40,y-size*1.2,(w+80)*eio(k),size*1.9);g.clip();T(g,s,x,y,size,col,{f:'GV'});g.restore();};
+// contador de dinheiro rolando
+const money=v=>'R$ '+Math.round(v).toLocaleString('pt-BR');
+// selo de preço (círculo vermelho com mola)
+function price(g,x,y,r,txt,k,small='por'){if(k<=0)return;const e=eob(k);g.save();g.translate(x,y);g.scale(e,e);g.rotate(-.12);g.beginPath();g.arc(0,0,r,0,TAU);g.fillStyle=RED;g.fill();
+  g.strokeStyle='rgba(255,255,255,.6)';g.lineWidth=3;g.setLineDash([6,8]);g.beginPath();g.arc(0,0,r-12,0,TAU);g.stroke();g.setLineDash([]);T(g,small,0,-r*.28,r*.26,WH,{w:500});T(g,txt,0,r*.22,r*.42,WH,{w:700,mw:r*1.7});g.restore();}
+// produto recortado entrando com giro + sombra
+function prod(g,img,x,y,h,k,rot=0){if(k<=0)return;const s=h/img.height,w=img.width*s,e=eo(k);g.save();g.globalAlpha=cl(k*2.5);g.translate(x+(1-e)*500,y);g.rotate((1-e)*.5+rot);
+  g.fillStyle='rgba(0,0,0,.12)';g.beginPath();g.ellipse(0,h/2-10,w*.35,24,0,0,TAU);g.fill();g.drawImage(img,-w/2,-h/2,w,h);g.restore();}
+// anel de texto girando
+function ring(g,x,y,r,txt,t,col,a=1){if(a<=0)return;g.save();g.globalAlpha=a;g.translate(x,y);g.rotate(t*.35);g.font='500 30px Pop';g.fillStyle=col;const n=txt.length;for(let i=0;i<n;i++){g.save();g.rotate(i/n*TAU);g.translate(0,-r);g.fillText(txt[i],-8,0);g.restore();}g.restore();}
+// formas de fundo (motion): círculos e linhas
+function bgLight(g,t){g.fillStyle=BLUSH;g.fillRect(0,0,W,H);g.save();g.globalAlpha=.6;g.strokeStyle='rgba(215,38,46,.18)';g.lineWidth=3;for(let i=0;i<5;i++){g.beginPath();g.arc(W/2,H*.46,260+i*120+Math.sin(t*1.5+i)*14,0,TAU);g.stroke();}g.restore();}
+function bgDark(g,t){g.fillStyle=BK;g.fillRect(0,0,W,H);const gr=g.createRadialGradient(W/2,H*.45,40,W/2,H*.45,900);gr.addColorStop(0,'rgba(215,38,46,.25)');gr.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=gr;g.fillRect(0,0,W,H);}
+function petals(g,t,n=14){for(let i=0;i<n;i++){const s=(i*.618)%1,x=(s*W+Math.sin(t+i)*60+W)%W,y=((t*(120+i%4*50)+i*211)%(H+160))-80;g.save();g.translate(x,y);g.rotate(t*(.8+i%3*.4)+i);g.fillStyle=i%3?RED:'#9E1219';g.beginPath();g.ellipse(0,0,14,22,0,0,TAU);g.fill();g.restore();}}
+function bar(g,y,w,k,col=RED){if(k<=0)return;g.fillStyle=col;g.fillRect(W/2-w/2*eio(k),y,w*eio(k),6);}
+function tagline(g,kick,name,pr,t,t0){T(g,kick,W/2,420,40,RED,{w:700,ls:8,a:p(t,t0+.1,t0+.4)});bar(g,450,140,p(t,t0+.2,t0+.6));script(g,name,W/2,580,120,BK,p(t,t0+.25,t0+1.0));}
+const S=[];const sc=(t0,fn)=>S.push({t0,fn});
+// 1 · GANCHO: 500 rosas
+sc(0,(g,t)=>{bgDark(g,t);const k=eio(p(t,.05,1.0)),n=Math.round(lerp(0,500,k));
+  if(t<1.3){pop(g,String(n),W/2,1000,360,WH,p(t,0,.2));T(g,'ROSAS',W/2,1140,80,RED,{w:700,ls:24,a:p(t,.4,.7)});}
+  else{const r=eio(p(t,1.3,2.0))*1300;g.save();g.beginPath();g.arc(W/2,900,r,0,TAU);g.clip();const z=lerp(1.15,1.0,p(t,1.3,3.5)),s=Math.max(W/I.rosas500.width,H/I.rosas500.height)*z;g.drawImage(I.rosas500,(W-I.rosas500.width*s)/2,(H-I.rosas500.height*s)/2-60,I.rosas500.width*s,I.rosas500.height*s);g.restore();
+    g.strokeStyle=RED;g.lineWidth=10;g.beginPath();g.arc(W/2,900,r,0,TAU);g.stroke();const gr=g.createLinearGradient(0,1200,0,H);gr.addColorStop(0,'rgba(0,0,0,0)');gr.addColorStop(1,'rgba(0,0,0,.85)');g.fillStyle=gr;g.fillRect(0,1200,W,H-1200);
+    rise(g,'500 rosas colombianas',W/2,1310,70,WH,p(t,1.9,2.3));T(g,'em um só buquê',W/2,1395,48,WH,{w:300,a:p(t,2.2,2.6)});}});
+// 2 · Elite Flores
+sc(3.5,(g,t)=>{bgDark(g,t);petals(g,t,10);const k=p(t,3.55,4.2);ring(g,W/2,820,330,'ELITE FLORES · MORUMBI · FLORES QUE ENCANTAM · ',t,'rgba(255,255,255,.7)',p(t,3.7,4.1));
+  g.save();g.translate(W/2,820);g.rotate((1-eo(k))*-1.2);g.scale(lerp(.3,1,eob(k)),lerp(.3,1,eob(k)));g.globalAlpha=cl(k*2);g.drawImage(I.logo,-280,-280,560,560);g.restore();
+  script(g,'Flores que encantam...',W/2,1300,96,WH,p(t,4.4,5.3));});
+// 3 · pra todo amor: carrossel de produtos
+sc(6.0,(g,t)=>{bgLight(g,t);T(g,'PRESENTE PRA',W/2,420,44,BK,{w:300,ls:10,a:p(t,6.05,6.35)});rise(g,'todo tipo de amor',W/2,540,96,RED,p(t,6.15,6.6),{f:'GV'});
+  const P=[[I.rosas12,'12 Rosas','R$ 225'],[I.girassois12,'12 Girassóis','R$ 185'],[I.hortensia,'Hortênsia Azul','R$ 125']];const ph=(t-6.4)/1.0,i=cl(Math.floor(ph),0,2),k=p(t,6.4+i,6.8+i),out=i<2?p(t,7.2+i,7.4+i):0;
+  const [im,nm,pr]=P[i];g.save();g.globalAlpha=1-out;g.translate(-out*600,0);prod(g,im,W/2,1020,660,k,-.05);T(g,nm,W/2,1450,60,BK,{w:700,a:p(t,6.5+i,6.8+i)});price(g,820,760,120,pr,p(t,6.6+i,6.9+i));g.restore();});
+// 4 · flores + chocolate
+sc(9.5,(g,t)=>{bgLight(g,t);tagline(g,'AMOR EM DOBRO','Flores e Chocolate','',t,9.5);prod(g,I.rosas_lindt,W/2,1060,760,p(t,9.8,10.3),.03);price(g,830,1260,130,'R$ 330',p(t,10.4,10.7));
+  T(g,'12 Rosas + Coração Lindt',W/2,1490,52,BK,{w:500,a:p(t,10.5,10.9)});});
+// 5 · flores + balão
+sc(12.5,(g,t)=>{bgLight(g,t);petals(g,t,8);tagline(g,'PRA DIZER EU TE AMO','Flores e Balão','',t,12.5);const bob=Math.sin(t*2.4)*12;prod(g,I.colombianas_balao,W/2,1040+bob,780,p(t,12.8,13.3));price(g,250,1250,125,'R$ 241',p(t,13.4,13.7));
+  T(g,'7 Rosas Colombianas + Balão',W/2,1490,52,BK,{w:500,a:p(t,13.5,13.9)});});
+// 6 · orquídeas
+sc(15.5,(g,t)=>{bgLight(g,t);tagline(g,'COLEÇÃO','Orquídeas','',t,15.5);prod(g,I.orq_azul,330,1030,760,p(t,15.8,16.3),-.03);prod(g,I.orq_branca,760,1030,760,p(t,16.1,16.6),.03);
+  price(g,330,1440,95,'R$ 410',p(t,16.5,16.8));price(g,760,1440,95,'R$ 550',p(t,16.7,17.0));});
+// 7 · cestas
+sc(18.5,(g,t)=>{bgLight(g,t);tagline(g,'KITS E CESTAS','Café da Manhã','',t,18.5);prod(g,I.cesta_cafe,W/2,1040,700,p(t,18.8,19.3));price(g,830,1300,125,'R$ 365',p(t,19.4,19.7));
+  T(g,'pra começar o dia com carinho',W/2,1480,48,BK,{w:300,a:p(t,19.5,19.9)});});
+// 8 · a partir de
+sc(21.5,(g,t)=>{bgDark(g,t);petals(g,t,12);T(g,'PRESENTES A PARTIR DE',W/2,700,46,WH,{w:300,ls:8,a:p(t,21.55,21.9)});const v=lerp(0,125,eio(p(t,21.7,22.6)));
+  pop(g,money(v),W/2,920,200,WH,p(t,21.7,21.95));bar(g,980,320,p(t,22.5,22.9));T(g,'em até 3x no cartão',W/2,1080,56,WH,{w:500,a:p(t,22.7,23.1)});
+  ['Buquês','Orquídeas','Cestas','Coroas de flores'].forEach((s,i)=>{const k=p(t,23.0+i*.18,23.3+i*.18);T(g,s,W/2+(i%2?230:-230),1250+Math.floor(i/2)*90,46,i%2?RED:WH,{w:700,a:k});});});
+// 9 · como pedir
+sc(24.5,(g,t)=>{bgLight(g,t);rise(g,'Peça pelo site',W/2,560,90,BK,p(t,24.6,25.0));rise(g,'ou pelo WhatsApp',W/2,670,90,RED,p(t,24.8,25.2),{f:'GV'});
+  const k=p(t,25.3,25.7);if(k>0){g.save();g.translate(W/2,900);g.scale(eob(k),eob(k));g.beginPath();g.arc(0,0,110,0,TAU);g.fillStyle='#25D366';g.fill();g.strokeStyle=WH;g.lineWidth=12;g.beginPath();g.arc(0,0,58,0,TAU);g.stroke();
+    g.fillStyle=WH;g.beginPath();g.moveTo(-50,40);g.lineTo(-70,80);g.lineTo(-20,62);g.fill();g.restore();}
+  T(g,'(11) 98115-1001',W/2,1130,84,BK,{w:700,a:p(t,25.6,26.0)});T(g,'Televendas (11) 3739-0404',W/2,1220,48,BK,{w:400,a:p(t,25.9,26.3)});
+  T(g,'eliteflores.com.br',W/2,1340,56,RED,{w:700,a:p(t,26.1,26.5)});});
+// 10 · fechamento
+sc(27.5,(g,t)=>{bgDark(g,t);petals(g,t,14);ring(g,W/2,760,330,'ELITE FLORES · MORUMBI · FLORES QUE ENCANTAM · ',t,'rgba(255,255,255,.7)',p(t,27.6,28.0));
+  const k=p(t,27.6,28.2);g.save();g.translate(W/2,760);g.scale(lerp(.5,1,eob(k)),lerp(.5,1,eob(k)));g.globalAlpha=cl(k*2);g.drawImage(I.logo,-280,-280,560,560);g.restore();
+  T(g,'Av. Dr. Guilherme Dumont Vilares, 2013',W/2,1230,44,WH,{w:400,a:p(t,28.4,28.8)});T(g,'Morumbi · São Paulo',W/2,1295,44,WH,{w:400,a:p(t,28.5,28.9)});
+  T(g,'@eliteflores',W/2,1410,64,RED,{w:700,a:p(t,28.8,29.2)});});
+window.DUR=31.5;const TR=.5;
+const B=document.createElement('canvas');B.width=W;B.height=H;const XB=B.getContext('2d');const N=document.createElement('canvas');N.width=W;N.height=H;const XN=N.getContext('2d');
+// transição motion graphics: 3 faixas diagonais (vermelho, preto, branco) passam e revelam a cena nova
+window.draw=function(t){let i=0;while(i<S.length-1&&t>=S[i+1].t0)i++;const s=S[i];X.reset();s.fn(X,t);const k=t-s.t0;
+  if(i>0&&k<TR){XN.reset();XN.drawImage(c,0,0);XB.reset();S[i-1].fn(XB,t);const e=k/TR;X.reset();X.drawImage(B,0,0);
+    const cols=[RED,BK,WH];cols.forEach((col,j)=>{const ee=eio(cl(e*1.6-j*.18));const x=lerp(-1600,W+400,ee);X.save();X.translate(x,0);X.rotate(.35);X.fillStyle=col;X.fillRect(-200,-400,500,H+1200);X.restore();});
+    const rev=eio(cl(e*1.6-.36));X.save();X.beginPath();X.save();X.translate(lerp(-1600,W+400,rev),0);X.rotate(.35);X.rect(-3000,-400,3200,H+1200);X.restore();X.clip();X.drawImage(N,0,0);X.restore();}
+  const fo=p(t,window.DUR-.5,window.DUR);if(fo>0){X.fillStyle=`rgba(0,0,0,${fo})`;X.fillRect(0,0,W,H);}};
+window.ready=true;
+</script>
