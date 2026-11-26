@@ -1,0 +1,46 @@
+<!doctype html><meta charset="utf-8"><title>Victoria Flores Reels</title>
+<style>@font-face{font-family:GV;src:url(fonts/GreatVibes-Regular.ttf)}@font-face{font-family:Corm;font-weight:500;src:url(fonts/corm500.woff2)}@font-face{font-family:Corm;font-style:italic;font-weight:300;src:url(fonts/corm300i.woff2)}
+@font-face{font-family:Jost;src:url(fonts/jost400.woff2)}@font-face{font-family:Pop;font-weight:400;src:url(fonts/Poppins-Regular.ttf)}@font-face{font-family:Pop;font-weight:500;src:url(fonts/Poppins-Medium.ttf)}
+html,body{margin:0;background:#000}canvas{height:100vh;display:block;margin:auto}</style><canvas id="c" width="1080" height="1920"></canvas>
+<script type="module">
+/* 42 — CLIENTE Victoria Flores (floricultura, Campo Limpo/SP) — Reels vitrine 24s, 120bpm, cortes na batida.
+   Fotos = recortes dos stories da loja (trocar pelos originais quando o Ale mandar). Logo usado sem alteração (só máscara circular). */
+import*as K from './common.js';const{TAU,cl,p,lerp,eo,eio,eob,T,script,caps,wineBg,petals,photo,shade,frame,logo,pillBtn,pin,moto,CREAM,GOLD,ROSE}=K;
+const W=1080,H=1920,c=document.getElementById('c'),X=c.getContext('2d');const I=await K.loadAll();
+const B=document.createElement('canvas');B.width=W;B.height=H;const XB=B.getContext('2d');
+const S=[];const sc=(t0,fn)=>S.push({t0,fn});
+const card=(g,img,t,t0,a,b,c2,zz=[1.02,1.12],pan=[0,-40])=>{photo(g,img,W,H,(t-t0)/2.8,zz[0],zz[1],pan[0],pan[1]);shade(g,W,H,900,.92);g.fillStyle='rgba(26,3,6,.25)';g.fillRect(0,0,W,260);
+  script(g,a,W/2,1240,150,p(t,t0+.25,t0+1.0));caps(g,b,W/2,1345,62,p(t,t0+.7,t0+1.1));if(c2)T(g,c2,W/2,1420,46,CREAM,{f:'Pop',a:p(t,t0+1.0,t0+1.4),sh:10});frame(g,W,H,40,p(t,t0,t0+.4));};
+// 1 · gancho
+sc(0,(g,t)=>{wineBg(g,W,H,t);petals(g,W,H,t,30,1.2);script(g,'Surpreenda',W/2,880,190,p(t,.15,1.1));caps(g,'QUEM VOCÊ AMA',W/2,1000,72,p(t,.9,1.4));
+  T(g,'com flores que falam por você',W/2,1100,56,CREAM,{f:'Corm',it:1,a:p(t,1.3,1.8),sh:10});frame(g,W,H,40,p(t,0,.5));});
+sc(2.5,(g,t)=>card(g,I.rosas,t,2.5,'Clássico','ROSAS VERMELHAS & BRANCAS','o presente que nunca falha'));
+sc(5.0,(g,t)=>card(g,I.lirios,t,5.0,'Delicadeza','LÍRIOS & MINI ROSAS','perfume e elegância',[1.12,1.02],[0,30]));
+sc(7.5,(g,t)=>card(g,I.girassois,t,7.5,'Alegria','GIRASSÓIS','pra iluminar o dia de alguém'));
+sc(10.0,(g,t)=>card(g,I.kit,t,10.0,'Com carinho','ROSAS, CHOCOLATE & BALÃO','o kit que faz qualquer um sorrir',[1.1,1.0],[0,20]));
+// 6 · diferencial: especialistas em rosas + câmara fria
+sc(12.5,(g,t)=>{wineBg(g,W,H,t);petals(g,W,H,t,34,.9);caps(g,'SOMOS',W/2,600,62,p(t,12.6,13.0),GOLD);script(g,'Especialistas',W/2,760,150,p(t,12.8,13.4));script(g,'em rosas',W/2,900,150,p(t,13.2,13.8));
+  const k=p(t,13.6,14.0);if(k>0){g.save();g.translate(W/2,1080);g.scale(eob(k),eob(k));g.strokeStyle='#CFEFFF';g.lineWidth=8;g.lineCap='round';for(let i=0;i<6;i++){g.rotate(Math.PI/3);g.beginPath();g.moveTo(0,0);g.lineTo(0,-80);g.moveTo(0,-50);g.lineTo(-18,-66);g.moveTo(0,-50);g.lineTo(18,-66);g.stroke();}g.restore();}
+  caps(g,'A ÚNICA DA REGIÃO',W/2,1260,60,p(t,14.0,14.4));caps(g,'COM CÂMARA FRIA',W/2,1340,60,p(t,14.1,14.5));T(g,'rosas sempre frescas',W/2,1420,52,CREAM,{f:'Corm',it:1,a:p(t,14.3,14.8),sh:10});frame(g,W,H,40,1);});
+// 7 · ocasiões
+sc(15.0,(g,t)=>{wineBg(g,W,H,t);petals(g,W,H,t,18,.8);caps(g,'PARA TODAS AS OCASIÕES',W/2,640,62,p(t,15.1,15.5),GOLD);
+  const O=['Aniversário','Namoro','Pedido de desculpas','Agradecimento','Só porque sim'];O.forEach((s,i)=>{const k=p(t,15.4+i*.38,15.8+i*.38);script(g,s,W/2,820+i*150,124,k,{sh:14});});frame(g,W,H,40,1);});
+// 8 · entrega
+sc(17.50,(g,t)=>{wineBg(g,W,H,t);const k=eio(p(t,17.80,19.30));g.save();g.strokeStyle='rgba(226,194,122,.6)';g.lineWidth=6;g.setLineDash([18,16]);g.beginPath();g.moveTo(160,1080);g.bezierCurveTo(400,860,640,1240,920,980);g.stroke();g.restore();
+  const bz=(u)=>{const a=[160,1080],b=[400,860],c_=[640,1240],d=[920,980],m=1-u;return[m*m*m*a[0]+3*m*m*u*b[0]+3*m*u*u*c_[0]+u*u*u*d[0],m*m*m*a[1]+3*m*m*u*b[1]+3*m*u*u*c_[1]+u*u*u*d[1]];};
+  const P=bz(k);moto(g,P[0],P[1]-30,.9,t);pin(g,920,960,1.2*eob(p(t,19.10,19.50)));script(g,'Fazemos entrega',W/2,640,130,p(t,17.60,18.30));
+  caps(g,'EM TODA A REGIÃO',W/2,1300,62,p(t,18.30,18.80));caps(g,'DE SÃO PAULO',W/2,1380,62,p(t,18.45,18.95));frame(g,W,H,40,1);});
+// 9 · CTA
+sc(20.00,(g,t)=>{wineBg(g,W,H,t);petals(g,W,H,t,20,.7);logo(g,I,W/2,640,230,p(t,20.05,20.60));caps(g,'PEÇA PELO WHATSAPP',W/2,1010,58,p(t,20.60,21.00),GOLD);
+  T(g,'(11) 94614-3887',W/2,1120,88,CREAM,{f:'Pop',w:500,a:p(t,20.80,21.20),sh:14});pillBtn(g,'Encomendar agora',W/2,1250,p(t,21.20,21.60),44);
+  T(g,'@victoriafloresfloricultura',W/2,1385,52,GOLD,{f:'Pop',a:p(t,21.50,21.90)});T(g,'2 unidades no Campo Limpo · SP',W/2,1450,42,CREAM,{f:'Pop',a:p(t,21.70,22.10)});frame(g,W,H,40,1);});
+window.DUR=24.0;const TR=.45;
+// transição: círculo dourado que abre (pétala) a partir do centro
+window.draw=function(t){let i=0;while(i<S.length-1&&t>=S[i+1].t0)i++;const s=S[i];X.reset();s.fn(X,t);
+  const k=t-s.t0;if(i>0&&k<TR){XB.reset();S[i-1].fn(XB,t);const r=eio(k/TR)*1250;const tmp=XB;X.save();X.globalCompositeOperation='destination-over';X.restore();
+    // desenha cena anterior por baixo e a nova dentro do círculo
+    const N=document.createElement('canvas');N.width=W;N.height=H;const XN=N.getContext('2d');XN.drawImage(c,0,0);X.reset();X.drawImage(B,0,0);X.save();X.beginPath();X.arc(W/2,H*.55,r,0,TAU);X.clip();X.drawImage(N,0,0);X.restore();
+    X.save();X.strokeStyle=K.goldFill(X,0,H);X.lineWidth=10*(1-k/TR)+2;X.beginPath();X.arc(W/2,H*.55,r,0,TAU);X.stroke();X.restore();}
+  const fi=p(t,window.DUR-.6,window.DUR);if(fi>0){X.fillStyle=`rgba(0,0,0,${fi})`;X.fillRect(0,0,W,H);}};
+window.ready=true;
+</script>
